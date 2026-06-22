@@ -1,6 +1,7 @@
+import { createRouter, createHashHistory, RouterProvider } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { createRouter, createHashHistory, RouterProvider } from "@tanstack/react-router";
+
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
 
