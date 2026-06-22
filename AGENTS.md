@@ -21,7 +21,9 @@
 
 - Vite plugins include Tailwind CSS v4, TanStack Router codegen with `autoCodeSplitting: true`, React, then React Compiler via `@rolldown/plugin-babel` and `reactCompilerPreset()`.
 - React Compiler is enabled; avoid routine `useMemo`/`useCallback` unless there is a concrete need or existing pattern.
-- Tailwind is configured through the Vite plugin and `src/index.css` only contains `@import "tailwindcss";`.
+- Tailwind is configured through the Vite plugin; `src/index.css` also imports `tw-animate-css`, shadcn CSS, Geist font, and theme tokens.
+- shadcn is configured by `components.json` with `base-mira`, Base UI-style components, Phosphor icons, and aliases like `@/components`, `@/components/ui`, and `@/lib/utils`.
+- Treat `src/components/ui` as generated/vendor-style UI primitives; do not edit them unless explicitly asked.
 - TypeScript uses project references from `tsconfig.json`; app code is checked by `tsconfig.app.json`, Vite config by `tsconfig.node.json`.
 - `allowImportingTsExtensions` is enabled, so imports with `.tsx`/`.ts` extensions are intentional.
 - `erasableSyntaxOnly`, `noUnusedLocals`, and `noUnusedParameters` are enabled; unused code fails `pnpm build`.
