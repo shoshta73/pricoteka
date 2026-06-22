@@ -14,11 +14,14 @@
     "lint:fix": "oxlint --fix"
   },
   "dependencies": {
+    "@tanstack/react-router": "^1.170.16",
+    "@tanstack/react-router-devtools": "^1.167.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
     "@rolldown/plugin-babel": "^0.2.3",
+    "@tanstack/router-plugin": "^1.168.18",
     "@types/node": "^26.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
