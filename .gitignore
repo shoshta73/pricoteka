@@ -1,0 +1,8 @@
+.*
+!.gitignore
+!.editorconfig
+!.oxfmtrc.json
+!.oxlintrc.json
+
+dist/
+node_modules/
