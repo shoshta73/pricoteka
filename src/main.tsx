@@ -12,14 +12,25 @@ export const router = createRouter({
   history: hashHistory,
 });
 
-// Register the router instance for type safety
 declare module "@tanstack/react-router" {
   interface Register {
     router: typeof router;
   }
 }
 
-// Render the app
+const storedTheme = localStorage.getItem("theme-storage");
+let theme = "dark";
+
+if (storedTheme) {
+  try {
+    theme = JSON.parse(storedTheme).state?.theme ?? theme;
+  } catch {
+    localStorage.removeItem("theme-storage");
+  }
+}
+
+document.documentElement.classList.toggle("dark", theme === "dark");
+
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
