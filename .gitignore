@@ -1,6 +1,7 @@
 .*
-!.gitignore
 !.editorconfig
+!.fallowrc.json
+!.gitignore
 !.oxfmtrc.json
 !.oxlintrc.json
 

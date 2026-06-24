@@ -19,7 +19,10 @@
     "fallow:dupes": "fallow dupes",
     "fallow:health": "fallow health",
     "fallow:review": "fallow review",
-    "fallow:fix": "fallow fix"
+    "fallow:fix": "fallow fix",
+    "test": "pnpm generate:i18n && vitest run",
+    "test:watch": "pnpm generate:i18n && vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
@@ -41,15 +44,21 @@
   "devDependencies": {
     "@rolldown/plugin-babel": "^0.2.3",
     "@tanstack/router-plugin": "^1.168.18",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/node": "^26.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "@vitest/ui": "^4.1.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "fallow": "^2.101.0",
+    "jsdom": "^29.1.1",
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vitest": "^4.1.9"
   }
 }
