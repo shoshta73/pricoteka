@@ -1,4 +1,5 @@
 const defaultLocale = "en";
+const localeStorageKey = "pricoteka-locale";
 
 const messages = {
   en: {
@@ -19,7 +20,7 @@ const messages = {
   },
 } as const;
 
-type Locale = keyof typeof messages;
+export type Locale = keyof typeof messages;
 type MessageTree = (typeof messages)[typeof defaultLocale];
 type MessageKey<T> = {
   [K in keyof T & string]: T[K] extends string ? K : `${K}.${MessageKey<T[K]>}`;
@@ -31,6 +32,20 @@ const supportedLocales = Object.keys(messages) as Locale[];
 
 function isSupportedLocale(locale: string): locale is Locale {
   return supportedLocales.includes(locale as Locale);
+}
+
+function getStoredLocale(): Locale | undefined {
+  if (typeof localStorage === "undefined") {
+    return undefined;
+  }
+
+  const storedLocale = localStorage.getItem(localeStorageKey);
+
+  return storedLocale && isSupportedLocale(storedLocale) ? storedLocale : undefined;
+}
+
+export function getLocale(): Locale {
+  return getStoredLocale() ?? getPreferredLocale();
 }
 
 export function getPreferredLocale(): Locale {
@@ -64,7 +79,7 @@ function getMessage(locale: Locale, key: TranslationKey) {
   }, messages[locale]);
 }
 
-export function t(key: TranslationKey, locale = getPreferredLocale()) {
+export function t(key: TranslationKey, locale = getLocale()) {
   const localizedMessage = getMessage(locale, key);
 
   if (typeof localizedMessage === "string") {
@@ -74,4 +89,42 @@ export function t(key: TranslationKey, locale = getPreferredLocale()) {
   const fallbackMessage = getMessage(defaultLocale, key);
 
   return typeof fallbackMessage === "string" ? fallbackMessage : key;
+}
+
+function setLanguage(locale: string) {
+  if (!isSupportedLocale(locale)) {
+    throw new Error(`Unsupported language "${locale}". Supported languages: ${supportedLocales.join(", ")}`);
+  }
+
+  localStorage.setItem(localeStorageKey, locale);
+  window.location.reload();
+}
+
+function resetLanguage() {
+  localStorage.removeItem(localeStorageKey);
+  window.location.reload();
+}
+
+declare global {
+  interface Window {
+    pricoteka?: {
+      getLanguage: () => Locale;
+      resetLanguage: () => void;
+      setLanguage: (locale: string) => void;
+      supportedLanguages: Locale[];
+    };
+  }
+}
+
+export function installPricotekaBrowserTools() {
+  if (!import.meta.env.DEV || typeof window === "undefined") {
+    return;
+  }
+
+  window.pricoteka = {
+    getLanguage: getLocale,
+    resetLanguage,
+    setLanguage,
+    supportedLanguages: supportedLocales,
+  };
 }
