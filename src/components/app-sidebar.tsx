@@ -12,11 +12,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { t } from "@/lib/i18n";
 
 const data = {
   nav: [
     {
-      title: "Stores",
+      labelKey: "nav.stores",
       to: "/stores",
     },
   ],
@@ -43,7 +44,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                     }
                     className="font-medium"
                   >
-                    {item.title}
+                    {t(item.labelKey)}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               );
