@@ -1,0 +1,18 @@
+{
+  "en": {
+    "nav": {
+      "stores": "Stores"
+    },
+    "stores": {
+      "title": "Stores"
+    }
+  },
+  "hr": {
+    "nav": {
+      "stores": "Trgovine"
+    },
+    "stores": {
+      "title": "Trgovine"
+    }
+  }
+}

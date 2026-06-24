@@ -5,14 +5,16 @@
   "description": "",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "typecheck": "tsc -b",
-    "build": "tsc -b && vite build",
+    "generate:build-scripts": "tsc -p build/tsconfig.json",
+    "generate:i18n": "pnpm generate:build-scripts && node build/dist/generate-i18n.js",
+    "dev": "pnpm generate:i18n && vite",
+    "typecheck": "pnpm generate:i18n && tsc -b",
+    "build": "pnpm generate:i18n && tsc -b && vite build",
     "preview": "vite preview",
-    "format": "oxfmt --check .",
-    "format:fix": "oxfmt --write .",
-    "lint": "oxlint",
-    "lint:fix": "oxlint --fix"
+    "format": "pnpm generate:i18n && oxfmt --check .",
+    "format:fix": "pnpm generate:i18n && oxfmt --write .",
+    "lint": "pnpm generate:i18n && oxlint",
+    "lint:fix": "pnpm generate:i18n && oxlint --fix"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
