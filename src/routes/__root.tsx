@@ -38,7 +38,6 @@ function RootComponent() {
             {theme === "dark" ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
           </Button>
         </header>
-        <div>Hello "__root"!</div>
         <Outlet />
       </SidebarInset>
     </SidebarProvider>
