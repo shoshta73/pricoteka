@@ -1,24 +1,6 @@
-const defaultLocale = "en";
-const localeStorageKey = "pricoteka-locale";
+import { defaultLocale, messages } from "@/lib/i18n.generated";
 
-const messages = {
-  en: {
-    nav: {
-      stores: "Stores",
-    },
-    stores: {
-      title: "Stores",
-    },
-  },
-  hr: {
-    nav: {
-      stores: "Trgovine",
-    },
-    stores: {
-      title: "Trgovine",
-    },
-  },
-} as const;
+const localeStorageKey = "pricoteka-locale";
 
 export type Locale = keyof typeof messages;
 type MessageTree = (typeof messages)[typeof defaultLocale];
