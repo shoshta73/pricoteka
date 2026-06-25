@@ -1,0 +1,54 @@
+name: Bug report
+description: Report broken or incorrect behavior in Pricoteka.
+title: "Bug: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the bug clearly and briefly.
+      placeholder: What is broken?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact steps needed to reproduce the issue.
+      placeholder: |
+        1. Go to ...
+        2. Click ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should have happened?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include browser, device, operating system, and app version or commit if known.
+      placeholder: Firefox 128, Android 15, commit abc123
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add screenshots, logs, or related links if useful.
+    validations:
+      required: false
