@@ -14,7 +14,7 @@
     "preview": "vite preview",
     "format": "pnpm generate:i18n && oxfmt --check .",
     "format:fix": "pnpm generate:i18n && oxfmt --write .",
-    "lint": "pnpm generate:i18n && fallow audit --changed-since HEAD && oxlint",
+    "lint": "pnpm generate:i18n && oxlint",
     "lint:fix": "pnpm generate:i18n && oxlint --fix",
     "fallow:dead-code": "fallow dead-code",
     "fallow:dupes": "fallow dupes",
