@@ -4,6 +4,9 @@
 !.gitignore
 !.oxfmtrc.json
 !.oxlintrc.json
+!.github/
+!.github/workflows/
+!.github/workflows/*.yml
 
 dist/
 build/dist/
