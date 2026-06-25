@@ -11,4 +11,3 @@
 dist/
 build/dist/
 node_modules/
-src/routeTree.gen.ts
