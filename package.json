@@ -15,6 +15,8 @@
     "format:fix": "pnpm generate:i18n && oxfmt --write .",
     "lint": "pnpm generate:i18n && oxlint",
     "lint:fix": "pnpm generate:i18n && oxlint --fix",
+    "fallow": "fallow",
+    "fallow:changed": "fallow audit --changed-since HEAD",
     "fallow:dead-code": "fallow dead-code",
     "fallow:dupes": "fallow dupes",
     "fallow:health": "fallow health",

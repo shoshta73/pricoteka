@@ -10,12 +10,13 @@
 ## Commands
 
 - Use pnpm; `pnpm-lock.yaml` is the committed lockfile.
+- CI uses Node `24.15.0` and `pnpm install --frozen-lockfile`.
 - `pnpm dev` runs `pnpm generate:i18n` before starting Vite.
 - `pnpm build` runs `pnpm generate:i18n && tsc -b && vite build`; this is the main verification command.
 - `pnpm typecheck` runs generated i18n plus `tsc -b` without bundling.
-- `pnpm lint` runs generated i18n, `fallow audit --changed-since HEAD`, then `oxlint`; `pnpm lint:fix` only runs generated i18n plus `oxlint --fix`.
+- `pnpm test` runs generated i18n plus `vitest run`; focused tests can use `pnpm generate:i18n && pnpm exec vitest run <file>`.
+- `pnpm lint` runs generated i18n plus `oxlint`; use `pnpm fallow:changed` for a changed-since-HEAD fallow audit.
 - `pnpm format` runs generated i18n plus `oxfmt --check .`; `pnpm format:fix` rewrites with oxfmt.
-- No test runner is configured in `package.json`; do not invent `pnpm test` unless a test setup is added.
 
 ## Generated Files
 
@@ -27,6 +28,7 @@
 
 - Vite plugins include Tailwind CSS v4, TanStack Router codegen with `autoCodeSplitting: true`, React, then React Compiler via `@rolldown/plugin-babel` and `reactCompilerPreset()`.
 - React Compiler is enabled; avoid routine `useMemo`/`useCallback` unless there is a concrete need or existing pattern.
+- Vitest uses `jsdom`, excludes `build/dist`, and loads `src/test/setup.ts` for jest-dom matchers.
 - Tailwind is configured through the Vite plugin; `src/index.css` also imports `tw-animate-css`, shadcn CSS, Geist font, and theme tokens.
 - shadcn is configured by `components.json` with `base-mira`, Base UI-style components, Phosphor icons, and aliases like `@/components`, `@/components/ui`, and `@/lib/utils`.
 - Treat `src/components/ui` as generated/vendor-style UI primitives; do not edit them unless explicitly asked.
@@ -36,5 +38,6 @@
 
 ## Verification
 
-- For code changes, prefer `pnpm build` plus `pnpm lint` and `pnpm format` when feasible.
+- CI runs `pnpm build`, `pnpm test`, `pnpm lint`, and `pnpm format` as separate workflows.
+- For code changes, prefer `pnpm build` plus `pnpm test`, `pnpm lint`, and `pnpm format` when feasible.
 - For formatting-only edits, `pnpm format` is the focused check.
