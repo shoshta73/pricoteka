@@ -1,0 +1,42 @@
+name: Data update
+description: Request a pricing, store, product, or category data correction.
+title: "Data: "
+labels:
+  - data
+body:
+  - type: textarea
+    id: change
+    attributes:
+      label: Requested change
+      description: What data needs to be added, corrected, or removed?
+    validations:
+      required: true
+  - type: textarea
+    id: affected-data
+    attributes:
+      label: Affected data
+      description: Identify the relevant store, product, category, price, location, or date range.
+      placeholder: Store, product name, price, location, date observed
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source or evidence
+      description: Provide a link, screenshot, receipt, official source, or other evidence for the change.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: Describe how the corrected data should appear in Pricoteka.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add anything else that helps verify or understand the request.
+    validations:
+      required: false
