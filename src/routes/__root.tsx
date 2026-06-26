@@ -1,5 +1,6 @@
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
@@ -39,6 +40,7 @@ function RootComponent() {
           </Button>
         </header>
         <Outlet />
+        <TanStackRouterDevtools />
       </SidebarInset>
     </SidebarProvider>
   );
