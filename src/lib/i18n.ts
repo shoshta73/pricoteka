@@ -2,8 +2,8 @@ import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
-import en from "../../public/locales/en/translation.json";
-import hr from "../../public/locales/hr/translation.json";
+import en from "../locales/en/translation.json";
+import hr from "../locales/hr/translation.json";
 
 const localeStorageKey = "pricoteka-locale";
 

@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 import { validateLocales } from "./i18n-utils.js";
 
-const localesPath = resolve("public/locales");
+const localesPath = resolve("src/locales");
 const localeDirectories = await readdir(localesPath, { withFileTypes: true });
 const messages: Record<string, unknown> = {};
 
