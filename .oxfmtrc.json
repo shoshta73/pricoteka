@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [],
+  "ignorePatterns": ["src/lib/i18n.generated.ts", "src/routeTree.gen.ts"],
   "sortTailwindcss": {
     "stylesheet": "./src/index.css",
     "functions": ["clsx", "cn"],
