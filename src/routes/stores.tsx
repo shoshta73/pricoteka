@@ -1,5 +1,5 @@
 import { PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
@@ -13,6 +13,11 @@ export const Route = createFileRoute("/stores")({
 function Stores() {
   const { stores } = useStoresStore();
   const navigate = useNavigate();
+  const isCreateRoute = useRouterState({ select: (state) => state.location.pathname === "/stores/create" });
+
+  if (isCreateRoute) {
+    return <Outlet />;
+  }
 
   if (stores.length === 0) {
     return (

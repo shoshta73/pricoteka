@@ -20,11 +20,18 @@ describe("routes", () => {
 
   it("navigates from stores to create store", async () => {
     const user = userEvent.setup();
-    const { findByRole, router } = renderRouter("/stores");
+    const { findByRole, findByText, router } = renderRouter("/stores");
 
     await user.click(await findByRole("button", { name: t("stores.createAction") }));
 
     expect(router.state.location.pathname).toBe("/stores/create");
+    expect(await findByText(t("stores.createTitle"))).toBeInTheDocument();
+  });
+
+  it("renders the create store route", async () => {
+    const { findByText } = renderRouter("/stores/create");
+
+    expect(await findByText(t("stores.createTitle"))).toBeInTheDocument();
   });
 
   it("renders the about route", async () => {
