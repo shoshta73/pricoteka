@@ -8,6 +8,10 @@ export const messages = {
       stores: "Stores",
     },
     stores: {
+      createAction: "Create Store",
+      createTitle: "Create Store",
+      emptyDescription: "Create a new store to get started.",
+      emptyTitle: "No Stores Registered",
       title: "Stores",
     },
   },
@@ -16,6 +20,10 @@ export const messages = {
       stores: "Trgovine",
     },
     stores: {
+      createAction: "Dodaj trgovinu",
+      createTitle: "Dodaj trgovinu",
+      emptyDescription: "Dodajte novu trgovinu za početak.",
+      emptyTitle: "Nema registriranih trgovina",
       title: "Trgovine",
     },
   },

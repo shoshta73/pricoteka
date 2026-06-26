@@ -21,13 +21,13 @@ function Stores() {
           <EmptyMedia variant="icon">
             <StorefrontIcon />
           </EmptyMedia>
-          <EmptyTitle>No Stores Registered</EmptyTitle>
-          <EmptyDescription>Create a new store to get started.</EmptyDescription>
+          <EmptyTitle>{t("stores.emptyTitle")}</EmptyTitle>
+          <EmptyDescription>{t("stores.emptyDescription")}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
           <Button onClick={() => void navigate({ to: "/stores/create" })}>
             <PlusIcon data-icon="inline-start" />
-            Create Store
+            {t("stores.createAction")}
           </Button>
         </EmptyContent>
       </Empty>
