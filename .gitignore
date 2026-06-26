@@ -11,5 +11,5 @@
 dist/
 build/dist/
 node_modules/
-src/lib/i18n.generated.ts
 src/routeTree.gen.ts
+stats.html

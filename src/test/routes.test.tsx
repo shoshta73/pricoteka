@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { t } from "@/lib/i18n";
+import { i18n } from "@/lib/i18n";
 import { useStoresStore } from "@/stores/storesStore";
 import { renderRouter } from "@/test/render-router";
 
@@ -14,24 +14,24 @@ describe("routes", () => {
   it("renders the empty stores state when there are no stores", async () => {
     const { findByText } = renderRouter("/stores");
 
-    expect(await findByText(t("stores.emptyTitle"))).toBeInTheDocument();
-    expect(await findByText(t("stores.emptyDescription"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("stores.emptyTitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("stores.emptyDescription"))).toBeInTheDocument();
   });
 
   it("navigates from stores to create store", async () => {
     const user = userEvent.setup();
     const { findByRole, findByText, router } = renderRouter("/stores");
 
-    await user.click(await findByRole("button", { name: t("stores.createAction") }));
+    await user.click(await findByRole("button", { name: i18n.t("stores.createAction") }));
 
     expect(router.state.location.pathname).toBe("/stores/create");
-    expect(await findByText(t("stores.createTitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("stores.createTitle"))).toBeInTheDocument();
   });
 
   it("renders the create store route", async () => {
     const { findByText } = renderRouter("/stores/create");
 
-    expect(await findByText(t("stores.createTitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("stores.createTitle"))).toBeInTheDocument();
   });
 
   it("renders the about route", async () => {

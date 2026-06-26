@@ -1,98 +1,72 @@
-import { defaultLocale, messages } from "@/lib/i18n.generated";
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import { initReactI18next } from "react-i18next";
+
+import en from "../../public/locales/en/translation.json";
+import hr from "../../public/locales/hr/translation.json";
 
 const localeStorageKey = "pricoteka-locale";
 
-export type Locale = keyof typeof messages;
-type MessageTree = (typeof messages)[typeof defaultLocale];
-type MessageKey<T> = {
-  [K in keyof T & string]: T[K] extends string ? K : `${K}.${MessageKey<T[K]>}`;
-}[keyof T & string];
+export const defaultLocale = "en";
+export const supportedLocales = ["en", "hr"] as const;
 
-export type TranslationKey = MessageKey<MessageTree>;
-
-const supportedLocales = Object.keys(messages) as Locale[];
+export type Locale = (typeof supportedLocales)[number];
 
 function isSupportedLocale(locale: string): locale is Locale {
   return supportedLocales.includes(locale as Locale);
 }
 
-function getStoredLocale(): Locale | undefined {
-  if (typeof localStorage === "undefined") {
-    return undefined;
-  }
-
-  const storedLocale = localStorage.getItem(localeStorageKey);
-
-  return storedLocale && isSupportedLocale(storedLocale) ? storedLocale : undefined;
-}
-
 export function getLocale(): Locale {
-  return getStoredLocale() ?? getPreferredLocale();
+  const locale = i18n.resolvedLanguage ?? i18n.language;
+
+  return isSupportedLocale(locale) ? locale : defaultLocale;
 }
 
-export function getPreferredLocale(): Locale {
-  if (typeof navigator === "undefined") {
-    return defaultLocale;
-  }
-
-  for (const language of navigator.languages) {
-    const normalizedLanguage = language.toLowerCase();
-    const baseLanguage = normalizedLanguage.split("-")[0];
-
-    if (isSupportedLocale(normalizedLanguage)) {
-      return normalizedLanguage;
-    }
-
-    if (baseLanguage && isSupportedLocale(baseLanguage)) {
-      return baseLanguage;
-    }
-  }
-
-  return defaultLocale;
+function setStoredLocale(locale: Locale) {
+  localStorage.setItem(localeStorageKey, locale);
 }
 
-function getMessage(locale: Locale, key: TranslationKey) {
-  return key.split(".").reduce<unknown>((message, segment) => {
-    if (message && typeof message === "object" && segment in message) {
-      return (message as Record<string, unknown>)[segment];
-    }
-
-    return undefined;
-  }, messages[locale]);
-}
-
-export function t(key: TranslationKey, locale = getLocale()) {
-  const localizedMessage = getMessage(locale, key);
-
-  if (typeof localizedMessage === "string") {
-    return localizedMessage;
-  }
-
-  const fallbackMessage = getMessage(defaultLocale, key);
-
-  return typeof fallbackMessage === "string" ? fallbackMessage : key;
-}
-
-function setLanguage(locale: string) {
+export async function setLanguage(locale: string) {
   if (!isSupportedLocale(locale)) {
     throw new Error(`Unsupported language "${locale}". Supported languages: ${supportedLocales.join(", ")}`);
   }
 
-  localStorage.setItem(localeStorageKey, locale);
-  window.location.reload();
+  setStoredLocale(locale);
+  await i18n.changeLanguage(locale);
 }
 
-function resetLanguage() {
+export async function resetLanguage() {
   localStorage.removeItem(localeStorageKey);
-  window.location.reload();
+  await i18n.changeLanguage(undefined);
 }
+
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    defaultNS: "translation",
+    detection: {
+      caches: ["localStorage"],
+      lookupLocalStorage: localeStorageKey,
+      order: ["localStorage", "navigator"],
+    },
+    fallbackLng: defaultLocale,
+    interpolation: {
+      escapeValue: false,
+    },
+    resources: {
+      en: { translation: en },
+      hr: { translation: hr },
+    },
+    supportedLngs: supportedLocales,
+  });
 
 declare global {
   interface Window {
     pricoteka?: {
       getLanguage: () => Locale;
-      resetLanguage: () => void;
-      setLanguage: (locale: string) => void;
+      resetLanguage: () => Promise<void>;
+      setLanguage: (locale: string) => Promise<void>;
       supportedLanguages: Locale[];
     };
   }
@@ -107,6 +81,8 @@ export function installPricotekaBrowserTools() {
     getLanguage: getLocale,
     resetLanguage,
     setLanguage,
-    supportedLanguages: supportedLocales,
+    supportedLanguages: [...supportedLocales],
   };
 }
+
+export { i18n };

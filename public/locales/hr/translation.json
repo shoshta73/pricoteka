@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "stores": "Trgovine"
+  },
+  "stores": {
+    "createAction": "Dodaj trgovinu",
+    "createTitle": "Dodaj trgovinu",
+    "emptyDescription": "Dodajte novu trgovinu za početak.",
+    "emptyTitle": "Nema registriranih trgovina",
+    "title": "Trgovine"
+  }
+}

@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import {
   Sidebar,
@@ -12,7 +13,6 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { t } from "@/lib/i18n";
 
 const data = {
   nav: [
@@ -24,6 +24,8 @@ const data = {
 } as const;
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
+  const { t } = useTranslation();
+
   return (
     <Sidebar {...props}>
       <SidebarHeader />

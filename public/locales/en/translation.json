@@ -1,0 +1,12 @@
+{
+  "nav": {
+    "stores": "Stores"
+  },
+  "stores": {
+    "createAction": "Create Store",
+    "createTitle": "Create Store",
+    "emptyDescription": "Create a new store to get started.",
+    "emptyTitle": "No Stores Registered",
+    "title": "Stores"
+  }
+}

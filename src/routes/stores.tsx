@@ -1,9 +1,9 @@
 import { PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { t } from "@/lib/i18n";
 import { useStoresStore } from "@/stores/storesStore";
 
 export const Route = createFileRoute("/stores")({
@@ -11,6 +11,7 @@ export const Route = createFileRoute("/stores")({
 });
 
 function Stores() {
+  const { t } = useTranslation();
   const { stores } = useStoresStore();
   const navigate = useNavigate();
   const isCreateRoute = useRouterState({ select: (state) => state.location.pathname === "/stores/create" });
