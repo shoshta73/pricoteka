@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
 import { routeTree } from "./routeTree.gen";
+import "./lib/i18n";
 import "./index.css";
 
 const hashHistory = createHashHistory();
