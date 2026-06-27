@@ -1,4 +1,4 @@
-name: Lint
+name: App Test
 
 on:
   push:
@@ -14,8 +14,8 @@ on:
       - ready_for_review
 
 jobs:
-  lint:
-    name: Lint
+  app-test:
+    name: App Test
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Lint
-        run: pnpm lint
+      - name: App Test
+        run: pnpm app-test

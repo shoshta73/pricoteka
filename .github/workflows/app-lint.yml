@@ -1,4 +1,4 @@
-name: Format
+name: App Lint
 
 on:
   push:
@@ -14,8 +14,8 @@ on:
       - ready_for_review
 
 jobs:
-  format:
-    name: Format
+  app-lint:
+    name: App Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Format
-        run: pnpm format
+      - name: App Lint
+        run: pnpm app-lint

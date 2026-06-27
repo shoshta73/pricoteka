@@ -1,4 +1,4 @@
-name: Test
+name: App Format
 
 on:
   push:
@@ -14,8 +14,8 @@ on:
       - ready_for_review
 
 jobs:
-  test:
-    name: Test
+  app-format:
+    name: App Format
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Test
-        run: pnpm test
+      - name: App Format
+        run: pnpm app-format

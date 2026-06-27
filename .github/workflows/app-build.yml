@@ -1,4 +1,4 @@
-name: Build
+name: App Build
 
 on:
   push:
@@ -14,8 +14,8 @@ on:
       - ready_for_review
 
 jobs:
-  build:
-    name: Build
+  app-build:
+    name: App Build
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: App Build
+        run: pnpm app-build
