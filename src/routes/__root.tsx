@@ -1,12 +1,9 @@
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
-import { TanStackDevtools } from "@tanstack/react-devtools";
-import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import { LocaleDevtoolsPanel } from "@/components/devtools/locale-devtools";
+import { AppDevtools } from "@/components/devtools/app-devtools";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
@@ -16,19 +13,6 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const devtoolsPlugins = [
-  formDevtoolsPlugin(),
-  {
-    id: "tanstack-router",
-    name: "TanStack Router",
-    render: <TanStackRouterDevtoolsPanel />,
-  },
-  {
-    id: "pricoteka-locale",
-    name: "Locale",
-    render: <LocaleDevtoolsPanel />,
-  },
-];
 const showDevtools = import.meta.env.DEV && import.meta.env.MODE !== "test";
 
 function RootComponent() {
@@ -60,7 +44,7 @@ function RootComponent() {
         </header>
         <Outlet />
         <Toaster theme={theme} position="bottom-right" />
-        {showDevtools && <TanStackDevtools plugins={devtoolsPlugins} />}
+        {showDevtools && <AppDevtools />}
       </SidebarInset>
     </SidebarProvider>
   );
