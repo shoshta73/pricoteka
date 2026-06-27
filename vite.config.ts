@@ -13,6 +13,10 @@ export default defineConfig({
     rolldownOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes("/node_modules/@base-ui/")) {
+            return "base-ui";
+          }
+
           if (id.includes("/node_modules/@floating-ui/")) {
             return "floating-ui";
           }
