@@ -4,9 +4,16 @@
   },
   "stores": {
     "createAction": "Dodaj trgovinu",
+    "createDescription": "Dodajte novu trgovinu",
+    "createFailureExists": "Trgovina {{name}} već postoji.",
+    "createSuccess": "Trgovina {{name}} je dodana.",
+    "createSubmitAction": "Dodaj",
     "createTitle": "Dodaj trgovinu",
     "emptyDescription": "Dodajte novu trgovinu za početak.",
     "emptyTitle": "Nema registriranih trgovina",
+    "nameLabel": "Naziv",
+    "namePlaceholder": "Trgovina",
+    "resetAction": "Poništi",
     "title": "Trgovine"
   }
 }

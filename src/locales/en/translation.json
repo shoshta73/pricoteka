@@ -4,9 +4,16 @@
   },
   "stores": {
     "createAction": "Create Store",
+    "createDescription": "Create a new store",
+    "createFailureExists": "{{name}} already exists.",
+    "createSuccess": "Created {{name}}.",
+    "createSubmitAction": "Create",
     "createTitle": "Create Store",
     "emptyDescription": "Create a new store to get started.",
     "emptyTitle": "No Stores Registered",
+    "nameLabel": "Name",
+    "namePlaceholder": "Store",
+    "resetAction": "Reset",
     "title": "Stores"
   }
 }

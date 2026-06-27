@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import { useThemeStore } from "@/stores/themeStore";
 
 export const Route = createRootRoute({
@@ -40,6 +41,7 @@ function RootComponent() {
           </Button>
         </header>
         <Outlet />
+        <Toaster theme={theme} position="bottom-right" />
         <TanStackRouterDevtools />
       </SidebarInset>
     </SidebarProvider>

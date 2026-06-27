@@ -51,6 +51,17 @@ describe("storesStore", () => {
     ]);
   });
 
+  it("checks whether a store name exists", () => {
+    mockedUuidv4.mockReturnValue("store-1");
+
+    expect(useStoresStore.getState().storeExists("Konzum")).toBe(false);
+
+    useStoresStore.getState().addStore("Konzum");
+
+    expect(useStoresStore.getState().storeExists("Konzum")).toBe(true);
+    expect(useStoresStore.getState().storeExists("Spar")).toBe(false);
+  });
+
   it("does not add duplicate store names", () => {
     mockedUuidv4.mockReturnValue("store-1");
 

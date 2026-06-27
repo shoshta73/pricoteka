@@ -6,28 +6,38 @@ import type { Store } from "@/types";
 
 interface StoresStore {
   stores: Store[];
+  storeExists: (name: string) => boolean;
   addStore: (name: string) => void;
 }
 
 export const useStoresStore = create<StoresStore>()(
   devtools(
     persist(
-      (set) => ({
+      (set, get) => ({
         stores: [],
-        addStore: (name) =>
-          set((state) => {
-            for (const store of state.stores) {
-              if (store.name === name) {
-                return state;
-              }
+        storeExists: (name) => {
+          const { stores } = get();
+          for (const store of stores) {
+            if (store.name === name) {
+              return true;
             }
+          }
 
-            const newStore: Store = {
-              id: uuidv4(),
-              name,
-            };
-            return { stores: [...state.stores, newStore] };
-          }),
+          return false;
+        },
+        addStore: (name) => {
+          const { stores, storeExists } = get();
+          if (storeExists(name)) {
+            return;
+          }
+
+          const newStore: Store = {
+            id: uuidv4(),
+            name,
+          };
+          const newStores = [...stores, newStore];
+          set({ stores: newStores });
+        },
       }),
       {
         name: "stores-storage",
