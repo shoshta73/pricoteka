@@ -24,6 +24,14 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] }),
     visualizer(),
+    visualizer({
+      filename: "stats-sunburst.html",
+      template: "sunburst",
+    }),
+    visualizer({
+      filename: "stats.json",
+      template: "raw-data",
+    }),
   ],
   test: {
     environment: "jsdom",
