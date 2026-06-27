@@ -14,9 +14,9 @@ function Stores() {
   const { t } = useTranslation();
   const { stores } = useStoresStore();
   const navigate = useNavigate();
-  const isCreateRoute = useRouterState({ select: (state) => state.location.pathname === "/stores/create" });
+  const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== "/stores" });
 
-  if (isCreateRoute) {
+  if (isChildRoute) {
     return <Outlet />;
   }
 

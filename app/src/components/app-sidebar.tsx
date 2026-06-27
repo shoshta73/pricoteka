@@ -11,8 +11,12 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useStoresStore } from "@/stores/storesStore";
 
 const data = {
   nav: [
@@ -25,6 +29,7 @@ const data = {
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
+  const { stores } = useStoresStore();
 
   return (
     <Sidebar {...props}>
@@ -48,6 +53,17 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                   >
                     {t(item.labelKey)}
                   </SidebarMenuButton>
+                  {stores.length === 0 ? null : (
+                    <SidebarMenuSub>
+                      {stores.map((store) => (
+                        <SidebarMenuSubItem key={store.id}>
+                          <SidebarMenuSubButton render={<Link to="/stores/$storeId" params={{ storeId: store.id }} />}>
+                            {store.name}
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
                 </SidebarMenuItem>
               );
             })}
