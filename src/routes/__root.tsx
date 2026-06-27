@@ -1,4 +1,6 @@
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
@@ -12,6 +14,9 @@ import { useThemeStore } from "@/stores/themeStore";
 export const Route = createRootRoute({
   component: RootComponent,
 });
+
+const devtoolsPlugins = [formDevtoolsPlugin()];
+const showDevtools = import.meta.env.DEV && import.meta.env.MODE !== "test";
 
 function RootComponent() {
   const theme = useThemeStore((state) => state.theme);
@@ -42,7 +47,8 @@ function RootComponent() {
         </header>
         <Outlet />
         <Toaster theme={theme} position="bottom-right" />
-        <TanStackRouterDevtools />
+        {showDevtools && <TanStackDevtools plugins={devtoolsPlugins} />}
+        {showDevtools && <TanStackRouterDevtools />}
       </SidebarInset>
     </SidebarProvider>
   );
