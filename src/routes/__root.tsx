@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import { formDevtoolsPlugin } from "@tanstack/react-form-devtools";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { useEffect } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
@@ -15,7 +15,14 @@ export const Route = createRootRoute({
   component: RootComponent,
 });
 
-const devtoolsPlugins = [formDevtoolsPlugin()];
+const devtoolsPlugins = [
+  formDevtoolsPlugin(),
+  {
+    id: "tanstack-router",
+    name: "TanStack Router",
+    render: <TanStackRouterDevtoolsPanel />,
+  },
+];
 const showDevtools = import.meta.env.DEV && import.meta.env.MODE !== "test";
 
 function RootComponent() {
@@ -48,7 +55,6 @@ function RootComponent() {
         <Outlet />
         <Toaster theme={theme} position="bottom-right" />
         {showDevtools && <TanStackDevtools plugins={devtoolsPlugins} />}
-        {showDevtools && <TanStackRouterDevtools />}
       </SidebarInset>
     </SidebarProvider>
   );
