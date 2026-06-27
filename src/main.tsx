@@ -2,12 +2,8 @@ import { createRouter, createHashHistory, RouterProvider } from "@tanstack/react
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 
-import { installPricotekaBrowserTools } from "@/lib/i18n";
-
 import { routeTree } from "./routeTree.gen";
 import "./index.css";
-
-installPricotekaBrowserTools();
 
 const hashHistory = createHashHistory();
 

@@ -61,28 +61,4 @@ i18n
     supportedLngs: supportedLocales,
   });
 
-declare global {
-  interface Window {
-    pricoteka?: {
-      getLanguage: () => Locale;
-      resetLanguage: () => Promise<void>;
-      setLanguage: (locale: string) => Promise<void>;
-      supportedLanguages: Locale[];
-    };
-  }
-}
-
-export function installPricotekaBrowserTools() {
-  if (!import.meta.env.DEV || typeof window === "undefined") {
-    return;
-  }
-
-  window.pricoteka = {
-    getLanguage: getLocale,
-    resetLanguage,
-    setLanguage,
-    supportedLanguages: [...supportedLocales],
-  };
-}
-
 export { i18n };
