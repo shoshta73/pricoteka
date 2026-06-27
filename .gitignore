@@ -13,3 +13,5 @@ build/dist/
 node_modules/
 src/routeTree.gen.ts
 stats.html
+stats-sunburst.html
+stats.json
