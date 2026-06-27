@@ -41,7 +41,7 @@ function RootComponent() {
             className="mr-3 h-8 w-8 text-muted-foreground hover:bg-muted hover:text-foreground"
             aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
           >
-            {theme === "dark" ? <SunIcon className="size-5" /> : <MoonIcon className="size-5" />}
+            {theme === "dark" ? <SunIcon size={20} /> : <MoonIcon size={20} />}
           </Button>
         </header>
         <Outlet />
