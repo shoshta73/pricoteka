@@ -9,6 +9,23 @@ import { defineConfig } from "vitest/config";
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    rolldownOptions: {
+      output: {
+        manualChunks(id) {
+          if (
+            id.includes("/node_modules/@tanstack/react-router/") ||
+            id.includes("/node_modules/@tanstack/router-core/") ||
+            id.includes("/node_modules/@tanstack/history/") ||
+            id.includes("/node_modules/@tanstack/react-store/") ||
+            id.includes("/node_modules/@tanstack/store/")
+          ) {
+            return "tanstack-router";
+          }
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
