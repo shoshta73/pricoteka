@@ -13,6 +13,10 @@ export default defineConfig({
     rolldownOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes("/node_modules/@floating-ui/")) {
+            return "floating-ui";
+          }
+
           if (
             id.includes("/node_modules/@tanstack/react-router/") ||
             id.includes("/node_modules/@tanstack/router-core/") ||
