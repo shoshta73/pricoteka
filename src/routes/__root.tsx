@@ -1,9 +1,8 @@
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 
 import { AppSidebar } from "@/components/app-sidebar";
-import { AppDevtools } from "@/components/devtools/app-devtools";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
@@ -14,6 +13,9 @@ export const Route = createRootRoute({
 });
 
 const showDevtools = import.meta.env.DEV && import.meta.env.MODE !== "test";
+const AppDevtools = showDevtools
+  ? lazy(() => import("@/components/devtools/app-devtools").then((module) => ({ default: module.AppDevtools })))
+  : null;
 
 function RootComponent() {
   const theme = useThemeStore((state) => state.theme);
@@ -44,7 +46,11 @@ function RootComponent() {
         </header>
         <Outlet />
         <Toaster theme={theme} position="bottom-right" />
-        {showDevtools && <AppDevtools />}
+        {AppDevtools && (
+          <Suspense>
+            <AppDevtools />
+          </Suspense>
+        )}
       </SidebarInset>
     </SidebarProvider>
   );
