@@ -1,5 +1,5 @@
 import { PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,14 @@ function StoreDetail() {
   const { storeId } = Route.useParams();
   const store = useStoresStore((state) => state.stores.find((item) => item.id === storeId));
   const navigate = useNavigate();
+  const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== `/stores/${store?.id}` });
 
   if (!store) {
     return <div className="p-2">{t("stores.detailNotFound")}</div>;
+  }
+
+  if (isChildRoute) {
+    return <Outlet />;
   }
 
   if (store.offices.length === 0) {
