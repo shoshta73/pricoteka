@@ -21,6 +21,7 @@ export const useThemeStore = create<ThemeStore>()(
       {
         name: "theme-storage",
         version: 1,
+        migrate: (persistedState) => persistedState,
       },
     ),
     {

@@ -30,6 +30,20 @@ describe("themeStore", () => {
 
     expect(JSON.parse(localStorage.getItem("theme-storage") ?? "{}")).toMatchObject({
       state: { theme: "light" },
+      version: 1,
     });
+  });
+
+  it("migrates unversioned persisted theme state", async () => {
+    localStorage.setItem(
+      "theme-storage",
+      JSON.stringify({
+        state: { theme: "light" },
+      }),
+    );
+
+    await useThemeStore.persist.rehydrate();
+
+    expect(useThemeStore.getState().theme).toBe("light");
   });
 });
