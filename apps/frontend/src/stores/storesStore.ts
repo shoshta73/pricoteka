@@ -2,10 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import type { Store } from "@/types";
-import type * as v1 from "@/types/v1";
-
-import { migrateStore } from "@/types/migrate-to-v2";
+import { migrateStore, type Store, type v1 } from "@/types";
 
 interface StoresStore {
   stores: Store[];
