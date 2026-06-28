@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  app:
+  apps/frontend:
     dependencies:
       '@base-ui/react':
         specifier: ^1.6.0

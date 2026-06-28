@@ -15,10 +15,10 @@ src/routeTree.gen.ts
 stats.html
 stats-sunburst.html
 stats.json
-app/dist/
-app/build/dist/
-app/node_modules/
-app/src/routeTree.gen.ts
-app/stats.html
-app/stats-sunburst.html
-app/stats.json
+apps/frontend/dist/
+apps/frontend/build/dist/
+apps/frontend/node_modules/
+apps/frontend/src/routeTree.gen.ts
+apps/frontend/stats.html
+apps/frontend/stats-sunburst.html
+apps/frontend/stats.json
