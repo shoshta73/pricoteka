@@ -11,6 +11,8 @@ interface StoresStore {
   stores: Store[];
   storeExists: (name: string) => boolean;
   addStore: (name: string) => void;
+  officeExists: (storeId: string, name: string) => boolean;
+  addOffice: (storeId: string, name: string) => void;
 }
 
 export const useStoresStore = create<StoresStore>()(
@@ -40,6 +42,36 @@ export const useStoresStore = create<StoresStore>()(
             offices: [],
           };
           const newStores = [...stores, newStore];
+          set({ stores: newStores });
+        },
+        officeExists: (storeId, name) => {
+          const { stores } = get();
+          const store = stores.find((item) => item.id === storeId);
+
+          return store?.offices.some((office: v1.StoreOffice) => office.name === name) ?? false;
+        },
+        addOffice: (storeId, name) => {
+          const { stores, officeExists } = get();
+          if (officeExists(storeId, name)) {
+            return;
+          }
+
+          const newStores = stores.map((store) => {
+            if (store.id !== storeId) {
+              return store;
+            }
+
+            return {
+              ...store,
+              offices: [
+                ...store.offices,
+                {
+                  id: uuidv4(),
+                  name,
+                },
+              ],
+            };
+          });
           set({ stores: newStores });
         },
       }),
