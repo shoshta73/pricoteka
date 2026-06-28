@@ -3,6 +3,9 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
 import type { Store } from "@/types";
+import type * as v1 from "@/types/v1";
+
+import { migrateStore } from "@/types/migrate-to-v2";
 
 interface StoresStore {
   stores: Store[];
@@ -34,6 +37,7 @@ export const useStoresStore = create<StoresStore>()(
           const newStore: Store = {
             id: uuidv4(),
             name,
+            offices: [],
           };
           const newStores = [...stores, newStore];
           set({ stores: newStores });
@@ -41,6 +45,19 @@ export const useStoresStore = create<StoresStore>()(
       }),
       {
         name: "stores-storage",
+        version: 2,
+        migrate: (persistedState, version) => {
+          if (version === 1) {
+            const state = persistedState as { stores?: v1.Store[] };
+
+            return {
+              ...state,
+              stores: state.stores?.map(migrateStore) ?? [],
+            };
+          }
+
+          return persistedState;
+        },
       },
     ),
     {

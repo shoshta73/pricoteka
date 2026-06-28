@@ -29,6 +29,7 @@ describe("storesStore", () => {
       {
         id: "store-1",
         name: "Konzum",
+        offices: [],
       },
     ]);
   });
@@ -43,10 +44,12 @@ describe("storesStore", () => {
       {
         id: "store-1",
         name: "Konzum",
+        offices: [],
       },
       {
         id: "store-2",
         name: "Spar",
+        offices: [],
       },
     ]);
   });
@@ -72,6 +75,7 @@ describe("storesStore", () => {
       {
         id: "store-1",
         name: "Konzum",
+        offices: [],
       },
     ]);
     expect(mockedUuidv4).toHaveBeenCalledTimes(1);
@@ -88,9 +92,50 @@ describe("storesStore", () => {
           {
             id: "store-1",
             name: "Konzum",
+            offices: [],
           },
         ],
       },
+      version: 2,
+    });
+  });
+
+  it("migrates persisted v1 stores to v2", async () => {
+    localStorage.setItem(
+      "stores-storage",
+      JSON.stringify({
+        state: {
+          stores: [
+            {
+              id: "store-1",
+              name: "Konzum",
+            },
+          ],
+        },
+        version: 1,
+      }),
+    );
+
+    await useStoresStore.persist.rehydrate();
+
+    expect(useStoresStore.getState().stores).toEqual([
+      {
+        id: "store-1",
+        name: "Konzum",
+        offices: [],
+      },
+    ]);
+    expect(JSON.parse(localStorage.getItem("stores-storage") ?? "{}")).toMatchObject({
+      state: {
+        stores: [
+          {
+            id: "store-1",
+            name: "Konzum",
+            offices: [],
+          },
+        ],
+      },
+      version: 2,
     });
   });
 });
