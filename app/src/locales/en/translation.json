@@ -8,6 +8,8 @@
     "createFailureExists": "{{name}} already exists.",
     "createOfficeAction": "Create Office",
     "createOfficeDescription": "Create a new office for this store.",
+    "createOfficeFailureExists": "{{name}} already exists for this store.",
+    "createOfficeSuccess": "Created {{name}}.",
     "createOfficeTitle": "Create Office",
     "createSuccess": "Created {{name}}.",
     "createSubmitAction": "Create",
@@ -19,6 +21,8 @@
     "emptyTitle": "No Stores Registered",
     "nameLabel": "Name",
     "namePlaceholder": "Store",
+    "officeNameLabel": "Name",
+    "officeNamePlaceholder": "Office",
     "resetAction": "Reset",
     "title": "Stores"
   }

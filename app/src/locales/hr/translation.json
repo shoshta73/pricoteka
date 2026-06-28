@@ -8,6 +8,8 @@
     "createFailureExists": "Trgovina {{name}} već postoji.",
     "createOfficeAction": "Dodaj ured",
     "createOfficeDescription": "Dodajte novi ured za ovu trgovinu.",
+    "createOfficeFailureExists": "Ured {{name}} već postoji za ovu trgovinu.",
+    "createOfficeSuccess": "Ured {{name}} je dodan.",
     "createOfficeTitle": "Dodaj ured",
     "createSuccess": "Trgovina {{name}} je dodana.",
     "createSubmitAction": "Dodaj",
@@ -19,6 +21,8 @@
     "emptyTitle": "Nema registriranih trgovina",
     "nameLabel": "Naziv",
     "namePlaceholder": "Trgovina",
+    "officeNameLabel": "Naziv",
+    "officeNamePlaceholder": "Ured",
     "resetAction": "Poništi",
     "title": "Trgovine"
   }
