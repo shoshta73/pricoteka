@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
-import { migrateStore, type Store, type v1 } from "@/types";
+import { migrateStore, type Store, type v1 } from "@pricoteka/core";
 
 interface StoresStore {
   stores: Store[];
