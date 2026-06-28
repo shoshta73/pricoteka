@@ -3,8 +3,15 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "build": "pnpm typecheck",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
   }
 }
