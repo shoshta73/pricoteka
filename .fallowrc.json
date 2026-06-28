@@ -1,6 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
-  "entry": ["src/index.{ts,tsx,js,jsx}", "src/main.{ts,tsx,js,jsx}", "src/test/setup.ts"],
+  "entry": [
+    "apps/frontend/src/index.{ts,tsx,js,jsx}",
+    "apps/frontend/src/main.{ts,tsx,js,jsx}",
+    "apps/frontend/src/test/setup.ts"
+  ],
   "duplicates": {
     // Hide pair-only clones; focus on widespread copy-paste
     // worth refactoring. Lower to 2 to report every duplicate pair.

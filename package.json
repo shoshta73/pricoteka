@@ -6,8 +6,24 @@
     "app-typecheck": "pnpm --filter @pricoteka/app typecheck",
     "app-build": "pnpm --filter @pricoteka/app build",
     "app-test": "pnpm --filter @pricoteka/app test",
-    "app-lint": "pnpm --filter @pricoteka/app lint",
-    "app-format": "pnpm --filter @pricoteka/app format"
+    "app-lint": "pnpm lint",
+    "app-format": "pnpm format",
+    "lint": "pnpm --filter @pricoteka/app prepare:checks && oxlint .",
+    "lint:fix": "pnpm --filter @pricoteka/app prepare:checks && oxlint --fix .",
+    "format": "pnpm --filter @pricoteka/app prepare:checks && oxfmt --check .",
+    "format:fix": "pnpm --filter @pricoteka/app prepare:checks && oxfmt --write .",
+    "fallow": "fallow",
+    "fallow:changed": "fallow audit --changed-since HEAD",
+    "fallow:dead-code": "fallow dead-code",
+    "fallow:dupes": "fallow dupes",
+    "fallow:health": "fallow health",
+    "fallow:review": "fallow review",
+    "fallow:fix": "fallow fix"
+  },
+  "devDependencies": {
+    "fallow": "^2.101.0",
+    "oxfmt": "^0.55.0",
+    "oxlint": "^1.70.0"
   },
   "packageManager": "pnpm@11.5.0"
 }

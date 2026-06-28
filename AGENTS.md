@@ -2,7 +2,7 @@
 
 ## Project Shape
 
-- pnpm workspace with a single Vite React app package in `apps/frontend/` as `@pricoteka/app`.
+- pnpm workspace with a Vite React app package in `apps/frontend/` as `@pricoteka/app` and shared TypeScript types in `packages/core/` as `@pricoteka/core`.
 - App entrypoint is `apps/frontend/src/main.tsx`; TanStack Router uses `createHashHistory()`, so browser URLs are hash-based.
 - Routes are TanStack Router file routes under `apps/frontend/src/routes/`; `apps/frontend/src/routeTree.gen.ts` is generated and gitignored.
 - Static files in `apps/frontend/public/` are served from the app web root, e.g. reference `apps/frontend/public/icons.svg` as `/icons.svg`.
@@ -10,14 +10,15 @@
 ## Commands
 
 - Use pnpm workspaces; `pnpm-lock.yaml` is the committed root lockfile and CI installs with `pnpm install --frozen-lockfile` on Node `24.15.0`.
-- Root scripts delegate to the app package: `pnpm app-dev`, `pnpm app-typecheck`, `pnpm app-build`, `pnpm app-test`, `pnpm app-lint`, and `pnpm app-format`.
+- Root scripts delegate app runtime checks to the app package: `pnpm app-dev`, `pnpm app-typecheck`, `pnpm app-build`, and `pnpm app-test`.
+- Root owns repository-wide quality tools: `pnpm lint`, `pnpm format`, and `pnpm fallow:*`; compatibility aliases `pnpm app-lint` and `pnpm app-format` call the root scripts.
 - App scripts can be run directly with `pnpm --filter @pricoteka/app <script>`.
 - `pnpm app-dev` runs `prepare:checks` before starting Vite.
 - `pnpm app-build` runs `prepare:checks && tsc -b && vite build`; this is the main local verification command.
 - `pnpm app-typecheck` runs app `prepare:checks` plus `tsc -b` without bundling.
 - `pnpm app-test` runs app `prepare:checks` plus `vitest run`; focused tests can use `pnpm --filter @pricoteka/app exec vitest run <file>` after `pnpm --filter @pricoteka/app prepare:checks`.
-- `pnpm app-lint` runs app `prepare:checks` plus `oxlint`; use `pnpm --filter @pricoteka/app fallow:changed` for a changed-since-HEAD fallow audit.
-- `pnpm app-format` runs app `prepare:checks` plus `oxfmt --check .`; `pnpm --filter @pricoteka/app format:fix` rewrites with oxfmt.
+- `pnpm lint` runs app `prepare:checks` plus root `oxlint .`; use `pnpm fallow:changed` for a changed-since-HEAD fallow audit.
+- `pnpm format` runs app `prepare:checks` plus root `oxfmt --check .`; `pnpm format:fix` rewrites with oxfmt.
 
 ## Generated Files
 

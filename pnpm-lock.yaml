@@ -6,7 +6,17 @@ settings:
 
 importers:
 
-  .: {}
+  .:
+    devDependencies:
+      fallow:
+        specifier: ^2.101.0
+        version: 2.101.0
+      oxfmt:
+        specifier: ^0.55.0
+        version: 0.55.0
+      oxlint:
+        specifier: ^1.70.0
+        version: 1.70.0
 
   apps/frontend:
     dependencies:
@@ -131,18 +141,9 @@ importers:
       concurrently:
         specifier: ^10.0.3
         version: 10.0.3
-      fallow:
-        specifier: ^2.101.0
-        version: 2.101.0
       jsdom:
         specifier: ^29.1.1
         version: 29.1.1
-      oxfmt:
-        specifier: ^0.55.0
-        version: 0.55.0
-      oxlint:
-        specifier: ^1.70.0
-        version: 1.70.0
       rollup-plugin-visualizer:
         specifier: ^7.0.1
         version: 7.0.1(rolldown@1.0.3)
