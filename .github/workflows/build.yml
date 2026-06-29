@@ -1,4 +1,4 @@
-name: App Build
+name: Build
 
 on:
   push:
@@ -14,9 +14,33 @@ on:
       - ready_for_review
 
 jobs:
+  core-build:
+    name: Core Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Core Build
+        run: pnpm --filter @pricoteka/core build
+
   app-build:
     name: App Build
     runs-on: ubuntu-latest
+    needs: core-build
 
     steps:
       - name: Checkout
