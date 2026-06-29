@@ -10,6 +10,7 @@
   "scripts": {
     "build": "pnpm typecheck",
     "format": "oxfmt --check .",
+    "format:fix": "oxfmt .",
     "lint": "oxlint .",
     "test": "vitest run",
     "test:ui": "vitest --ui",
