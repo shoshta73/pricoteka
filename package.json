@@ -8,6 +8,8 @@
     "app-test": "pnpm --filter @pricoteka/app test",
     "app-lint": "pnpm lint",
     "app-format": "pnpm format",
+    "test": "pnpm -r --if-present test",
+    "test:ui": "pnpm --filter @pricoteka/app test:ui",
     "lint": "pnpm --filter @pricoteka/app prepare:checks && oxlint .",
     "lint:fix": "pnpm --filter @pricoteka/app prepare:checks && oxlint --fix .",
     "format": "pnpm --filter @pricoteka/app prepare:checks && oxfmt --check .",
