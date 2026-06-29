@@ -20,7 +20,8 @@
     "fallow:dupes": "fallow dupes",
     "fallow:health": "fallow health",
     "fallow:review": "fallow review",
-    "fallow:fix": "fallow fix"
+    "fallow:fix": "fallow fix",
+    "dev": "concurrently \"pnpm --filter @pricoteka/api dev\" \"pnpm --filter @pricoteka/app dev\""
   },
   "devDependencies": {
     "concurrently": "^10.0.3",
