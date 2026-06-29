@@ -1,11 +1,5 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": ["apps/frontend/src/routeTree.gen.ts"],
-  "sortTailwindcss": {
-    "stylesheet": "./apps/frontend/src/index.css",
-    "functions": ["clsx", "cn"],
-    "preserveWhitespace": true
-  },
   "sortImports": {
     "groups": [
       "type-import",
