@@ -3,14 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "build": "pnpm typecheck",
-    "test": "vitest run",
-    "test:ui": "vitest --ui",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
-  },
   "types": "./src/index.ts",
   "exports": {
     ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "pnpm typecheck",
+    "format": "oxfmt --check .",
+    "lint": "oxlint .",
+    "test": "vitest run",
+    "test:ui": "vitest --ui",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
   }
 }
