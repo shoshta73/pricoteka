@@ -23,6 +23,7 @@
     "fallow:fix": "fallow fix"
   },
   "devDependencies": {
+    "concurrently": "^10.0.3",
     "fallow": "^2.101.0",
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
