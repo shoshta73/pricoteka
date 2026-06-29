@@ -24,7 +24,8 @@
     "fallow": "^2.101.0",
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@11.5.0"
 }
