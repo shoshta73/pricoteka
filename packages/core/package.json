@@ -11,12 +11,12 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json --emitDeclarationOnly && rolldown src/index.ts --format=esm --file=dist/index.js",
+    "build": "tsc --emitDeclarationOnly && rolldown src/index.ts --format=esm --file=dist/index.js",
     "format": "oxfmt --check .",
     "format:fix": "oxfmt .",
     "lint": "oxlint .",
     "test": "vitest run",
     "test:ui": "vitest --ui",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit"
   }
 }
