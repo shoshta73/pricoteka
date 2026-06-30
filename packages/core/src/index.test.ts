@@ -1,6 +1,37 @@
 import { describe, expect, it } from "vitest";
 
-import { migrateStore } from "./index.ts";
+import { err, isErr, isOk, migrateStore, ok, unwrap, unwrapOr } from "./index.ts";
+
+describe("Result", () => {
+  it("creates ok results", () => {
+    const result = ok(42);
+
+    expect(result).toEqual({ ok: true, value: 42 });
+    expect(isOk(result)).toBe(true);
+    expect(isErr(result)).toBe(false);
+  });
+
+  it("creates err results", () => {
+    const result = err("not found");
+
+    expect(result).toEqual({ ok: false, error: "not found" });
+    expect(isOk(result)).toBe(false);
+    expect(isErr(result)).toBe(true);
+  });
+
+  it("unwraps ok results", () => {
+    expect(unwrap(ok("value"))).toBe("value");
+  });
+
+  it("throws err values when unwrapping err results", () => {
+    expect(() => unwrap(err(new Error("boom")))).toThrow("boom");
+  });
+
+  it("returns a fallback for err results", () => {
+    expect(unwrapOr(err("missing"), "fallback")).toBe("fallback");
+    expect(unwrapOr(ok("value"), "fallback")).toBe("value");
+  });
+});
 
 describe("migrateStore", () => {
   it("keeps the v1 store fields", () => {
