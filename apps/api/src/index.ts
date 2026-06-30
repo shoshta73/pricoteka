@@ -3,13 +3,10 @@ import type { Store } from "@pricoteka/core";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { v4 as uuidv4 } from "uuid";
-import * as z from "zod";
+
+import { params } from "./schema/store/index";
 
 const app = new Hono();
-
-const createStoreSchema = z.object({
-  name: z.string().trim().min(1),
-});
 
 app.post("/store", async (c) => {
   let body: unknown;
@@ -20,7 +17,7 @@ app.post("/store", async (c) => {
     return c.json({ error: "Request body must be valid JSON." }, 400);
   }
 
-  const result = createStoreSchema.safeParse(body);
+  const result = params.safeParse(body);
 
   if (!result.success) {
     return c.json({ error: "Store name is required." }, 400);

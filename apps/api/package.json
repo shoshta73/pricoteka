@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "tsc --noEmit && rolldown src/index.ts --platform=node --format=esm --file=dist/index.js",
     "start": "node dist/index.js",
     "format": "oxfmt --check .",
     "format:fix": "oxfmt .",
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.17",
+    "rolldown": "^1.0.3",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
   }
