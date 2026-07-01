@@ -1,4 +1,5 @@
 import { defineConfig } from "rolldown";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   input: {
@@ -9,4 +10,15 @@ export default defineConfig({
     dir: "dist",
     format: "esm",
   },
+  plugins: [
+    visualizer(),
+    visualizer({
+      filename: "stats-sunburst.html",
+      template: "sunburst",
+    }),
+    visualizer({
+      filename: "stats.json",
+      template: "raw-data",
+    }),
+  ],
 });
