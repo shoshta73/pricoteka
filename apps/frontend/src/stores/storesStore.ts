@@ -1,7 +1,8 @@
 import { migrateStore, type Store, type v1 } from "@pricoteka/core";
-import { v4 as uuidv4 } from "uuid";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
+
+import { createBrowserStoresService } from "@/services/stores/browserStoresService";
 
 interface StoresStore {
   stores: Store[];
@@ -14,63 +15,20 @@ interface StoresStore {
 export const useStoresStore = create<StoresStore>()(
   devtools(
     persist(
-      (set, get) => ({
-        stores: [],
-        storeExists: (name) => {
-          const { stores } = get();
-          for (const store of stores) {
-            if (store.name === name) {
-              return true;
-            }
-          }
+      (set, get) => {
+        const storesService = createBrowserStoresService({
+          getStores: () => get().stores,
+          setStores: (stores) => set({ stores }),
+        });
 
-          return false;
-        },
-        addStore: (name) => {
-          const { stores, storeExists } = get();
-          if (storeExists(name)) {
-            return;
-          }
-
-          const newStore: Store = {
-            id: uuidv4(),
-            name,
-            offices: [],
-          };
-          const newStores = [...stores, newStore];
-          set({ stores: newStores });
-        },
-        officeExists: (storeId, name) => {
-          const { stores } = get();
-          const store = stores.find((item) => item.id === storeId);
-
-          return store?.offices.some((office: v1.StoreOffice) => office.name === name) ?? false;
-        },
-        addOffice: (storeId, name) => {
-          const { stores, officeExists } = get();
-          if (officeExists(storeId, name)) {
-            return;
-          }
-
-          const newStores = stores.map((store) => {
-            if (store.id !== storeId) {
-              return store;
-            }
-
-            return {
-              ...store,
-              offices: [
-                ...store.offices,
-                {
-                  id: uuidv4(),
-                  name,
-                },
-              ],
-            };
-          });
-          set({ stores: newStores });
-        },
-      }),
+        return {
+          stores: [],
+          storeExists: storesService.storeExists,
+          addStore: storesService.addStore,
+          officeExists: storesService.officeExists,
+          addOffice: storesService.addOffice,
+        };
+      },
       {
         name: "stores-storage",
         version: 2,
