@@ -47,7 +47,7 @@ function StoreDetail() {
         </EmptyHeader>
         <EmptyContent>
           {appConfig.isApiMode ? (
-            <p className="text-muted-foreground text-sm">{t("stores.apiOfficesUnavailable")}</p>
+            <p className="text-sm text-muted-foreground">{t("stores.apiOfficesUnavailable")}</p>
           ) : (
             <Button onClick={() => void navigate({ to: "/stores/$storeId/offices/create", params: { storeId } })}>
               <PlusIcon data-icon="inline-start" />
