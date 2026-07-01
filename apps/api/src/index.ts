@@ -6,6 +6,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { v4 as uuidv4 } from "uuid";
 
+import { closeCache, deleteCache, getJsonCache, setJsonCache } from "./cache/index";
 import { db } from "./db/index";
 import { offices, stores } from "./db/schema";
 import {
@@ -19,10 +20,24 @@ import {
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
+const storesCacheKey = "stores:list:v1";
+const storesCacheTtlSeconds = 60;
 
 app.use("*", cors());
 
 app.get("/stores", async (c) => {
+  const cachedStores = await getJsonCache(storesCacheKey);
+
+  if (cachedStores) {
+    const cachedOutput = storesResult.safeParse(cachedStores);
+
+    if (cachedOutput.success) {
+      return c.json(cachedOutput.data);
+    }
+
+    await deleteCache(storesCacheKey);
+  }
+
   const storedStores = await db.select().from(stores);
   const storedOffices = await db.select().from(offices);
   const officesByStoreId = new Map<string, v1.StoreOffice[]>();
@@ -49,6 +64,8 @@ app.get("/stores", async (c) => {
   if (!output.success) {
     return c.json({ error: "Stores result is invalid." }, 500);
   }
+
+  await setJsonCache(storesCacheKey, output.data, storesCacheTtlSeconds);
 
   return c.json(output.data);
 });
@@ -87,6 +104,8 @@ app.post("/store", async (c) => {
   if (!output.success) {
     return c.json({ error: "Created store result is invalid." }, 500);
   }
+
+  await deleteCache(storesCacheKey);
 
   return c.json(output.data, 201);
 });
@@ -138,6 +157,8 @@ app.post("/store/:id/office", async (c) => {
     return c.json({ error: "Created office result is invalid." }, 500);
   }
 
+  await deleteCache(storesCacheKey);
+
   return c.json(output.data, 201);
 });
 
@@ -170,7 +191,7 @@ app.get("/store/:id/offices", async (c) => {
   return c.json(output.data);
 });
 
-serve(
+const server = serve(
   {
     fetch: app.fetch,
     port: 3000,
@@ -179,3 +200,16 @@ serve(
     console.log(`Server is running on http://localhost:${info.port}`);
   },
 );
+
+async function shutdown(): Promise<void> {
+  await closeCache();
+  server.close();
+}
+
+process.on("SIGINT", () => {
+  void shutdown().finally(() => process.exit(0));
+});
+
+process.on("SIGTERM", () => {
+  void shutdown().finally(() => process.exit(0));
+});
