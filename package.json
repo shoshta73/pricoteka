@@ -29,6 +29,7 @@
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
     "rolldown": "^1.0.3",
+    "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "^6.0.3",
     "vitest": "^4.1.9"
   },

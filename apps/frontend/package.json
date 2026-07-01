@@ -64,7 +64,6 @@
     "@vitest/ui": "^4.1.9",
     "babel-plugin-react-compiler": "^1.0.0",
     "jsdom": "^29.1.1",
-    "rollup-plugin-visualizer": "^7.0.1",
     "vite": "^8.0.16"
   }
 }
