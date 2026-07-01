@@ -15,3 +15,4 @@ export const officeParams = z.object({
 
 export const result = storeSchema;
 export const officeResult = storeOfficeSchema;
+export const officesResult = z.array(storeOfficeSchema);

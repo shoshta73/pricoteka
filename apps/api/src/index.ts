@@ -8,7 +8,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
 import { offices, stores } from "./db/schema";
-import { officeParams, officePathParams, officeResult, params, result as storeResult } from "./schema/store/index";
+import {
+  officeParams,
+  officePathParams,
+  officeResult,
+  officesResult,
+  params,
+  result as storeResult,
+} from "./schema/store/index";
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
@@ -132,6 +139,35 @@ app.post("/store/:id/office", async (c) => {
   }
 
   return c.json(output.data, 201);
+});
+
+app.get("/store/:id/offices", async (c) => {
+  const pathParams = officePathParams.safeParse(c.req.param());
+
+  if (!pathParams.success) {
+    return c.json({ error: "Store id must be a valid UUID." }, 400);
+  }
+
+  const [storedStore] = await db.select().from(stores).where(eq(stores.id, pathParams.data.id)).limit(1);
+
+  if (!storedStore) {
+    return c.json({ error: "Store not found." }, 404);
+  }
+
+  const storedOffices = await db.select().from(offices).where(eq(offices.storeId, storedStore.id));
+
+  const storeOffices: v1.StoreOffice[] = storedOffices.map((office) => ({
+    id: office.id,
+    name: office.name,
+  }));
+
+  const output = officesResult.safeParse(storeOffices);
+
+  if (!output.success) {
+    return c.json({ error: "Store offices result is invalid." }, 500);
+  }
+
+  return c.json(output.data);
 });
 
 serve(
