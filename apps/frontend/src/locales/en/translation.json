@@ -2,6 +2,11 @@
   "nav": {
     "stores": "Stores"
   },
+  "pages": {
+    "about": {
+      "title": "About"
+    }
+  },
   "stores": {
     "createAction": "Create Store",
     "createDescription": "Create a new store",
@@ -18,6 +23,7 @@
     "detailNoOfficesDescription": "Create a new office to get started.",
     "detailNoOfficesTitle": "{{name}}: no offices registered.",
     "detailNotFound": "Store not found.",
+    "detailTitle": "Store Details",
     "emptyDescription": "Create a new store to get started.",
     "emptyTitle": "No Stores Registered",
     "loadFailure": "Stores could not be loaded.",
@@ -28,5 +34,9 @@
     "officeNamePlaceholder": "Office",
     "resetAction": "Reset",
     "title": "Stores"
+  },
+  "title": {
+    "app": "Pricoteka",
+    "page": "{{page}} | Pricoteka"
   }
 }

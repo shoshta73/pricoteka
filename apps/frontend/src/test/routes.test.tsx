@@ -34,6 +34,18 @@ describe("routes", () => {
     expect(await findByText(i18n.t("stores.createTitle"))).toBeInTheDocument();
   });
 
+  it("sets localized document titles", async () => {
+    const { findByText } = renderRouter("/stores/create");
+
+    await findByText(i18n.t("stores.createTitle"));
+
+    expect(document.title).toBe(i18n.t("title.page", { page: i18n.t("stores.createTitle") }));
+
+    await i18n.changeLanguage("hr");
+
+    expect(document.title).toBe(i18n.t("title.page", { page: i18n.t("stores.createTitle") }));
+  });
+
   it("renders the about route", async () => {
     const { findByText } = renderRouter("/about");
 

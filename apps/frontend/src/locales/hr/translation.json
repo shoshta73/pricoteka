@@ -2,6 +2,11 @@
   "nav": {
     "stores": "Trgovine"
   },
+  "pages": {
+    "about": {
+      "title": "O aplikaciji"
+    }
+  },
   "stores": {
     "createAction": "Dodaj trgovinu",
     "createDescription": "Dodajte novu trgovinu",
@@ -18,6 +23,7 @@
     "detailNoOfficesDescription": "Dodajte novi ured za početak.",
     "detailNoOfficesTitle": "{{name}}: nema registriranih ureda.",
     "detailNotFound": "Trgovina nije pronađena.",
+    "detailTitle": "Detalji trgovine",
     "emptyDescription": "Dodajte novu trgovinu za početak.",
     "emptyTitle": "Nema registriranih trgovina",
     "loadFailure": "Trgovine nije moguće učitati.",
@@ -28,5 +34,9 @@
     "officeNamePlaceholder": "Ured",
     "resetAction": "Poništi",
     "title": "Trgovine"
+  },
+  "title": {
+    "app": "Pricoteka",
+    "page": "{{page}} | Pricoteka"
   }
 }
