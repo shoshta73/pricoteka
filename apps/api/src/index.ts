@@ -10,6 +10,18 @@ import { params } from "./schema/store/index";
 
 const app = new Hono();
 
+app.get("/stores", async (c) => {
+  const storedStores = await db.select().from(stores);
+
+  const storesResponse: Store[] = storedStores.map((store) => ({
+    id: store.id,
+    name: store.name,
+    offices: [],
+  }));
+
+  return c.json(storesResponse);
+});
+
 app.post("/store", async (c) => {
   let body: unknown;
 
