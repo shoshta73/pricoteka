@@ -60,5 +60,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Core Build
+        run: pnpm --filter @pricoteka/core build
+
       - name: App Test
         run: pnpm app-test
