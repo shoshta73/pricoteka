@@ -6,7 +6,11 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
 import { stores } from "./db/schema";
-import { params, result as storeResult } from "./schema/store/index";
+import {
+  params,
+  result as storeResult,
+} from "./schema/store/index";
+import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
 
@@ -19,7 +23,13 @@ app.get("/stores", async (c) => {
     offices: [],
   }));
 
-  return c.json(storesResponse);
+  const output = storesResult.safeParse(storesResponse);
+
+  if (!output.success) {
+    return c.json({ error: "Stores result is invalid." }, 500);
+  }
+
+  return c.json(output.data);
 });
 
 app.post("/store", async (c) => {
