@@ -77,6 +77,51 @@ describe("apiStoresClient", () => {
     await expect(client.createStore({ name: "" })).rejects.toEqual(new ApiError("Store name is required.", 400));
   });
 
+  it("creates an office through the API", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      jsonResponse(
+        {
+          id: "75b018d8-c84b-4051-89d8-e5641ff6a6cb",
+          name: "Office",
+        },
+        { status: 201 },
+      ),
+    );
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(
+      client.createOffice({ storeId: "7de2da19-7e33-496b-80f4-1358b4b43125", name: "Office" }),
+    ).resolves.toEqual({
+      id: "75b018d8-c84b-4051-89d8-e5641ff6a6cb",
+      name: "Office",
+    });
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3000/store/7de2da19-7e33-496b-80f4-1358b4b43125/office", {
+      body: JSON.stringify({ name: "Office" }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+  });
+
+  it("throws an API error when office creation fails", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ error: "Store not found." }, { status: 404 }));
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(
+      client.createOffice({ storeId: "7de2da19-7e33-496b-80f4-1358b4b43125", name: "Office" }),
+    ).rejects.toEqual(new ApiError("Store not found.", 404));
+  });
+
+  it("rejects invalid create office responses", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ id: "office-1", name: "Office" }, { status: 201 }));
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(
+      client.createOffice({ storeId: "7de2da19-7e33-496b-80f4-1358b4b43125", name: "Office" }),
+    ).rejects.toBeInstanceOf(z.ZodError);
+  });
+
   it("uses a fallback error when the API error body is invalid", async () => {
     const fetchMock = vi.fn().mockResolvedValue(new Response("not json", { status: 500 }));
     const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
