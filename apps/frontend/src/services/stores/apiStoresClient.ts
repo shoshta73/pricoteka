@@ -1,5 +1,5 @@
-import type { Store } from "@pricoteka/core";
-import { storeSchema } from "@pricoteka/core/schema";
+import type { Store, v1 } from "@pricoteka/core";
+import { storeOfficeSchema, storeSchema } from "@pricoteka/core/schema";
 import * as z from "zod";
 
 import { appConfig } from "@/lib/appConfig";
@@ -15,6 +15,7 @@ interface ApiStoresClientOptions {
 export interface ApiStoresClient {
   listStores: () => Promise<Store[]>;
   createStore: (input: { name: string }) => Promise<Store>;
+  createOffice: (input: { storeId: string; name: string }) => Promise<v1.StoreOffice>;
 }
 
 async function readJson(response: Response): Promise<unknown> {
@@ -60,6 +61,22 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
       }
 
       return storeSchema.parse(body);
+    },
+    createOffice: async ({ storeId, name }) => {
+      const response = await fetch(`${apiUrl}/store/${storeId}/office`, {
+        body: JSON.stringify({ name }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      });
+      const body = await readJson(response);
+
+      if (!response.ok) {
+        throw new ApiError(getErrorMessage(body, "Failed to create office."), response.status);
+      }
+
+      return storeOfficeSchema.parse(body);
     },
   };
 }

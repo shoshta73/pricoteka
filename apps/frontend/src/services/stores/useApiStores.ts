@@ -21,3 +21,14 @@ export function useCreateApiStore() {
     },
   });
 }
+
+export function useCreateApiOffice() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: apiStoresClient.createOffice,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: storesQueryKeys.all });
+    },
+  });
+}
