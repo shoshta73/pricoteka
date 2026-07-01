@@ -8,13 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
 import { offices, stores } from "./db/schema";
-import {
-  officeParams,
-  officePathParams,
-  officeResult,
-  params,
-  result as storeResult,
-} from "./schema/store/index";
+import { officeParams, officePathParams, officeResult, params, result as storeResult } from "./schema/store/index";
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
@@ -111,11 +105,7 @@ app.post("/store/:id/office", async (c) => {
     return c.json({ error: "Office name is required." }, 400);
   }
 
-  const [storedStore] = await db
-    .select()
-    .from(stores)
-    .where(eq(stores.id, pathParams.data.id))
-    .limit(1);
+  const [storedStore] = await db.select().from(stores).where(eq(stores.id, pathParams.data.id)).limit(1);
 
   if (!storedStore) {
     return c.json({ error: "Store not found." }, 404);
