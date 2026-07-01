@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
 import { stores } from "./db/schema";
-import { params } from "./schema/store/index";
+import { params, result as storeResult } from "./schema/store/index";
 
 const app = new Hono();
 
@@ -31,9 +31,9 @@ app.post("/store", async (c) => {
     return c.json({ error: "Request body must be valid JSON." }, 400);
   }
 
-  const result = params.safeParse(body);
+  const input = params.safeParse(body);
 
-  if (!result.success) {
+  if (!input.success) {
     return c.json({ error: "Store name is required." }, 400);
   }
 
@@ -41,7 +41,7 @@ app.post("/store", async (c) => {
     .insert(stores)
     .values({
       id: uuidv4(),
-      name: result.data.name,
+      name: input.data.name,
     })
     .returning();
 
@@ -51,7 +51,13 @@ app.post("/store", async (c) => {
     offices: [],
   };
 
-  return c.json(store, 201);
+  const output = storeResult.safeParse(store);
+
+  if (!output.success) {
+    return c.json({ error: "Created store result is invalid." }, 500);
+  }
+
+  return c.json(output.data, 201);
 });
 
 serve(
