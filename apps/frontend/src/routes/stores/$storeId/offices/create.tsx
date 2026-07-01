@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { appConfig } from "@/lib/appConfig";
+import { useCreateOfficeAction } from "@/services/stores/useCreateOfficeAction";
 import { useStoresStore } from "@/stores/storesStore";
 
 export const Route = createFileRoute("/stores/$storeId/offices/create")({
@@ -23,11 +23,8 @@ function CreateStoreOffice() {
   const { t } = useTranslation();
   const { storeId } = Route.useParams();
   const navigate = useNavigate();
-  const { addOffice, officeExists } = useStoresStore();
-
-  if (appConfig.isApiMode) {
-    return <div className="p-2">{t("stores.apiOfficesUnavailable")}</div>;
-  }
+  const officeExists = useStoresStore((state) => state.officeExists);
+  const { createOffice, isPending } = useCreateOfficeAction();
 
   const form = useForm({
     defaultValues: {
@@ -41,7 +38,7 @@ function CreateStoreOffice() {
         toast.error(t("stores.createOfficeFailureExists", { name: value.name }));
         return;
       }
-      addOffice(storeId, value.name);
+      await createOffice(storeId, value.name);
       toast.success(t("stores.createOfficeSuccess", { name: value.name }));
       await navigate({ to: "/stores/$storeId", params: { storeId } });
     },
@@ -92,7 +89,7 @@ function CreateStoreOffice() {
           <Button type="button" variant="outline" onClick={() => form.reset()}>
             {t("stores.resetAction")}
           </Button>
-          <Button type="submit" form="create-store-office-form">
+          <Button type="submit" form="create-store-office-form" disabled={isPending}>
             {t("stores.createSubmitAction")}
           </Button>
         </Field>

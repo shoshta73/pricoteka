@@ -20,7 +20,6 @@
     "detailNotFound": "Trgovina nije pronađena.",
     "emptyDescription": "Dodajte novu trgovinu za početak.",
     "emptyTitle": "Nema registriranih trgovina",
-    "apiOfficesUnavailable": "Upravljanje uredima još nije dostupno u API načinu rada.",
     "loadFailure": "Trgovine nije moguće učitati.",
     "loading": "Učitavanje trgovina...",
     "nameLabel": "Naziv",

@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { appConfig } from "@/lib/appConfig";
 import { useStoresData } from "@/services/stores/useStoresData";
 
 export const Route = createFileRoute("/stores/$storeId")({
@@ -46,14 +45,10 @@ function StoreDetail() {
           <EmptyDescription>{t("stores.detailNoOfficesDescription")}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-          {appConfig.isApiMode ? (
-            <p className="text-sm text-muted-foreground">{t("stores.apiOfficesUnavailable")}</p>
-          ) : (
-            <Button onClick={() => void navigate({ to: "/stores/$storeId/offices/create", params: { storeId } })}>
-              <PlusIcon data-icon="inline-start" />
-              {t("stores.createOfficeAction")}
-            </Button>
-          )}
+          <Button onClick={() => void navigate({ to: "/stores/$storeId/offices/create", params: { storeId } })}>
+            <PlusIcon data-icon="inline-start" />
+            {t("stores.createOfficeAction")}
+          </Button>
         </EmptyContent>
       </Empty>
     );

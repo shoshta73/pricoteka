@@ -20,7 +20,6 @@
     "detailNotFound": "Store not found.",
     "emptyDescription": "Create a new store to get started.",
     "emptyTitle": "No Stores Registered",
-    "apiOfficesUnavailable": "Office management is not available in API mode yet.",
     "loadFailure": "Stores could not be loaded.",
     "loading": "Loading stores...",
     "nameLabel": "Name",
