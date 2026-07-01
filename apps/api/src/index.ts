@@ -2,6 +2,7 @@ import type { Store } from "@pricoteka/core";
 
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
@@ -13,6 +14,8 @@ import {
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
+
+app.use("*", cors());
 
 app.get("/stores", async (c) => {
   const storedStores = await db.select().from(stores);
