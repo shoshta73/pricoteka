@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { appConfig } from "@/lib/appConfig";
 import { useStoresStore } from "@/stores/storesStore";
 
 export const Route = createFileRoute("/stores/$storeId/offices/create")({
@@ -23,6 +24,11 @@ function CreateStoreOffice() {
   const { storeId } = Route.useParams();
   const navigate = useNavigate();
   const { addOffice, officeExists } = useStoresStore();
+
+  if (appConfig.isApiMode) {
+    return <div className="p-2">{t("stores.apiOfficesUnavailable")}</div>;
+  }
+
   const form = useForm({
     defaultValues: {
       name: "",

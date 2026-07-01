@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { useStoresStore } from "@/stores/storesStore";
+import { appConfig } from "@/lib/appConfig";
+import { useStoresData } from "@/services/stores/useStoresData";
 
 export const Route = createFileRoute("/stores/$storeId")({
   component: StoreDetail,
@@ -13,9 +14,18 @@ export const Route = createFileRoute("/stores/$storeId")({
 function StoreDetail() {
   const { t } = useTranslation();
   const { storeId } = Route.useParams();
-  const store = useStoresStore((state) => state.stores.find((item) => item.id === storeId));
+  const { isError, isLoading, stores } = useStoresData();
+  const store = stores.find((item) => item.id === storeId);
   const navigate = useNavigate();
   const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== `/stores/${store?.id}` });
+
+  if (isLoading) {
+    return <div className="p-2">{t("stores.loading")}</div>;
+  }
+
+  if (isError) {
+    return <div className="p-2">{t("stores.loadFailure")}</div>;
+  }
 
   if (!store) {
     return <div className="p-2">{t("stores.detailNotFound")}</div>;
@@ -36,10 +46,14 @@ function StoreDetail() {
           <EmptyDescription>{t("stores.detailNoOfficesDescription")}</EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-          <Button onClick={() => void navigate({ to: "/stores/$storeId/offices/create", params: { storeId } })}>
-            <PlusIcon data-icon="inline-start" />
-            {t("stores.createOfficeAction")}
-          </Button>
+          {appConfig.isApiMode ? (
+            <p className="text-muted-foreground text-sm">{t("stores.apiOfficesUnavailable")}</p>
+          ) : (
+            <Button onClick={() => void navigate({ to: "/stores/$storeId/offices/create", params: { storeId } })}>
+              <PlusIcon data-icon="inline-start" />
+              {t("stores.createOfficeAction")}
+            </Button>
+          )}
         </EmptyContent>
       </Empty>
     );

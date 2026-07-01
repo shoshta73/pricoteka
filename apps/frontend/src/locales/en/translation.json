@@ -5,6 +5,7 @@
   "stores": {
     "createAction": "Create Store",
     "createDescription": "Create a new store",
+    "createFailure": "Store could not be created.",
     "createFailureExists": "{{name}} already exists.",
     "createOfficeAction": "Create Office",
     "createOfficeDescription": "Create a new office for this store.",
@@ -19,6 +20,9 @@
     "detailNotFound": "Store not found.",
     "emptyDescription": "Create a new store to get started.",
     "emptyTitle": "No Stores Registered",
+    "apiOfficesUnavailable": "Office management is not available in API mode yet.",
+    "loadFailure": "Stores could not be loaded.",
+    "loading": "Loading stores...",
     "nameLabel": "Name",
     "namePlaceholder": "Store",
     "officeNameLabel": "Name",

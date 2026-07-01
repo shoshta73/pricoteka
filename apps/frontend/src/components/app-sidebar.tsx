@@ -16,7 +16,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { useStoresStore } from "@/stores/storesStore";
+import { useStoresData } from "@/services/stores/useStoresData";
 
 const data = {
   nav: [
@@ -29,7 +29,7 @@ const data = {
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
-  const { stores } = useStoresStore();
+  const { stores } = useStoresData();
 
   return (
     <Sidebar {...props}>

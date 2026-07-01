@@ -5,6 +5,7 @@
   "stores": {
     "createAction": "Dodaj trgovinu",
     "createDescription": "Dodajte novu trgovinu",
+    "createFailure": "Trgovinu nije moguće dodati.",
     "createFailureExists": "Trgovina {{name}} već postoji.",
     "createOfficeAction": "Dodaj ured",
     "createOfficeDescription": "Dodajte novi ured za ovu trgovinu.",
@@ -19,6 +20,9 @@
     "detailNotFound": "Trgovina nije pronađena.",
     "emptyDescription": "Dodajte novu trgovinu za početak.",
     "emptyTitle": "Nema registriranih trgovina",
+    "apiOfficesUnavailable": "Upravljanje uredima još nije dostupno u API načinu rada.",
+    "loadFailure": "Trgovine nije moguće učitati.",
+    "loading": "Učitavanje trgovina...",
     "nameLabel": "Naziv",
     "namePlaceholder": "Trgovina",
     "officeNameLabel": "Naziv",

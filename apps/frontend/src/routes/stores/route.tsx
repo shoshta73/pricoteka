@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { useStoresStore } from "@/stores/storesStore";
+import { useStoresData } from "@/services/stores/useStoresData";
 
 export const Route = createFileRoute("/stores")({
   component: Stores,
@@ -12,12 +12,20 @@ export const Route = createFileRoute("/stores")({
 
 function Stores() {
   const { t } = useTranslation();
-  const { stores } = useStoresStore();
+  const { stores, isError, isLoading } = useStoresData();
   const navigate = useNavigate();
   const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== "/stores" });
 
   if (isChildRoute) {
     return <Outlet />;
+  }
+
+  if (isLoading) {
+    return <div className="p-2">{t("stores.loading")}</div>;
+  }
+
+  if (isError) {
+    return <div className="p-2">{t("stores.loadFailure")}</div>;
   }
 
   if (stores.length === 0) {

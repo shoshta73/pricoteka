@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { useStoresStore } from "@/stores/storesStore";
+import { useCreateStoreAction } from "@/services/stores/useCreateStoreAction";
+import { useStoresData } from "@/services/stores/useStoresData";
 
 export const Route = createFileRoute("/stores/create")({
   component: CreateStore,
@@ -21,7 +22,8 @@ const formSchema = z.object({
 function CreateStore() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { addStore, storeExists } = useStoresStore();
+  const { storeExists } = useStoresData();
+  const { createStore, isPending } = useCreateStoreAction();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -34,9 +36,13 @@ function CreateStore() {
         toast.error(t("stores.createFailureExists", { name: value.name }));
         return;
       }
-      addStore(value.name);
-      toast.success(t("stores.createSuccess", { name: value.name }));
-      await navigate({ to: "/stores" });
+      try {
+        await createStore(value.name);
+        toast.success(t("stores.createSuccess", { name: value.name }));
+        await navigate({ to: "/stores" });
+      } catch {
+        toast.error(t("stores.createFailure"));
+      }
     },
   });
 
@@ -85,7 +91,7 @@ function CreateStore() {
           <Button type="button" variant="outline" onClick={() => form.reset()}>
             {t("stores.resetAction")}
           </Button>
-          <Button type="submit" form="create-store-form">
+          <Button type="submit" form="create-store-form" disabled={isPending}>
             {t("stores.createSubmitAction")}
           </Button>
         </Field>
