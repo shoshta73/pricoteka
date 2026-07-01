@@ -1,13 +1,20 @@
-import type { Store } from "@pricoteka/core";
+import type { Store, v1 } from "@pricoteka/core";
 
 import { serve } from "@hono/node-server";
+import { eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { v4 as uuidv4 } from "uuid";
 
 import { db } from "./db/index";
-import { stores } from "./db/schema";
-import { params, result as storeResult } from "./schema/store/index";
+import { offices, stores } from "./db/schema";
+import {
+  officeParams,
+  officePathParams,
+  officeResult,
+  params,
+  result as storeResult,
+} from "./schema/store/index";
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
@@ -16,11 +23,24 @@ app.use("*", cors());
 
 app.get("/stores", async (c) => {
   const storedStores = await db.select().from(stores);
+  const storedOffices = await db.select().from(offices);
+  const officesByStoreId = new Map<string, v1.StoreOffice[]>();
+
+  for (const office of storedOffices) {
+    const storeOffices = officesByStoreId.get(office.storeId) ?? [];
+
+    storeOffices.push({
+      id: office.id,
+      name: office.name,
+    });
+
+    officesByStoreId.set(office.storeId, storeOffices);
+  }
 
   const storesResponse: Store[] = storedStores.map((store) => ({
     id: store.id,
     name: store.name,
-    offices: [],
+    offices: officesByStoreId.get(store.id) ?? [],
   }));
 
   const output = storesResult.safeParse(storesResponse);
@@ -65,6 +85,60 @@ app.post("/store", async (c) => {
 
   if (!output.success) {
     return c.json({ error: "Created store result is invalid." }, 500);
+  }
+
+  return c.json(output.data, 201);
+});
+
+app.post("/store/:id/office", async (c) => {
+  const pathParams = officePathParams.safeParse(c.req.param());
+
+  if (!pathParams.success) {
+    return c.json({ error: "Store id must be a valid UUID." }, 400);
+  }
+
+  let body: unknown;
+
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Request body must be valid JSON." }, 400);
+  }
+
+  const input = officeParams.safeParse(body);
+
+  if (!input.success) {
+    return c.json({ error: "Office name is required." }, 400);
+  }
+
+  const [storedStore] = await db
+    .select()
+    .from(stores)
+    .where(eq(stores.id, pathParams.data.id))
+    .limit(1);
+
+  if (!storedStore) {
+    return c.json({ error: "Store not found." }, 404);
+  }
+
+  const [storedOffice] = await db
+    .insert(offices)
+    .values({
+      id: uuidv4(),
+      storeId: storedStore.id,
+      name: input.data.name,
+    })
+    .returning();
+
+  const office: v1.StoreOffice = {
+    id: storedOffice.id,
+    name: storedOffice.name,
+  };
+
+  const output = officeResult.safeParse(office);
+
+  if (!output.success) {
+    return c.json({ error: "Created office result is invalid." }, 500);
   }
 
   return c.json(output.data, 201);
