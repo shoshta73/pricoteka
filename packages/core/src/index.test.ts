@@ -1,16 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import {
-  ResultError,
-  err,
-  isErr,
-  isOk,
-  migrateStore,
-  ok,
-  toResultError,
-  unwrap,
-  unwrapOr,
-} from "./index.ts";
+import { ResultError, err, isErr, isOk, migrateStore, ok, toResultError, unwrap, unwrapOr } from "./index.ts";
 
 describe("Result", () => {
   it("creates ok results", () => {
