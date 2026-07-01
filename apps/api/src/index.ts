@@ -4,6 +4,8 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { v4 as uuidv4 } from "uuid";
 
+import { db } from "./db/index";
+import { stores } from "./db/schema";
 import { params } from "./schema/store/index";
 
 const app = new Hono();
@@ -23,11 +25,20 @@ app.post("/store", async (c) => {
     return c.json({ error: "Store name is required." }, 400);
   }
 
+  const [storedStore] = await db
+    .insert(stores)
+    .values({
+      id: uuidv4(),
+      name: result.data.name,
+    })
+    .returning();
+
   const store: Store = {
-    name: result.data.name,
-    id: uuidv4(),
+    id: storedStore.id,
+    name: storedStore.name,
     offices: [],
   };
+
   return c.json(store, 201);
 });
 
