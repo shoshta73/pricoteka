@@ -20,6 +20,7 @@
     "createSuccess": "Trgovina {{name}} je dodana.",
     "createSubmitAction": "Dodaj",
     "createTitle": "Dodaj trgovinu",
+    "dashboard": "Nadzorna ploča",
     "detailNoOfficesDescription": "Dodajte novi ured za početak.",
     "detailNoOfficesTitle": "{{name}}: nema registriranih ureda.",
     "detailNotFound": "Trgovina nije pronađena.",

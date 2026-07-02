@@ -20,6 +20,7 @@
     "createSuccess": "Created {{name}}.",
     "createSubmitAction": "Create",
     "createTitle": "Create Store",
+    "dashboard": "Dashboard",
     "detailNoOfficesDescription": "Create a new office to get started.",
     "detailNoOfficesTitle": "{{name}}: no offices registered.",
     "detailNotFound": "Store not found.",

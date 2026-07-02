@@ -1,4 +1,4 @@
-import { CaretDownIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
+import { CaretDownIcon, CaretRightIcon, MoonIcon, SunIcon } from "@phosphor-icons/react";
 import { Outlet, createRootRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Suspense, lazy, useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -7,8 +7,9 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { useStoresData } from "@/services/stores/useStoresData";
 import { useThemeStore } from "@/stores/themeStore";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList } from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,7 +39,10 @@ function RootComponent() {
   const toggleTheme = useThemeStore((state) => state.toggle);
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const navigate = useNavigate();
+  const { stores } = useStoresData();
   const activeBreadcrumbLabelKey = breadcrumbItems.find((item) => item.to === pathname)?.labelKey ?? "title.app";
+  const storeId = getStoreDetailId(pathname);
+  const storeBreadcrumbLabel = storeId ? stores.find((store) => store.id === storeId)?.name : null;
 
   useEffect(() => {
     const pageTitle = t(getPageTitleKey(pathname));
@@ -80,6 +84,40 @@ function RootComponent() {
                   </DropdownMenuContent>
                 </DropdownMenu>
               </BreadcrumbItem>
+              {pathname.startsWith("/stores") && (
+                <BreadcrumbSeparator>
+                  <CaretRightIcon />
+                </BreadcrumbSeparator>
+              )}
+              {(pathname === "/stores" || storeBreadcrumbLabel) && (
+                <BreadcrumbItem className="hidden md:block">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger
+                      render={
+                        <Button variant="ghost">
+                          {pathname === "/stores" ? t("stores.dashboard") : storeBreadcrumbLabel}
+                          <CaretDownIcon className="ml-auto transition-transform group-aria-expanded/button:rotate-180" />
+                        </Button>
+                      }
+                    ></DropdownMenuTrigger>
+                    <DropdownMenuContent align="start">
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem onClick={() => navigate({ to: "/stores" })}>
+                          {t("stores.dashboard")}
+                        </DropdownMenuItem>
+                        {stores.map((store) => (
+                          <DropdownMenuItem
+                            key={store.id}
+                            onClick={() => navigate({ to: "/stores/$storeId", params: { storeId: store.id } })}
+                          >
+                            {store.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </BreadcrumbItem>
+              )}
             </BreadcrumbList>
           </Breadcrumb>
           <div id="header-spacer" className="grow"></div>
@@ -103,6 +141,10 @@ function RootComponent() {
       </SidebarInset>
     </SidebarProvider>
   );
+}
+
+function getStoreDetailId(pathname: string) {
+  return /^\/stores\/([^/]+)$/.exec(pathname)?.[1] ?? null;
 }
 
 function getPageTitleKey(pathname: string) {
