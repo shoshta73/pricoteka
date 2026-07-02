@@ -11,6 +11,14 @@ export namespace v1 {
     id: string;
     name: string;
   };
+
+  export type Product = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    found_in: string[];
+  };
 }
 
 export namespace v2 {
