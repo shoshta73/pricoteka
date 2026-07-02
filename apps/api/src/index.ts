@@ -23,6 +23,10 @@ const app = new Hono();
 const storesCacheKey = "stores:list:v1";
 const storesCacheTtlSeconds = 60;
 
+function getStoreOfficesCacheKey(storeId: string): string {
+  return `store:${storeId}:offices:v1`;
+}
+
 app.use("*", cors());
 
 app.get("/stores", async (c) => {
@@ -158,6 +162,7 @@ app.post("/store/:id/office", async (c) => {
   }
 
   await deleteCache(storesCacheKey);
+  await deleteCache(getStoreOfficesCacheKey(storedStore.id));
 
   return c.json(output.data, 201);
 });
@@ -167,6 +172,19 @@ app.get("/store/:id/offices", async (c) => {
 
   if (!pathParams.success) {
     return c.json({ error: "Store id must be a valid UUID." }, 400);
+  }
+
+  const officesCacheKey = getStoreOfficesCacheKey(pathParams.data.id);
+  const cachedOffices = await getJsonCache(officesCacheKey);
+
+  if (cachedOffices) {
+    const cachedOutput = officesResult.safeParse(cachedOffices);
+
+    if (cachedOutput.success) {
+      return c.json(cachedOutput.data);
+    }
+
+    await deleteCache(officesCacheKey);
   }
 
   const [storedStore] = await db.select().from(stores).where(eq(stores.id, pathParams.data.id)).limit(1);
@@ -187,6 +205,8 @@ app.get("/store/:id/offices", async (c) => {
   if (!output.success) {
     return c.json({ error: "Store offices result is invalid." }, 500);
   }
+
+  await setJsonCache(officesCacheKey, output.data, storesCacheTtlSeconds);
 
   return c.json(output.data);
 });
