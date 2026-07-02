@@ -6,6 +6,7 @@ import { appConfig } from "@/lib/appConfig";
 import { ApiError } from "@/services/api/apiError";
 
 const storesSchema = z.array(storeSchema);
+const officesSchema = z.array(storeOfficeSchema);
 
 interface ApiStoresClientOptions {
   apiUrl: string;
@@ -14,6 +15,7 @@ interface ApiStoresClientOptions {
 
 export interface ApiStoresClient {
   listStores: () => Promise<Store[]>;
+  listOffices: (storeId: string) => Promise<v1.StoreOffice[]>;
   createStore: (input: { name: string }) => Promise<Store>;
   createOffice: (input: { storeId: string; name: string }) => Promise<v1.StoreOffice>;
 }
@@ -45,6 +47,16 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
       }
 
       return storesSchema.parse(body);
+    },
+    listOffices: async (storeId) => {
+      const response = await fetch(`${apiUrl}/store/${storeId}/offices`);
+      const body = await readJson(response);
+
+      if (!response.ok) {
+        throw new ApiError(getErrorMessage(body, "Failed to load offices."), response.status);
+      }
+
+      return officesSchema.parse(body);
     },
     createStore: async ({ name }) => {
       const response = await fetch(`${apiUrl}/store`, {

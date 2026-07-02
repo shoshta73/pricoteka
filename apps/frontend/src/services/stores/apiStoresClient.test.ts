@@ -43,6 +43,42 @@ describe("apiStoresClient", () => {
     await expect(client.listStores()).rejects.toBeInstanceOf(z.ZodError);
   });
 
+  it("lists offices for a store from the API", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(
+      jsonResponse([
+        {
+          id: "75b018d8-c84b-4051-89d8-e5641ff6a6cb",
+          name: "Office",
+        },
+      ]),
+    );
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listOffices("7de2da19-7e33-496b-80f4-1358b4b43125")).resolves.toEqual([
+      {
+        id: "75b018d8-c84b-4051-89d8-e5641ff6a6cb",
+        name: "Office",
+      },
+    ]);
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3000/store/7de2da19-7e33-496b-80f4-1358b4b43125/offices");
+  });
+
+  it("throws an API error when office loading fails", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ error: "Store not found." }, { status: 404 }));
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listOffices("7de2da19-7e33-496b-80f4-1358b4b43125")).rejects.toEqual(
+      new ApiError("Store not found.", 404),
+    );
+  });
+
+  it("rejects invalid offices list responses", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse([{ id: "office-1", name: "Office" }]));
+    const client = createApiStoresClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listOffices("7de2da19-7e33-496b-80f4-1358b4b43125")).rejects.toBeInstanceOf(z.ZodError);
+  });
+
   it("creates a store through the API", async () => {
     const fetchMock = vi.fn().mockResolvedValue(
       jsonResponse(

@@ -11,6 +11,14 @@ export function useApiStores(enabled: boolean) {
   });
 }
 
+export function useApiOffices(storeId: string, enabled: boolean) {
+  return useQuery({
+    enabled,
+    queryFn: () => apiStoresClient.listOffices(storeId),
+    queryKey: storesQueryKeys.offices(storeId),
+  });
+}
+
 export function useCreateApiStore() {
   const queryClient = useQueryClient();
 
@@ -27,8 +35,9 @@ export function useCreateApiOffice() {
 
   return useMutation({
     mutationFn: apiStoresClient.createOffice,
-    onSuccess: async () => {
+    onSuccess: async (_office, { storeId }) => {
       await queryClient.invalidateQueries({ queryKey: storesQueryKeys.all });
+      await queryClient.invalidateQueries({ queryKey: storesQueryKeys.offices(storeId) });
     },
   });
 }
