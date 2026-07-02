@@ -1,11 +1,17 @@
 {
   "nav": {
+    "products": "Proizvodi",
     "stores": "Trgovine"
   },
   "pages": {
     "about": {
       "title": "O aplikaciji"
     }
+  },
+  "products": {
+    "placeholderDescription": "Upravljanje proizvodima stiže uskoro.",
+    "placeholderTitle": "Proizvodi još nisu dostupni",
+    "title": "Proizvodi"
   },
   "stores": {
     "createAction": "Dodaj trgovinu",

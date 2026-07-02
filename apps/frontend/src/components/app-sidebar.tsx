@@ -26,6 +26,10 @@ const data = {
       labelKey: "nav.stores",
       to: "/stores",
     },
+    {
+      labelKey: "nav.products",
+      to: "/products",
+    },
   ],
 } as const;
 

@@ -1,11 +1,17 @@
 {
   "nav": {
-    "stores": "Stores"
+    "stores": "Stores",
+    "products": "Products"
   },
   "pages": {
     "about": {
       "title": "About"
     }
+  },
+  "products": {
+    "placeholderDescription": "Product management is coming soon.",
+    "placeholderTitle": "Products are not available yet",
+    "title": "Products"
   },
   "stores": {
     "createAction": "Create Store",
