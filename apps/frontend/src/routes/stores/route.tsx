@@ -55,7 +55,7 @@ function Stores() {
     <div className="flex flex-col justify-center space-y-4 p-2">
       <Card>
         <CardContent>
-          <div className="flex items-center space-x-2 p-2">
+          <div className="flex items-center space-x-2 py-2">
             <div className="flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-sm font-medium text-muted-foreground">
               <StorefrontIcon className="size-4" />
               <span>Stores</span>
