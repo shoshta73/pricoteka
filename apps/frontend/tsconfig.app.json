@@ -6,6 +6,7 @@
     "module": "esnext",
     "types": ["vite/client"],
     "moduleResolution": "bundler",
+    "resolveJsonModule": true,
     "allowImportingTsExtensions": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -15,5 +16,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "package.json"]
 }

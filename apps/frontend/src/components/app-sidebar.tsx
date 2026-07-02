@@ -3,6 +3,8 @@ import type { ComponentProps } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
+import packageJson from "../../package.json";
+
 import {
   Sidebar,
   SidebarContent,
@@ -37,9 +39,12 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size="lg" className="text-xl font-bold" onClick={() => navigate({ to: "/" })}>
-              <img src="/logo.svg" alt="" className="size-6" aria-hidden="true" />
-              Pricoteka
+            <SidebarMenuButton size="lg" onClick={() => navigate({ to: "/" })}>
+              <div className="flex w-full flex-row items-center space-x-1">
+                <img src="/logo.svg" alt="" className="size-6" aria-hidden="true" />
+                <span className="text-xl font-bold">Pricoteka</span>
+                <span className="ml-auto text-xs font-medium text-muted-foreground">v{packageJson.version}</span>
+              </div>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
