@@ -58,7 +58,7 @@ function Stores() {
           <div className="flex items-center space-x-2 py-2">
             <div className="flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-sm font-medium text-muted-foreground">
               <StorefrontIcon className="size-4" />
-              <span>Stores</span>
+              <span>{t("stores.title")}</span>
               <span className="rounded-full bg-background px-2 py-0.5 text-xs font-semibold text-foreground">
                 {stores.length}
               </span>
