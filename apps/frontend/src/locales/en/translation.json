@@ -9,8 +9,8 @@
     }
   },
   "products": {
-    "placeholderDescription": "Product management is coming soon.",
-    "placeholderTitle": "Products are not available yet",
+    "emptyDescription": "Product management is coming soon.",
+    "emptyTitle": "No Products Registered",
     "title": "Products"
   },
   "stores": {

@@ -9,8 +9,8 @@
     }
   },
   "products": {
-    "placeholderDescription": "Upravljanje proizvodima stiže uskoro.",
-    "placeholderTitle": "Proizvodi još nisu dostupni",
+    "emptyDescription": "Upravljanje proizvodima stiže uskoro.",
+    "emptyTitle": "Nema registriranih proizvoda",
     "title": "Proizvodi"
   },
   "stores": {

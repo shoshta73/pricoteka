@@ -18,6 +18,13 @@ describe("routes", () => {
     expect(await findByText(i18n.t("stores.emptyDescription"))).toBeInTheDocument();
   });
 
+  it("renders the empty products state", async () => {
+    const { findByText } = renderRouter("/products");
+
+    expect(await findByText(i18n.t("products.emptyTitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("products.emptyDescription"))).toBeInTheDocument();
+  });
+
   it("navigates from stores to create store", async () => {
     const user = userEvent.setup();
     const { findByRole, findByText, router } = renderRouter("/stores");

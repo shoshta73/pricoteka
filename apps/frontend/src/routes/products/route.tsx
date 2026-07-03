@@ -17,8 +17,8 @@ function Products() {
         <EmptyMedia variant="icon">
           <PackageIcon />
         </EmptyMedia>
-        <EmptyTitle>{t("products.placeholderTitle")}</EmptyTitle>
-        <EmptyDescription>{t("products.placeholderDescription")}</EmptyDescription>
+        <EmptyTitle>{t("products.emptyTitle")}</EmptyTitle>
+        <EmptyDescription>{t("products.emptyDescription")}</EmptyDescription>
       </EmptyHeader>
     </Empty>
   );
