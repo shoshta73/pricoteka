@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useCreateProductAction } from "@/services/products/useCreateProductAction";
 import { useStoresData } from "@/services/stores/useStoresData";
 import { useProductsStore } from "@/stores/productsStore";
 
@@ -27,8 +28,8 @@ function CreateProduct() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { stores } = useStoresData();
-  const addProduct = useProductsStore((state) => state.addProduct);
   const productExists = useProductsStore((state) => state.productExists);
+  const { createProduct, isPending } = useCreateProductAction();
   const form = useForm({
     defaultValues: {
       name: "",
@@ -48,7 +49,7 @@ function CreateProduct() {
 
       try {
         const foundIn = value.storeId && value.officeId ? [{ store_id: value.storeId, office_id: value.officeId }] : [];
-        addProduct({
+        await createProduct({
           name: value.name,
           description: value.description,
           price: value.price,
@@ -215,7 +216,7 @@ function CreateProduct() {
           <Button type="button" variant="outline" onClick={() => form.reset()}>
             {t("products.resetAction")}
           </Button>
-          <Button type="submit" form="create-product-form">
+          <Button type="submit" form="create-product-form" disabled={isPending}>
             {t("products.createSubmitAction")}
           </Button>
         </Field>

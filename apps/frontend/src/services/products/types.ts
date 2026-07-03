@@ -2,7 +2,7 @@ import type { v1 } from "@pricoteka/core";
 
 export interface ProductLocation {
   store_id?: string;
-  office_id?: string;
+  office_id: string;
 }
 
 export interface ProductsService {

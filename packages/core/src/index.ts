@@ -17,7 +17,10 @@ export namespace v1 {
     name: string;
     description: string;
     price: number;
-    found_in: string[];
+    found_in: {
+      store_id?: string;
+      office_id: string;
+    }[];
   };
 }
 
