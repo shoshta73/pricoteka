@@ -10,11 +10,23 @@
   },
   "products": {
     "createAction": "Create Product",
+    "createDescription": "Create a new product.",
+    "createFailure": "Product could not be created.",
+    "createFailureExists": "{{name}} already exists.",
+    "createSubmitAction": "Create",
+    "createSuccess": "Created {{name}}.",
     "createTitle": "Create Product",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Optional description",
     "detailPlaceholder": "Product details are coming soon.",
     "detailTitle": "Product Details",
     "emptyDescription": "Product management is coming soon.",
     "emptyTitle": "No Products Registered",
+    "nameLabel": "Name",
+    "namePlaceholder": "Product",
+    "priceLabel": "Price",
+    "pricePlaceholder": "0.00",
+    "resetAction": "Reset",
     "title": "Products"
   },
   "stores": {

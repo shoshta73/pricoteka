@@ -10,11 +10,23 @@
   },
   "products": {
     "createAction": "Dodaj proizvod",
+    "createDescription": "Dodajte novi proizvod.",
+    "createFailure": "Proizvod nije moguće dodati.",
+    "createFailureExists": "Proizvod {{name}} već postoji.",
+    "createSubmitAction": "Dodaj",
+    "createSuccess": "Proizvod {{name}} je dodan.",
     "createTitle": "Dodaj proizvod",
+    "descriptionLabel": "Opis",
+    "descriptionPlaceholder": "Neobavezan opis",
     "detailPlaceholder": "Detalji proizvoda stižu uskoro.",
     "detailTitle": "Detalji proizvoda",
     "emptyDescription": "Upravljanje proizvodima stiže uskoro.",
     "emptyTitle": "Nema registriranih proizvoda",
+    "nameLabel": "Naziv",
+    "namePlaceholder": "Proizvod",
+    "priceLabel": "Cijena",
+    "pricePlaceholder": "0,00",
+    "resetAction": "Poništi",
     "title": "Proizvodi"
   },
   "stores": {
