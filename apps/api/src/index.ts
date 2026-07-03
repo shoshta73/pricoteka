@@ -10,6 +10,7 @@ import { closeCache, deleteCache, getJsonCache, setJsonCache } from "./cache/ind
 import { db } from "./db/index";
 import { offices, productOffices, products, stores } from "./db/schema";
 import { params as productParams, result as productResult } from "./schema/product/index";
+import { result as productsResult } from "./schema/products/index";
 import {
   officeParams,
   officePathParams,
@@ -21,8 +22,9 @@ import {
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
+const productsCacheKey = "products:list:v1";
 const storesCacheKey = "stores:list:v1";
-const storesCacheTtlSeconds = 60;
+const listCacheTtlSeconds = 60;
 
 function getStoreOfficesCacheKey(storeId: string): string {
   return `store:${storeId}:offices:v1`;
@@ -70,7 +72,62 @@ app.get("/stores", async (c) => {
     return c.json({ error: "Stores result is invalid." }, 500);
   }
 
-  await setJsonCache(storesCacheKey, output.data, storesCacheTtlSeconds);
+  await setJsonCache(storesCacheKey, output.data, listCacheTtlSeconds);
+
+  return c.json(output.data);
+});
+
+app.get("/products", async (c) => {
+  const cachedProducts = await getJsonCache(productsCacheKey);
+
+  if (cachedProducts) {
+    const cachedOutput = productsResult.safeParse(cachedProducts);
+
+    if (cachedOutput.success) {
+      return c.json(cachedOutput.data);
+    }
+
+    await deleteCache(productsCacheKey);
+  }
+
+  const storedProducts = await db.select().from(products);
+  const storedProductOffices = await db.select().from(productOffices);
+  const storedOffices = await db.select().from(offices);
+  const officesById = new Map(storedOffices.map((office) => [office.id, office]));
+  const foundInByProductId = new Map<string, v1.Product["found_in"]>();
+
+  for (const productOffice of storedProductOffices) {
+    const office = officesById.get(productOffice.officeId);
+
+    if (!office) {
+      continue;
+    }
+
+    const foundIn = foundInByProductId.get(productOffice.productId) ?? [];
+
+    foundIn.push({
+      store_id: office.storeId,
+      office_id: office.id,
+    });
+
+    foundInByProductId.set(productOffice.productId, foundIn);
+  }
+
+  const productsResponse: v1.Product[] = storedProducts.map((product) => ({
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    found_in: foundInByProductId.get(product.id) ?? [],
+  }));
+
+  const output = productsResult.safeParse(productsResponse);
+
+  if (!output.success) {
+    return c.json({ error: "Products result is invalid." }, 500);
+  }
+
+  await setJsonCache(productsCacheKey, output.data, listCacheTtlSeconds);
 
   return c.json(output.data);
 });
@@ -185,6 +242,8 @@ app.post("/product", async (c) => {
     return c.json({ error: "Created product result is invalid." }, 500);
   }
 
+  await deleteCache(productsCacheKey);
+
   return c.json(output.data, 201);
 });
 
@@ -280,7 +339,7 @@ app.get("/store/:id/offices", async (c) => {
     return c.json({ error: "Store offices result is invalid." }, 500);
   }
 
-  await setJsonCache(officesCacheKey, output.data, storesCacheTtlSeconds);
+  await setJsonCache(officesCacheKey, output.data, listCacheTtlSeconds);
 
   return c.json(output.data);
 });
