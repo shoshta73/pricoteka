@@ -9,6 +9,8 @@
     }
   },
   "products": {
+    "createAction": "Dodaj proizvod",
+    "createTitle": "Dodaj proizvod",
     "emptyDescription": "Upravljanje proizvodima stiže uskoro.",
     "emptyTitle": "Nema registriranih proizvoda",
     "title": "Proizvodi"

@@ -83,6 +83,10 @@ function getPageTitleKey(pathname: string) {
     return "products.title";
   }
 
+  if (pathname === "/products/create") {
+    return "products.createTitle";
+  }
+
   if (pathname === "/stores/create") {
     return "stores.createTitle";
   }

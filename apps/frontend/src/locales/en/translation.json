@@ -9,6 +9,8 @@
     }
   },
   "products": {
+    "createAction": "Create Product",
+    "createTitle": "Create Product",
     "emptyDescription": "Product management is coming soon.",
     "emptyTitle": "No Products Registered",
     "title": "Products"

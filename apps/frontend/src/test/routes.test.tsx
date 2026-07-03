@@ -2,12 +2,14 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { i18n } from "@/lib/i18n";
+import { useProductsStore } from "@/stores/productsStore";
 import { useStoresStore } from "@/stores/storesStore";
 import { renderRouter } from "@/test/render-router";
 
 describe("routes", () => {
   beforeEach(() => {
     localStorage.clear();
+    useProductsStore.setState({ products: [] });
     useStoresStore.setState({ stores: [] });
   });
 
@@ -23,6 +25,22 @@ describe("routes", () => {
 
     expect(await findByText(i18n.t("products.emptyTitle"))).toBeInTheDocument();
     expect(await findByText(i18n.t("products.emptyDescription"))).toBeInTheDocument();
+  });
+
+  it("renders a create product action when there are no products", async () => {
+    const { findByRole } = renderRouter("/products");
+
+    expect(await findByRole("button", { name: i18n.t("products.createAction") })).toBeInTheDocument();
+  });
+
+  it("navigates from products to create product", async () => {
+    const user = userEvent.setup();
+    const { findByRole, findByText, router } = renderRouter("/products");
+
+    await user.click(await findByRole("button", { name: i18n.t("products.createAction") }));
+
+    expect(router.state.location.pathname).toBe("/products/create");
+    expect(await findByText(i18n.t("products.createTitle"))).toBeInTheDocument();
   });
 
   it("navigates from stores to create store", async () => {
