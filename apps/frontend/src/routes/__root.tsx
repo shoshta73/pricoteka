@@ -87,6 +87,10 @@ function getPageTitleKey(pathname: string) {
     return "products.createTitle";
   }
 
+  if (/^\/products\/[^/]+$/.test(pathname)) {
+    return "products.detailTitle";
+  }
+
   if (pathname === "/stores/create") {
     return "stores.createTitle";
   }

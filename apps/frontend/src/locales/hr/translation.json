@@ -11,6 +11,8 @@
   "products": {
     "createAction": "Dodaj proizvod",
     "createTitle": "Dodaj proizvod",
+    "detailPlaceholder": "Detalji proizvoda stižu uskoro.",
+    "detailTitle": "Detalji proizvoda",
     "emptyDescription": "Upravljanje proizvodima stiže uskoro.",
     "emptyTitle": "Nema registriranih proizvoda",
     "title": "Proizvodi"

@@ -1,5 +1,5 @@
 import { PackageIcon, PlusIcon } from "@phosphor-icons/react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
@@ -14,6 +14,11 @@ function Products() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const products = useProductsStore((state) => state.products);
+  const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== "/products" });
+
+  if (isChildRoute) {
+    return <Outlet />;
+  }
 
   if (products.length === 0) {
     return (

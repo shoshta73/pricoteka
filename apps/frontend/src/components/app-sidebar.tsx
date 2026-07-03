@@ -19,6 +19,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { useStoresData } from "@/services/stores/useStoresData";
+import { useProductsStore } from "@/stores/productsStore";
 
 const data = {
   nav: [
@@ -36,6 +37,7 @@ const data = {
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   const { t } = useTranslation();
   const { stores } = useStoresData();
+  const { products } = useProductsStore();
   const navigate = useNavigate();
 
   return (
@@ -78,6 +80,19 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                         <SidebarMenuSubItem key={store.id}>
                           <SidebarMenuSubButton render={<Link to="/stores/$storeId" params={{ storeId: store.id }} />}>
                             {store.name}
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
+                  {products.length === 0 || item.to !== "/products" ? null : (
+                    <SidebarMenuSub>
+                      {products.map((product) => (
+                        <SidebarMenuSubItem key={product.id}>
+                          <SidebarMenuSubButton
+                            render={<Link to="/products/$productId" params={{ productId: product.id }} />}
+                          >
+                            {product.name}
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>
                       ))}

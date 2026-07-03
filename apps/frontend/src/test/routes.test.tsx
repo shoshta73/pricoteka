@@ -43,6 +43,12 @@ describe("routes", () => {
     expect(await findByText(i18n.t("products.createTitle"))).toBeInTheDocument();
   });
 
+  it("renders the product detail placeholder route", async () => {
+    const { findByText } = renderRouter("/products/product-1");
+
+    expect(await findByText(i18n.t("products.detailPlaceholder"))).toBeInTheDocument();
+  });
+
   it("navigates from stores to create store", async () => {
     const user = userEvent.setup();
     const { findByRole, findByText, router } = renderRouter("/stores");

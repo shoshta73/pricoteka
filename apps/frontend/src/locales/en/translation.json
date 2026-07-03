@@ -11,6 +11,8 @@
   "products": {
     "createAction": "Create Product",
     "createTitle": "Create Product",
+    "detailPlaceholder": "Product details are coming soon.",
+    "detailTitle": "Product Details",
     "emptyDescription": "Product management is coming soon.",
     "emptyTitle": "No Products Registered",
     "title": "Products"
