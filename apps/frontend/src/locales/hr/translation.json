@@ -67,7 +67,8 @@
     "officeNameLabel": "Naziv",
     "officeNamePlaceholder": "Ured",
     "resetAction": "Poništi",
-    "title": "Trgovine"
+    "title": "Trgovine",
+    "viewAction": "Prikaži"
   },
   "title": {
     "app": "Pricoteka",

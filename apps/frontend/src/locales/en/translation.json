@@ -67,7 +67,8 @@
     "officeNameLabel": "Name",
     "officeNamePlaceholder": "Office",
     "resetAction": "Reset",
-    "title": "Stores"
+    "title": "Stores",
+    "viewAction": "View"
   },
   "title": {
     "app": "Pricoteka",

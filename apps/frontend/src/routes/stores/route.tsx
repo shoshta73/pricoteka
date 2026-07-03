@@ -1,8 +1,8 @@
-import { CaretDownIcon, PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
-import { Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
+import { ArrowRightIcon, CaretDownIcon, PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
+import { Link, Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { useStoresData } from "@/services/stores/useStoresData";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,7 +74,13 @@ function Stores() {
       {stores.map((store) => (
         <Card key={store.id} className="max-w-sm">
           <CardHeader>
-            <CardTitle>{store.name}</CardTitle>
+            <div className="flex items-start gap-3">
+              <CardTitle className="min-w-0 grow">{store.name}</CardTitle>
+              <Link to="/stores/$storeId" params={{ storeId: store.id }} className={buttonVariants({ variant: "outline" })}>
+                {t("stores.viewAction")}
+                <ArrowRightIcon data-icon="inline-end" />
+              </Link>
+            </div>
           </CardHeader>
           <CardContent>
             <ScrollArea>

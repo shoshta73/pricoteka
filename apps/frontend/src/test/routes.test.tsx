@@ -20,6 +20,25 @@ describe("routes", () => {
     expect(await findByText(i18n.t("stores.emptyDescription"))).toBeInTheDocument();
   });
 
+  it("renders store dashboard detail links", async () => {
+    useStoresStore.setState({
+      stores: [
+        {
+          id: "store-1",
+          name: "Store 1",
+          offices: [],
+        },
+      ],
+    });
+    const { findAllByText, findByRole } = renderRouter("/stores");
+
+    expect(await findAllByText("Store 1")).toHaveLength(2);
+    expect(await findByRole("link", { name: i18n.t("stores.viewAction") })).toHaveAttribute(
+      "href",
+      "/stores/store-1",
+    );
+  });
+
   it("renders the empty products state", async () => {
     const { findByText } = renderRouter("/products");
 
