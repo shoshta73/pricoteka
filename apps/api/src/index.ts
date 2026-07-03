@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 
 import { closeCache, deleteCache, getJsonCache, setJsonCache } from "./cache/index";
 import { db } from "./db/index";
-import { offices, stores } from "./db/schema";
+import { offices, products, stores } from "./db/schema";
+import { params as productParams, result as productResult } from "./schema/product/index";
 import {
   officeParams,
   officePathParams,
@@ -110,6 +111,49 @@ app.post("/store", async (c) => {
   }
 
   await deleteCache(storesCacheKey);
+
+  return c.json(output.data, 201);
+});
+
+app.post("/product", async (c) => {
+  let body: unknown;
+
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Request body must be valid JSON." }, 400);
+  }
+
+  const input = productParams.safeParse(body);
+
+  if (!input.success) {
+    return c.json({ error: "Product name, description, and price are required." }, 400);
+  }
+
+  const [storedProduct] = await db
+    .insert(products)
+    .values({
+      id: uuidv4(),
+      name: input.data.name,
+      description: input.data.description,
+      price: input.data.price,
+      foundIn: input.data.found_in ?? [],
+    })
+    .returning();
+
+  const product: v1.Product = {
+    id: storedProduct.id,
+    name: storedProduct.name,
+    description: storedProduct.description,
+    price: storedProduct.price,
+    found_in: storedProduct.foundIn,
+  };
+
+  const output = productResult.safeParse(product);
+
+  if (!output.success) {
+    return c.json({ error: "Created product result is invalid." }, 500);
+  }
 
   return c.json(output.data, 201);
 });

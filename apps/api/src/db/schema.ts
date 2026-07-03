@@ -1,4 +1,6 @@
-import { sqliteTable, text } from "drizzle-orm/sqlite-core";
+import type { v1 } from "@pricoteka/core";
+
+import { real, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const stores = sqliteTable("stores", {
   id: text("id").primaryKey(),
@@ -11,4 +13,12 @@ export const offices = sqliteTable("offices", {
     .notNull()
     .references(() => stores.id),
   name: text("name").notNull(),
+});
+
+export const products = sqliteTable("products", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  price: real("price").notNull(),
+  foundIn: text("found_in", { mode: "json" }).$type<v1.Product["found_in"]>().notNull(),
 });

@@ -15,6 +15,13 @@
       "when": 1782906149498,
       "tag": "0001_clear_madrox",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1783049312574,
+      "tag": "0002_chunky_hemingway",
+      "breakpoints": true
     }
   ]
 }
