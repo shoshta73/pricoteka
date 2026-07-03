@@ -1,14 +1,14 @@
 import type { Store, v1 } from "@pricoteka/core";
 
 import { serve } from "@hono/node-server";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { v4 as uuidv4 } from "uuid";
 
 import { closeCache, deleteCache, getJsonCache, setJsonCache } from "./cache/index";
 import { db } from "./db/index";
-import { offices, products, stores } from "./db/schema";
+import { offices, productOffices, products, stores } from "./db/schema";
 import { params as productParams, result as productResult } from "./schema/product/index";
 import {
   officeParams,
@@ -130,6 +130,25 @@ app.post("/product", async (c) => {
     return c.json({ error: "Product name, description, and price are required." }, 400);
   }
 
+  const foundIn = input.data.found_in ?? [];
+  const officeIds = [...new Set(foundIn.map((location) => location.office_id))];
+  const storedOffices =
+    officeIds.length > 0 ? await db.select().from(offices).where(inArray(offices.id, officeIds)) : [];
+
+  if (storedOffices.length !== officeIds.length) {
+    return c.json({ error: "Product office must reference an existing office." }, 400);
+  }
+
+  const storedOfficesById = new Map(storedOffices.map((office) => [office.id, office]));
+
+  if (
+    foundIn.some(
+      (location) => location.store_id && storedOfficesById.get(location.office_id)?.storeId !== location.store_id,
+    )
+  ) {
+    return c.json({ error: "Product office must belong to the provided store." }, 400);
+  }
+
   const [storedProduct] = await db
     .insert(products)
     .values({
@@ -137,16 +156,27 @@ app.post("/product", async (c) => {
       name: input.data.name,
       description: input.data.description,
       price: input.data.price,
-      foundIn: input.data.found_in ?? [],
     })
     .returning();
+
+  if (storedOffices.length > 0) {
+    await db.insert(productOffices).values(
+      storedOffices.map((office) => ({
+        productId: storedProduct.id,
+        officeId: office.id,
+      })),
+    );
+  }
 
   const product: v1.Product = {
     id: storedProduct.id,
     name: storedProduct.name,
     description: storedProduct.description,
     price: storedProduct.price,
-    found_in: storedProduct.foundIn,
+    found_in: storedOffices.map((office) => ({
+      store_id: office.storeId,
+      office_id: office.id,
+    })),
   };
 
   const output = productResult.safeParse(product);

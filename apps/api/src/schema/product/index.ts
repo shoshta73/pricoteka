@@ -9,7 +9,7 @@ export const params = z.object({
     .array(
       z.object({
         store_id: z.string().uuid().optional(),
-        office_id: z.string().uuid().optional(),
+        office_id: z.string().uuid(),
       }),
     )
     .optional(),
