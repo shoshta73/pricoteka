@@ -72,7 +72,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
                   >
                     {t(item.labelKey)}
                   </SidebarMenuButton>
-                  {stores.length === 0 ? null : (
+                  {stores.length === 0 || item.to !== "/stores" ? null : (
                     <SidebarMenuSub>
                       {stores.map((store) => (
                         <SidebarMenuSubItem key={store.id}>
