@@ -27,6 +27,57 @@ describe("routes", () => {
     expect(await findByText(i18n.t("products.emptyDescription"))).toBeInTheDocument();
   });
 
+  it("renders the products dashboard", async () => {
+    useStoresStore.setState({
+      stores: [
+        {
+          id: "store-1",
+          name: "Store 1",
+          offices: [{ id: "office-1", name: "Office 1" }],
+        },
+      ],
+    });
+    useProductsStore.setState({
+      products: [
+        {
+          id: "product-1",
+          name: "Milk",
+          description: "Fresh milk",
+          price: 1.5,
+          found_in: [{ store_id: "store-1", office_id: "office-1" }],
+        },
+      ],
+    });
+    const { findAllByText, findByRole, findByText } = renderRouter("/products");
+
+    expect(await findAllByText("Milk")).toHaveLength(2);
+    expect(await findByText(new Intl.NumberFormat(i18n.language, { currency: "EUR", style: "currency" }).format(1.5))).toBeInTheDocument();
+    expect(await findByText("Fresh milk")).toBeInTheDocument();
+    expect(await findByText("Store 1 / Office 1")).toBeInTheDocument();
+    expect(await findByRole("link", { name: i18n.t("products.viewAction") })).toHaveAttribute(
+      "href",
+      "/products/product-1",
+    );
+  });
+
+  it("renders product fallbacks in the products dashboard", async () => {
+    useProductsStore.setState({
+      products: [
+        {
+          id: "product-1",
+          name: "Milk",
+          description: "",
+          price: 1.5,
+          found_in: [],
+        },
+      ],
+    });
+    const { findByText } = renderRouter("/products");
+
+    expect(await findByText(i18n.t("products.noDescription"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("products.noLocations"))).toBeInTheDocument();
+  });
+
   it("renders a create product action when there are no products", async () => {
     const { findByRole } = renderRouter("/products");
 

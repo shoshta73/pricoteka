@@ -22,9 +22,13 @@
     "detailTitle": "Product Details",
     "emptyDescription": "Product management is coming soon.",
     "emptyTitle": "No Products Registered",
+    "loadFailure": "Products could not be loaded.",
+    "loading": "Loading products...",
     "nameLabel": "Name",
     "namePlaceholder": "Product",
+    "noDescription": "No description provided.",
     "noOfficesDescription": "This store has no offices yet.",
+    "noLocations": "No locations registered",
     "officeLabel": "Office",
     "officePlaceholder": "Select an office",
     "priceLabel": "Price",
@@ -32,7 +36,9 @@
     "resetAction": "Reset",
     "storeLabel": "Store",
     "storePlaceholder": "Select a store",
-    "title": "Products"
+    "title": "Products",
+    "unknownLocation": "Unknown location",
+    "viewAction": "View"
   },
   "stores": {
     "createAction": "Create Store",

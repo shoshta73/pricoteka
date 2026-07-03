@@ -22,9 +22,13 @@
     "detailTitle": "Detalji proizvoda",
     "emptyDescription": "Upravljanje proizvodima stiže uskoro.",
     "emptyTitle": "Nema registriranih proizvoda",
+    "loadFailure": "Proizvode nije moguće učitati.",
+    "loading": "Učitavanje proizvoda...",
     "nameLabel": "Naziv",
     "namePlaceholder": "Proizvod",
+    "noDescription": "Opis nije unesen.",
     "noOfficesDescription": "Ova trgovina još nema ureda.",
+    "noLocations": "Nema registriranih lokacija",
     "officeLabel": "Ured",
     "officePlaceholder": "Odaberite ured",
     "priceLabel": "Cijena",
@@ -32,7 +36,9 @@
     "resetAction": "Poništi",
     "storeLabel": "Trgovina",
     "storePlaceholder": "Odaberite trgovinu",
-    "title": "Proizvodi"
+    "title": "Proizvodi",
+    "unknownLocation": "Nepoznata lokacija",
+    "viewAction": "Prikaži"
   },
   "stores": {
     "createAction": "Dodaj trgovinu",
