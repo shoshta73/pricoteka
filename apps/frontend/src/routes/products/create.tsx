@@ -6,6 +6,7 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useCreateProductAction } from "@/services/products/useCreateProductAction";
@@ -153,25 +154,39 @@ function CreateProduct() {
                 const selectedStore = stores.find((store) => store.id === field.state.value);
                 return (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>{t("products.storeLabel")}</FieldLabel>
-                    <select
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => {
-                        field.handleChange(e.target.value);
-                        form.setFieldValue("officeId", "");
-                      }}
-                      className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <option value="">{t("products.storePlaceholder")}</option>
-                      {stores.map((store) => (
-                        <option key={store.id} value={store.id}>
-                          {store.name}
-                        </option>
-                      ))}
-                    </select>
+                    <FieldLabel>{t("products.storeLabel")}</FieldLabel>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button type="button" variant="outline" className="w-full justify-start font-normal" />
+                        }
+                        aria-label={t("products.storeLabel")}
+                        onBlur={field.handleBlur}
+                      >
+                        {selectedStore?.name ?? t("products.storePlaceholder")}
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem
+                          onClick={() => {
+                            field.handleChange("");
+                            form.setFieldValue("officeId", "");
+                          }}
+                        >
+                          {t("products.storePlaceholder")}
+                        </DropdownMenuItem>
+                        {stores.map((store) => (
+                          <DropdownMenuItem
+                            key={store.id}
+                            onClick={() => {
+                              field.handleChange(store.id);
+                              form.setFieldValue("officeId", "");
+                            }}
+                          >
+                            {store.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                     {selectedStore && selectedStore.offices.length === 0 ? (
                       <p className="text-sm text-muted-foreground">{t("products.noOfficesDescription")}</p>
                     ) : null}
@@ -187,23 +202,33 @@ function CreateProduct() {
                 const offices = selectedStore?.offices ?? [];
                 return (
                   <Field>
-                    <FieldLabel htmlFor={field.name}>{t("products.officeLabel")}</FieldLabel>
-                    <select
-                      id={field.name}
-                      name={field.name}
-                      value={field.state.value}
-                      onBlur={field.handleBlur}
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      disabled={!selectedStore || offices.length === 0}
-                      className="h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50"
-                    >
-                      <option value="">{t("products.officePlaceholder")}</option>
-                      {offices.map((office) => (
-                        <option key={office.id} value={office.id}>
-                          {office.name}
-                        </option>
-                      ))}
-                    </select>
+                    <FieldLabel>{t("products.officeLabel")}</FieldLabel>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full justify-start font-normal"
+                            disabled={!selectedStore || offices.length === 0}
+                          />
+                        }
+                        aria-label={t("products.officeLabel")}
+                        onBlur={field.handleBlur}
+                      >
+                        {offices.find((office) => office.id === field.state.value)?.name ?? t("products.officePlaceholder")}
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        <DropdownMenuItem onClick={() => field.handleChange("")}>
+                          {t("products.officePlaceholder")}
+                        </DropdownMenuItem>
+                        {offices.map((office) => (
+                          <DropdownMenuItem key={office.id} onClick={() => field.handleChange(office.id)}>
+                            {office.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </Field>
                 );
               }}

@@ -44,14 +44,14 @@ describe("routes", () => {
   });
 
   it("renders the create product form", async () => {
-    const { findByLabelText, findByText } = renderRouter("/products/create");
+    const { findByLabelText, findByRole, findByText } = renderRouter("/products/create");
 
     expect(await findByText(i18n.t("products.createTitle"))).toBeInTheDocument();
     expect(await findByLabelText(i18n.t("products.nameLabel"))).toBeInTheDocument();
     expect(await findByLabelText(i18n.t("products.descriptionLabel"))).toBeInTheDocument();
     expect(await findByLabelText(i18n.t("products.priceLabel"))).toBeInTheDocument();
-    expect(await findByLabelText(i18n.t("products.storeLabel"))).toBeInTheDocument();
-    expect(await findByLabelText(i18n.t("products.officeLabel"))).toBeInTheDocument();
+    expect(await findByRole("button", { name: i18n.t("products.storeLabel") })).toBeInTheDocument();
+    expect(await findByRole("button", { name: i18n.t("products.officeLabel") })).toBeInTheDocument();
   });
 
   it("creates a product from the create product form", async () => {
@@ -69,8 +69,10 @@ describe("routes", () => {
 
     await user.type(await findByLabelText(i18n.t("products.nameLabel")), "Milk");
     await user.type(await findByLabelText(i18n.t("products.priceLabel")), "1.50");
-    await user.selectOptions(await findByLabelText(i18n.t("products.storeLabel")), "store-1");
-    await user.selectOptions(await findByLabelText(i18n.t("products.officeLabel")), "office-1");
+    await user.click(await findByRole("button", { name: i18n.t("products.storeLabel") }));
+    await user.click(await findByRole("menuitem", { name: "Store 1" }));
+    await user.click(await findByRole("button", { name: i18n.t("products.officeLabel") }));
+    await user.click(await findByRole("menuitem", { name: "Office 1" }));
     await user.click(await findByRole("button", { name: i18n.t("products.createSubmitAction") }));
 
     expect(router.state.location.pathname).toBe("/products");
