@@ -50,14 +50,27 @@ describe("routes", () => {
     expect(await findByLabelText(i18n.t("products.nameLabel"))).toBeInTheDocument();
     expect(await findByLabelText(i18n.t("products.descriptionLabel"))).toBeInTheDocument();
     expect(await findByLabelText(i18n.t("products.priceLabel"))).toBeInTheDocument();
+    expect(await findByLabelText(i18n.t("products.storeLabel"))).toBeInTheDocument();
+    expect(await findByLabelText(i18n.t("products.officeLabel"))).toBeInTheDocument();
   });
 
   it("creates a product from the create product form", async () => {
     const user = userEvent.setup();
+    useStoresStore.setState({
+      stores: [
+        {
+          id: "store-1",
+          name: "Store 1",
+          offices: [{ id: "office-1", name: "Office 1" }],
+        },
+      ],
+    });
     const { findByLabelText, findByRole, router } = renderRouter("/products/create");
 
     await user.type(await findByLabelText(i18n.t("products.nameLabel")), "Milk");
     await user.type(await findByLabelText(i18n.t("products.priceLabel")), "1.50");
+    await user.selectOptions(await findByLabelText(i18n.t("products.storeLabel")), "store-1");
+    await user.selectOptions(await findByLabelText(i18n.t("products.officeLabel")), "office-1");
     await user.click(await findByRole("button", { name: i18n.t("products.createSubmitAction") }));
 
     expect(router.state.location.pathname).toBe("/products");
@@ -66,6 +79,7 @@ describe("routes", () => {
         name: "Milk",
         description: "",
         price: 1.5,
+        found_in: [{ store_id: "store-1", office_id: "office-1" }],
       },
     ]);
   });

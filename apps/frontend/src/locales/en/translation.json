@@ -24,9 +24,14 @@
     "emptyTitle": "No Products Registered",
     "nameLabel": "Name",
     "namePlaceholder": "Product",
+    "noOfficesDescription": "This store has no offices yet.",
+    "officeLabel": "Office",
+    "officePlaceholder": "Select an office",
     "priceLabel": "Price",
     "pricePlaceholder": "0.00",
     "resetAction": "Reset",
+    "storeLabel": "Store",
+    "storePlaceholder": "Select a store",
     "title": "Products"
   },
   "stores": {

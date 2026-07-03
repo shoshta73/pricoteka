@@ -24,9 +24,14 @@
     "emptyTitle": "Nema registriranih proizvoda",
     "nameLabel": "Naziv",
     "namePlaceholder": "Proizvod",
+    "noOfficesDescription": "Ova trgovina još nema ureda.",
+    "officeLabel": "Ured",
+    "officePlaceholder": "Odaberite ured",
     "priceLabel": "Cijena",
     "pricePlaceholder": "0,00",
     "resetAction": "Poništi",
+    "storeLabel": "Trgovina",
+    "storePlaceholder": "Odaberite trgovinu",
     "title": "Proizvodi"
   },
   "stores": {
