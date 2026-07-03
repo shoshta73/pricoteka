@@ -43,6 +43,50 @@ describe("routes", () => {
     expect(await findByText(i18n.t("products.createTitle"))).toBeInTheDocument();
   });
 
+  it("renders the create product form", async () => {
+    const { findByLabelText, findByText } = renderRouter("/products/create");
+
+    expect(await findByText(i18n.t("products.createTitle"))).toBeInTheDocument();
+    expect(await findByLabelText(i18n.t("products.nameLabel"))).toBeInTheDocument();
+    expect(await findByLabelText(i18n.t("products.descriptionLabel"))).toBeInTheDocument();
+    expect(await findByLabelText(i18n.t("products.priceLabel"))).toBeInTheDocument();
+  });
+
+  it("creates a product from the create product form", async () => {
+    const user = userEvent.setup();
+    const { findByLabelText, findByRole, router } = renderRouter("/products/create");
+
+    await user.type(await findByLabelText(i18n.t("products.nameLabel")), "Milk");
+    await user.type(await findByLabelText(i18n.t("products.priceLabel")), "1.50");
+    await user.click(await findByRole("button", { name: i18n.t("products.createSubmitAction") }));
+
+    expect(router.state.location.pathname).toBe("/products");
+    expect(useProductsStore.getState().products).toMatchObject([
+      {
+        name: "Milk",
+        description: "",
+        price: 1.5,
+      },
+    ]);
+  });
+
+  it("does not create duplicate product names", async () => {
+    const user = userEvent.setup();
+    useProductsStore.getState().addProduct({
+      name: "Milk",
+      description: "Existing product",
+      price: 1,
+    });
+    const { findByLabelText, findByRole, router } = renderRouter("/products/create");
+
+    await user.type(await findByLabelText(i18n.t("products.nameLabel")), "Milk");
+    await user.type(await findByLabelText(i18n.t("products.priceLabel")), "1.50");
+    await user.click(await findByRole("button", { name: i18n.t("products.createSubmitAction") }));
+
+    expect(router.state.location.pathname).toBe("/products/create");
+    expect(useProductsStore.getState().products).toHaveLength(1);
+  });
+
   it("renders the product detail placeholder route", async () => {
     const { findByText } = renderRouter("/products/product-1");
 
