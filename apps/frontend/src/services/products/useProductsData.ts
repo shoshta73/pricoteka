@@ -1,11 +1,11 @@
-import type { v1 } from "@pricoteka/core";
+import type { Product } from "@pricoteka/core";
 
 import { appConfig } from "@/lib/appConfig";
 import { useApiProducts } from "@/services/products/useApiProducts";
 import { useProductsStore } from "@/stores/productsStore";
 
 interface ProductsData {
-  products: v1.Product[];
+  products: Product[];
   isLoading: boolean;
   isError: boolean;
   error: Error | null;

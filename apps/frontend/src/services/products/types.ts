@@ -1,12 +1,7 @@
-import type { v1 } from "@pricoteka/core";
-
-export interface ProductLocation {
-  store_id?: string;
-  office_id: string;
-}
+import type { Product, ProductLocation } from "@pricoteka/core";
 
 export interface ProductsService {
-  listProducts: () => v1.Product[];
+  listProducts: () => Product[];
   productExists: (name: string) => boolean;
   addProduct: (product: {
     name: string;

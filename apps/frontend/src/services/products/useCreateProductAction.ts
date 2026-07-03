@@ -1,5 +1,6 @@
+import type { ProductLocation } from "@pricoteka/core";
+
 import { appConfig } from "@/lib/appConfig";
-import type { ProductLocation } from "@/services/products/types";
 import { useCreateApiProduct } from "@/services/products/useApiProducts";
 import { useProductsStore } from "@/stores/productsStore";
 

@@ -1,4 +1,4 @@
-import type { Store, v1 } from "@pricoteka/core";
+import type { Product, Store, StoreOffice } from "@pricoteka/core";
 
 import { serve } from "@hono/node-server";
 import { eq, inArray } from "drizzle-orm";
@@ -22,12 +22,12 @@ import {
 import { result as storesResult } from "./schema/stores/index";
 
 const app = new Hono();
-const productsCacheKey = "products:list:v1";
-const storesCacheKey = "stores:list:v1";
+const productsCacheKey = "products:list";
+const storesCacheKey = "stores:list";
 const listCacheTtlSeconds = 60;
 
 function getStoreOfficesCacheKey(storeId: string): string {
-  return `store:${storeId}:offices:v1`;
+  return `store:${storeId}:offices`;
 }
 
 app.use("*", cors());
@@ -47,7 +47,7 @@ app.get("/stores", async (c) => {
 
   const storedStores = await db.select().from(stores);
   const storedOffices = await db.select().from(offices);
-  const officesByStoreId = new Map<string, v1.StoreOffice[]>();
+  const officesByStoreId = new Map<string, StoreOffice[]>();
 
   for (const office of storedOffices) {
     const storeOffices = officesByStoreId.get(office.storeId) ?? [];
@@ -94,7 +94,7 @@ app.get("/products", async (c) => {
   const storedProductOffices = await db.select().from(productOffices);
   const storedOffices = await db.select().from(offices);
   const officesById = new Map(storedOffices.map((office) => [office.id, office]));
-  const foundInByProductId = new Map<string, v1.Product["found_in"]>();
+  const foundInByProductId = new Map<string, Product["found_in"]>();
 
   for (const productOffice of storedProductOffices) {
     const office = officesById.get(productOffice.officeId);
@@ -113,7 +113,7 @@ app.get("/products", async (c) => {
     foundInByProductId.set(productOffice.productId, foundIn);
   }
 
-  const productsResponse: v1.Product[] = storedProducts.map((product) => ({
+  const productsResponse: Product[] = storedProducts.map((product) => ({
     id: product.id,
     name: product.name,
     description: product.description,
@@ -225,7 +225,7 @@ app.post("/product", async (c) => {
     );
   }
 
-  const product: v1.Product = {
+  const product: Product = {
     id: storedProduct.id,
     name: storedProduct.name,
     description: storedProduct.description,
@@ -283,7 +283,7 @@ app.post("/store/:id/office", async (c) => {
     })
     .returning();
 
-  const office: v1.StoreOffice = {
+  const office: StoreOffice = {
     id: storedOffice.id,
     name: storedOffice.name,
   };
@@ -328,7 +328,7 @@ app.get("/store/:id/offices", async (c) => {
 
   const storedOffices = await db.select().from(offices).where(eq(offices.storeId, storedStore.id));
 
-  const storeOffices: v1.StoreOffice[] = storedOffices.map((office) => ({
+  const storeOffices: StoreOffice[] = storedOffices.map((office) => ({
     id: office.id,
     name: office.name,
   }));

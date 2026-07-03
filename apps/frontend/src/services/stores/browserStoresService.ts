@@ -1,4 +1,4 @@
-import type { Store, v1 } from "@pricoteka/core";
+import type { Store } from "@pricoteka/core";
 import { v4 as uuidv4 } from "uuid";
 
 import type { StoresService } from "@/services/stores/types";
@@ -38,7 +38,7 @@ export function createBrowserStoresService({ getStores, setStores }: BrowserStor
       const stores = getStores();
       const store = stores.find((item) => item.id === storeId);
 
-      return store?.offices.some((office: v1.StoreOffice) => office.name === name) ?? false;
+      return store?.offices.some((office) => office.name === name) ?? false;
     },
     addOffice: (storeId, name) => {
       const stores = getStores();

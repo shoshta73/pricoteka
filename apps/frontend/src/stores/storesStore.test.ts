@@ -179,46 +179,7 @@ describe("storesStore", () => {
           },
         ],
       },
-      version: 2,
-    });
-  });
-
-  it("migrates persisted v1 stores to v2", async () => {
-    localStorage.setItem(
-      "stores-storage",
-      JSON.stringify({
-        state: {
-          stores: [
-            {
-              id: "store-1",
-              name: "Konzum",
-            },
-          ],
-        },
-        version: 1,
-      }),
-    );
-
-    await useStoresStore.persist.rehydrate();
-
-    expect(useStoresStore.getState().stores).toEqual([
-      {
-        id: "store-1",
-        name: "Konzum",
-        offices: [],
-      },
-    ]);
-    expect(JSON.parse(localStorage.getItem("stores-storage") ?? "{}")).toMatchObject({
-      state: {
-        stores: [
-          {
-            id: "store-1",
-            name: "Konzum",
-            offices: [],
-          },
-        ],
-      },
-      version: 2,
+      version: 1,
     });
   });
 });

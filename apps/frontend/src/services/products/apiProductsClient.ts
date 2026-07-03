@@ -1,10 +1,9 @@
-import type { v1 } from "@pricoteka/core";
+import type { Product, ProductLocation } from "@pricoteka/core";
 import { productSchema } from "@pricoteka/core/schema";
 import * as z from "zod";
 
 import { appConfig } from "@/lib/appConfig";
 import { ApiError } from "@/services/api/apiError";
-import type { ProductLocation } from "@/services/products/types";
 
 const productsSchema = z.array(productSchema);
 
@@ -14,13 +13,13 @@ interface ApiProductsClientOptions {
 }
 
 export interface ApiProductsClient {
-  listProducts: () => Promise<v1.Product[]>;
+  listProducts: () => Promise<Product[]>;
   createProduct: (input: {
     name: string;
     description: string;
     price: number;
     found_in?: ProductLocation[];
-  }) => Promise<v1.Product>;
+  }) => Promise<Product>;
 }
 
 async function readJson(response: Response): Promise<unknown> {

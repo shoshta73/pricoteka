@@ -1,4 +1,4 @@
-import { migrateStore, type Store, type v1 } from "@pricoteka/core";
+import type { Store } from "@pricoteka/core";
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -31,19 +31,7 @@ export const useStoresStore = create<StoresStore>()(
       },
       {
         name: "stores-storage",
-        version: 2,
-        migrate: (persistedState, version) => {
-          if (version === 1) {
-            const state = persistedState as { stores?: v1.Store[] };
-
-            return {
-              ...state,
-              stores: state.stores?.map(migrateStore) ?? [],
-            };
-          }
-
-          return persistedState;
-        },
+        version: 1,
       },
     ),
     {

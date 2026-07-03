@@ -1,4 +1,4 @@
-import type { Store, v1 } from "@pricoteka/core";
+import type { Store, StoreOffice } from "@pricoteka/core";
 import { storeOfficeSchema, storeSchema } from "@pricoteka/core/schema";
 import * as z from "zod";
 
@@ -15,9 +15,9 @@ interface ApiStoresClientOptions {
 
 export interface ApiStoresClient {
   listStores: () => Promise<Store[]>;
-  listOffices: (storeId: string) => Promise<v1.StoreOffice[]>;
+  listOffices: (storeId: string) => Promise<StoreOffice[]>;
   createStore: (input: { name: string }) => Promise<Store>;
-  createOffice: (input: { storeId: string; name: string }) => Promise<v1.StoreOffice>;
+  createOffice: (input: { storeId: string; name: string }) => Promise<StoreOffice>;
 }
 
 async function readJson(response: Response): Promise<unknown> {

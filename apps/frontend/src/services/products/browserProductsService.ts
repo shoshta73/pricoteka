@@ -1,11 +1,11 @@
-import type { v1 } from "@pricoteka/core";
+import type { Product } from "@pricoteka/core";
 import { v4 as uuidv4 } from "uuid";
 
 import type { ProductsService } from "@/services/products/types";
 
 interface BrowserProductsServiceOptions {
-  getProducts: () => v1.Product[];
-  setProducts: (products: v1.Product[]) => void;
+  getProducts: () => Product[];
+  setProducts: (products: Product[]) => void;
 }
 
 export function createBrowserProductsService({ getProducts, setProducts }: BrowserProductsServiceOptions): ProductsService {
@@ -27,7 +27,7 @@ export function createBrowserProductsService({ getProducts, setProducts }: Brows
         return;
       }
 
-      const newProduct: v1.Product = {
+      const newProduct: Product = {
         id: uuidv4(),
         name,
         description,
