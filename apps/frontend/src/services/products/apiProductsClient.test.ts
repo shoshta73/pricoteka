@@ -14,6 +14,37 @@ function jsonResponse(body: unknown, init?: ResponseInit) {
 }
 
 describe("apiProductsClient", () => {
+  it("lists products from the API", async () => {
+    const products = [
+      {
+        id: "c159a388-e26d-45af-8680-f930720c7539",
+        name: "Milk",
+        description: "",
+        price: 1.5,
+        found_in: [],
+      },
+    ];
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse(products));
+    const client = createApiProductsClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listProducts()).resolves.toEqual(products);
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3000/products");
+  });
+
+  it("throws an API error when product loading fails", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ error: "Products unavailable." }, { status: 500 }));
+    const client = createApiProductsClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listProducts()).rejects.toEqual(new ApiError("Products unavailable.", 500));
+  });
+
+  it("rejects invalid list product responses", async () => {
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse([{ id: "product-1", name: "Milk" }]));
+    const client = createApiProductsClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
+
+    await expect(client.listProducts()).rejects.toBeInstanceOf(z.ZodError);
+  });
+
   it("creates a product through the API", async () => {
     const product = {
       id: "c159a388-e26d-45af-8680-f930720c7539",

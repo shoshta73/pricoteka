@@ -1,9 +1,12 @@
 import type { v1 } from "@pricoteka/core";
 import { productSchema } from "@pricoteka/core/schema";
+import * as z from "zod";
 
 import { appConfig } from "@/lib/appConfig";
 import { ApiError } from "@/services/api/apiError";
 import type { ProductLocation } from "@/services/products/types";
+
+const productsSchema = z.array(productSchema);
 
 interface ApiProductsClientOptions {
   apiUrl: string;
@@ -11,6 +14,7 @@ interface ApiProductsClientOptions {
 }
 
 export interface ApiProductsClient {
+  listProducts: () => Promise<v1.Product[]>;
   createProduct: (input: {
     name: string;
     description: string;
@@ -37,6 +41,16 @@ function getErrorMessage(body: unknown, fallback: string): string {
 
 export function createApiProductsClient({ apiUrl, fetch }: ApiProductsClientOptions): ApiProductsClient {
   return {
+    listProducts: async () => {
+      const response = await fetch(`${apiUrl}/products`);
+      const body = await readJson(response);
+
+      if (!response.ok) {
+        throw new ApiError(getErrorMessage(body, "Failed to load products."), response.status);
+      }
+
+      return productsSchema.parse(body);
+    },
     createProduct: async (input) => {
       const response = await fetch(`${apiUrl}/product`, {
         body: JSON.stringify(input),
