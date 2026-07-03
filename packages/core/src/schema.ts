@@ -1,16 +1,11 @@
 import * as z from "zod";
 
-export const storeOfficeSchemaV1 = z.object({
+export const storeOfficeSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(1),
 });
 
-export const storeSchemaV1 = z.object({
-  id: z.string().uuid(),
-  name: z.string().min(1),
-});
-
-export const productSchemaV1 = z.object({
+export const productSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(1),
   description: z.string(),
@@ -23,12 +18,8 @@ export const productSchemaV1 = z.object({
   ),
 });
 
-export const storeSchemaV2 = z.object({
+export const storeSchema = z.object({
   id: z.string().uuid(),
   name: z.string().min(1),
-  offices: z.array(storeOfficeSchemaV1),
+  offices: z.array(storeOfficeSchema),
 });
-
-export const storeSchema = storeSchemaV2;
-export const storeOfficeSchema = storeOfficeSchemaV1;
-export const productSchema = productSchemaV1;

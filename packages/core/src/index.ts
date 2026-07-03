@@ -1,38 +1,26 @@
-export namespace v1 {
-  /**
-   * @deprecated Use `Store` from `v2` instead.
-   */
-  export type Store = {
-    id: string;
-    name: string;
-  };
+export type StoreOffice = {
+  id: string;
+  name: string;
+};
 
-  export type StoreOffice = {
-    id: string;
-    name: string;
-  };
+export type ProductLocation = {
+  store_id?: string;
+  office_id: string;
+};
 
-  export type Product = {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    found_in: {
-      store_id?: string;
-      office_id: string;
-    }[];
-  };
-}
+export type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  found_in: ProductLocation[];
+};
 
-export namespace v2 {
-  export type Store = {
-    id: string;
-    name: string;
-    offices: v1.StoreOffice[];
-  };
-}
-
-export type Store = v2.Store;
+export type Store = {
+  id: string;
+  name: string;
+  offices: StoreOffice[];
+};
 
 export type Ok<T> = {
   readonly ok: true;
@@ -102,11 +90,4 @@ export function unwrap<T, E>(result: Result<T, E>): T {
 
 export function unwrapOr<T, E>(result: Result<T, E>, fallback: T): T {
   return result.ok ? result.value : fallback;
-}
-
-export function migrateStore(store: v1.Store): v2.Store {
-  return {
-    ...store,
-    offices: [],
-  };
 }

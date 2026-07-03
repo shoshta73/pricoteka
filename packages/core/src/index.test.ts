@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { ResultError, err, isErr, isOk, migrateStore, ok, toResultError, unwrap, unwrapOr } from "./index.ts";
+import { ResultError, err, isErr, isOk, ok, toResultError, unwrap, unwrapOr } from "./index.ts";
 
 describe("Result", () => {
   it("creates ok results", () => {
@@ -50,18 +50,5 @@ describe("Result", () => {
   it("returns a fallback for err results", () => {
     expect(unwrapOr(err("missing"), "fallback")).toBe("fallback");
     expect(unwrapOr(ok("value"), "fallback")).toBe("value");
-  });
-});
-
-describe("migrateStore", () => {
-  it("keeps the v1 store fields", () => {
-    expect(migrateStore({ id: "store-1", name: "Konzum" })).toMatchObject({
-      id: "store-1",
-      name: "Konzum",
-    });
-  });
-
-  it("adds an empty offices list", () => {
-    expect(migrateStore({ id: "store-1", name: "Konzum" }).offices).toEqual([]);
   });
 });
