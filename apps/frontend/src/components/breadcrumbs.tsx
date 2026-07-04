@@ -17,6 +17,7 @@ const breadcrumbItems = [
   { labelKey: "title.app", to: "/" },
   { labelKey: "stores.title", to: "/stores" },
   { labelKey: "products.title", to: "/products" },
+  { labelKey: "pages.settings.title", to: "/settings" },
   { labelKey: "pages.about.title", to: "/about" },
 ] as const;
 

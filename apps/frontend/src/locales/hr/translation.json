@@ -1,6 +1,7 @@
 {
   "nav": {
     "products": "Proizvodi",
+    "settings": "Postavke",
     "stores": "Trgovine"
   },
   "pages": {
@@ -17,6 +18,20 @@
       "subtitle": "Lagani katalog za praćenje proizvoda kroz trgovine i urede.",
       "title": "O aplikaciji Pricoteka",
       "versionLabel": "v{{version}}"
+    },
+    "settings": {
+      "activeMode": "Aktivno",
+      "apiModeAction": "Koristi API način",
+      "apiModeDescription": "Čita i zapisuje podatke putem pozadinske usluge.",
+      "apiModeTitle": "API način",
+      "apiUrlConfigured": "API URL je postavljen na {{apiUrl}}.",
+      "apiUrlMissing": "API URL nije postavljen. Postavite VITE_API_URL prije korištenja API načina.",
+      "apiUrlTitle": "API URL",
+      "browserModeAction": "Koristi način preglednika",
+      "browserModeDescription": "Sprema podatke lokalno u ovom pregledniku.",
+      "browserModeTitle": "Način preglednika",
+      "description": "Odaberite kako Pricoteka čita i zapisuje podatke kataloga.",
+      "title": "Postavke"
     }
   },
   "products": {

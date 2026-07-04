@@ -75,6 +75,10 @@ function getPageTitleKey(pathname: string) {
     return "pages.about.title";
   }
 
+  if (pathname === "/settings") {
+    return "pages.settings.title";
+  }
+
   if (pathname === "/stores") {
     return "stores.title";
   }

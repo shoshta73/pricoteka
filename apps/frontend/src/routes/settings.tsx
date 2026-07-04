@@ -1,0 +1,107 @@
+import { DatabaseIcon, DeviceMobileIcon } from "@phosphor-icons/react";
+import { createFileRoute } from "@tanstack/react-router";
+import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { appConfig } from "@/lib/appConfig";
+import { type RuntimeMode, useSettingsStore } from "@/stores/settingsStore";
+
+export const Route = createFileRoute("/settings")({
+  component: Settings,
+});
+
+function Settings() {
+  const { t } = useTranslation();
+  const runtimeMode = useSettingsStore((state) => state.runtimeMode);
+  const setRuntimeMode = useSettingsStore((state) => state.setRuntimeMode);
+  const apiUrl = getConfiguredApiUrl();
+
+  return (
+    <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-4 md:p-6">
+      <section className="space-y-2">
+        <h1 className="text-3xl font-semibold tracking-tight">{t("pages.settings.title")}</h1>
+        <p className="max-w-2xl text-sm leading-6 text-muted-foreground">{t("pages.settings.description")}</p>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        <RuntimeModeCard
+          icon={<DeviceMobileIcon className="size-5" />}
+          mode="browser"
+          activeMode={runtimeMode}
+          title={t("pages.settings.browserModeTitle")}
+          description={t("pages.settings.browserModeDescription")}
+          action={t("pages.settings.browserModeAction")}
+          onSelect={setRuntimeMode}
+        />
+        <RuntimeModeCard
+          icon={<DatabaseIcon className="size-5" />}
+          mode="api"
+          activeMode={runtimeMode}
+          title={t("pages.settings.apiModeTitle")}
+          description={t("pages.settings.apiModeDescription")}
+          action={t("pages.settings.apiModeAction")}
+          onSelect={setRuntimeMode}
+        />
+      </section>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{t("pages.settings.apiUrlTitle")}</CardTitle>
+          <CardDescription>
+            {apiUrl ? t("pages.settings.apiUrlConfigured", { apiUrl }) : t("pages.settings.apiUrlMissing")}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </main>
+  );
+}
+
+function RuntimeModeCard({
+  action,
+  activeMode,
+  description,
+  icon,
+  mode,
+  onSelect,
+  title,
+}: {
+  action: string;
+  activeMode: RuntimeMode;
+  description: string;
+  icon: ReactNode;
+  mode: RuntimeMode;
+  onSelect: (runtimeMode: RuntimeMode) => void;
+  title: string;
+}) {
+  const { t } = useTranslation();
+  const isActive = activeMode === mode;
+
+  return (
+    <Card data-active={isActive} className="data-[active=true]:border-primary">
+      <CardHeader>
+        <div className="flex items-start gap-3">
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">{icon}</div>
+          <div className="space-y-1">
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Button type="button" variant={isActive ? "default" : "outline"} onClick={() => onSelect(mode)}>
+          {isActive ? t("pages.settings.activeMode") : action}
+        </Button>
+      </CardContent>
+    </Card>
+  );
+}
+
+function getConfiguredApiUrl() {
+  try {
+    return appConfig.getApiUrl();
+  } catch {
+    return "";
+  }
+}

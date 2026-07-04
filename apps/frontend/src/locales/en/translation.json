@@ -1,5 +1,6 @@
 {
   "nav": {
+    "settings": "Settings",
     "stores": "Stores",
     "products": "Products"
   },
@@ -17,6 +18,20 @@
       "subtitle": "A lightweight catalog for tracking products across stores and offices.",
       "title": "About Pricoteka",
       "versionLabel": "v{{version}}"
+    },
+    "settings": {
+      "activeMode": "Active",
+      "apiModeAction": "Use API mode",
+      "apiModeDescription": "Reads and writes data through the backend service.",
+      "apiModeTitle": "API mode",
+      "apiUrlConfigured": "API URL is configured as {{apiUrl}}.",
+      "apiUrlMissing": "API URL is not configured. Set VITE_API_URL before using API mode.",
+      "apiUrlTitle": "API URL",
+      "browserModeAction": "Use browser mode",
+      "browserModeDescription": "Stores data locally in this browser.",
+      "browserModeTitle": "Browser mode",
+      "description": "Choose how Pricoteka reads and writes catalog data.",
+      "title": "Settings"
     }
   },
   "products": {
