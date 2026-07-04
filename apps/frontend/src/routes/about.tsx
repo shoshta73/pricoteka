@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import packageJson from "../../package.json";
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { appConfig } from "@/lib/appConfig";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/about")({
   component: About,
@@ -14,7 +14,8 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   const { t } = useTranslation();
-  const storageDescription = appConfig.isApiMode ? t("pages.about.storageApi") : t("pages.about.storageBrowser");
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
+  const storageDescription = isApiMode ? t("pages.about.storageApi") : t("pages.about.storageBrowser");
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-4 md:p-6">

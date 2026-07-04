@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { appConfig } from "@/lib/appConfig";
 import { useApiOffices } from "@/services/stores/useApiStores";
 import { useStoresData } from "@/services/stores/useStoresData";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/stores/$storeId")({
   component: StoreDetail,
@@ -17,12 +17,13 @@ export const Route = createFileRoute("/stores/$storeId")({
 function StoreDetail() {
   const { t } = useTranslation();
   const { storeId } = Route.useParams();
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
   const { isError, isLoading, stores } = useStoresData();
   const store = stores.find((item) => item.id === storeId);
   const navigate = useNavigate();
   const isChildRoute = useRouterState({ select: (state) => state.location.pathname !== `/stores/${store?.id}` });
-  const officesQuery = useApiOffices(storeId, appConfig.isApiMode && Boolean(store) && !isChildRoute);
-  const offices = appConfig.isApiMode ? (officesQuery.data ?? []) : (store?.offices ?? []);
+  const officesQuery = useApiOffices(storeId, isApiMode && Boolean(store) && !isChildRoute);
+  const offices = isApiMode ? (officesQuery.data ?? []) : (store?.offices ?? []);
 
   if (isLoading || officesQuery.isLoading) {
     return <div className="p-2">{t("stores.loading")}</div>;

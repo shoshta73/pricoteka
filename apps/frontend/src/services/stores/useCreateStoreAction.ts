@@ -1,5 +1,5 @@
-import { appConfig } from "@/lib/appConfig";
 import { useCreateApiStore } from "@/services/stores/useApiStores";
+import { useSettingsStore } from "@/stores/settingsStore";
 import { useStoresStore } from "@/stores/storesStore";
 
 interface CreateStoreAction {
@@ -8,18 +8,19 @@ interface CreateStoreAction {
 }
 
 export function useCreateStoreAction(): CreateStoreAction {
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
   const addStore = useStoresStore((state) => state.addStore);
   const createApiStore = useCreateApiStore();
 
   return {
     createStore: async (name) => {
-      if (appConfig.isApiMode) {
+      if (isApiMode) {
         await createApiStore.mutateAsync({ name });
         return;
       }
 
       addStore(name);
     },
-    isPending: appConfig.isApiMode && createApiStore.isPending,
+    isPending: isApiMode && createApiStore.isPending,
   };
 }

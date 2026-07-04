@@ -1,8 +1,8 @@
 import type { Product } from "@pricoteka/core";
 
-import { appConfig } from "@/lib/appConfig";
 import { useApiProducts } from "@/services/products/useApiProducts";
 import { useProductsStore } from "@/stores/productsStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 interface ProductsData {
   products: Product[];
@@ -13,14 +13,15 @@ interface ProductsData {
 }
 
 export function useProductsData(): ProductsData {
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
   const browserProducts = useProductsStore((state) => state.products);
-  const apiProducts = useApiProducts(appConfig.isApiMode);
-  const products = appConfig.isApiMode ? (apiProducts.data ?? []) : browserProducts;
+  const apiProducts = useApiProducts(isApiMode);
+  const products = isApiMode ? (apiProducts.data ?? []) : browserProducts;
 
   return {
     products,
-    isLoading: appConfig.isApiMode && apiProducts.isLoading,
-    isError: appConfig.isApiMode && apiProducts.isError,
+    isLoading: isApiMode && apiProducts.isLoading,
+    isError: isApiMode && apiProducts.isError,
     error: apiProducts.error,
     productExists: (name) => products.some((product) => product.name === name),
   };

@@ -1,7 +1,7 @@
 import type { Store } from "@pricoteka/core";
 
-import { appConfig } from "@/lib/appConfig";
 import { useApiStores } from "@/services/stores/useApiStores";
+import { useSettingsStore } from "@/stores/settingsStore";
 import { useStoresStore } from "@/stores/storesStore";
 
 interface StoresData {
@@ -13,14 +13,15 @@ interface StoresData {
 }
 
 export function useStoresData(): StoresData {
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
   const browserStores = useStoresStore((state) => state.stores);
-  const apiStores = useApiStores(appConfig.isApiMode);
-  const stores = appConfig.isApiMode ? (apiStores.data ?? []) : browserStores;
+  const apiStores = useApiStores(isApiMode);
+  const stores = isApiMode ? (apiStores.data ?? []) : browserStores;
 
   return {
     stores,
-    isLoading: appConfig.isApiMode && apiStores.isLoading,
-    isError: appConfig.isApiMode && apiStores.isError,
+    isLoading: isApiMode && apiStores.isLoading,
+    isError: isApiMode && apiStores.isError,
     error: apiStores.error,
     storeExists: (name) => stores.some((store) => store.name === name),
   };

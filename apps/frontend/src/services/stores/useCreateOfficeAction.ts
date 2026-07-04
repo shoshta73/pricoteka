@@ -1,5 +1,5 @@
-import { appConfig } from "@/lib/appConfig";
 import { useCreateApiOffice } from "@/services/stores/useApiStores";
+import { useSettingsStore } from "@/stores/settingsStore";
 import { useStoresStore } from "@/stores/storesStore";
 
 interface CreateOfficeAction {
@@ -8,18 +8,19 @@ interface CreateOfficeAction {
 }
 
 export function useCreateOfficeAction(): CreateOfficeAction {
+  const isApiMode = useSettingsStore((state) => state.runtimeMode === "api");
   const addOffice = useStoresStore((state) => state.addOffice);
   const createApiOffice = useCreateApiOffice();
 
   return {
     createOffice: async (storeId, name) => {
-      if (appConfig.isApiMode) {
+      if (isApiMode) {
         await createApiOffice.mutateAsync({ storeId, name });
         return;
       }
 
       addOffice(storeId, name);
     },
-    isPending: appConfig.isApiMode && createApiOffice.isPending,
+    isPending: isApiMode && createApiOffice.isPending,
   };
 }
