@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { i18n } from "@/lib/i18n";
 import { useProductsStore } from "@/stores/productsStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 import { useStoresStore } from "@/stores/storesStore";
 import { renderRouter } from "@/test/render-router";
 
@@ -10,6 +11,7 @@ describe("routes", () => {
   beforeEach(() => {
     localStorage.clear();
     useProductsStore.setState({ products: [] });
+    useSettingsStore.setState({ runtimeMode: "browser" });
     useStoresStore.setState({ stores: [] });
   });
 
@@ -213,6 +215,19 @@ describe("routes", () => {
     expect(await findByRole("heading", { name: i18n.t("pages.about.title") })).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.subtitle"))).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.storageTitle"))).toBeInTheDocument();
+  });
+
+  it("switches runtime mode from settings", async () => {
+    const user = userEvent.setup();
+    const { findByRole, findByText } = renderRouter("/settings");
+
+    expect(await findByRole("heading", { name: i18n.t("pages.settings.title") })).toBeInTheDocument();
+    expect(await findByText(i18n.t("pages.settings.apiUrlMissing"))).toBeInTheDocument();
+
+    await user.click(await findByRole("button", { name: i18n.t("pages.settings.apiModeAction") }));
+
+    expect(useSettingsStore.getState().runtimeMode).toBe("api");
+    expect(await findByRole("button", { name: i18n.t("pages.settings.browserModeAction") })).toBeInTheDocument();
   });
 
   it("renders the index route without crashing", async () => {

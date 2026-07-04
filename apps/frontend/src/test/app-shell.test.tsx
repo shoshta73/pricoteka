@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
+import { useSettingsStore } from "@/stores/settingsStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { renderRouter } from "@/test/render-router";
 
@@ -8,6 +9,7 @@ describe("app shell", () => {
   beforeEach(() => {
     document.documentElement.className = "";
     localStorage.clear();
+    useSettingsStore.setState({ runtimeMode: "browser" });
     useThemeStore.setState({ theme: "dark" });
   });
 
