@@ -2,8 +2,8 @@ import type { Store, StoreOffice } from "@pricoteka/core";
 import { storeOfficeSchema, storeSchema } from "@pricoteka/core/schema";
 import * as z from "zod";
 
-import { appConfig } from "@/lib/appConfig";
 import { ApiError } from "@/services/api/apiError";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 const storesSchema = z.array(storeSchema);
 const officesSchema = z.array(storeOfficeSchema);
@@ -37,7 +37,15 @@ function getErrorMessage(body: unknown, fallback: string): string {
 }
 
 export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions): ApiStoresClient {
-  const url = () => apiUrl || appConfig.getApiUrl();
+  const url = () => {
+    const configuredApiUrl = apiUrl || useSettingsStore.getState().apiUrl;
+
+    if (!configuredApiUrl) {
+      throw new Error("API URL is required when runtime mode is api.");
+    }
+
+    return configuredApiUrl.trim().replace(/\/$/, "");
+  };
 
   return {
     listStores: async () => {

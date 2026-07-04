@@ -11,7 +11,7 @@ describe("routes", () => {
   beforeEach(() => {
     localStorage.clear();
     useProductsStore.setState({ products: [] });
-    useSettingsStore.setState({ runtimeMode: "browser" });
+    useSettingsStore.setState({ apiUrl: "", runtimeMode: "browser" });
     useStoresStore.setState({ stores: [] });
   });
 
@@ -219,13 +219,16 @@ describe("routes", () => {
 
   it("switches runtime mode from settings", async () => {
     const user = userEvent.setup();
-    const { findByRole, findByText } = renderRouter("/settings");
+    const { findByLabelText, findByRole, findByText } = renderRouter("/settings");
 
     expect(await findByRole("heading", { name: i18n.t("pages.settings.title") })).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.settings.apiUrlMissing"))).toBeInTheDocument();
 
+    await user.type(await findByLabelText(i18n.t("pages.settings.apiUrlLabel")), "http://localhost:3000/");
+
     await user.click(await findByRole("button", { name: i18n.t("pages.settings.apiModeAction") }));
 
+    expect(useSettingsStore.getState().apiUrl).toBe("http://localhost:3000/");
     expect(useSettingsStore.getState().runtimeMode).toBe("api");
     expect(await findByRole("button", { name: i18n.t("pages.settings.browserModeAction") })).toBeInTheDocument();
   });

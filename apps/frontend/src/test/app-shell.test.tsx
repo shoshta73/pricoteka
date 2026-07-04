@@ -9,7 +9,7 @@ describe("app shell", () => {
   beforeEach(() => {
     document.documentElement.className = "";
     localStorage.clear();
-    useSettingsStore.setState({ runtimeMode: "browser" });
+    useSettingsStore.setState({ apiUrl: "", runtimeMode: "browser" });
     useThemeStore.setState({ theme: "dark" });
   });
 

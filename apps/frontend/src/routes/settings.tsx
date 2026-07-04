@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { appConfig } from "@/lib/appConfig";
+import { Input } from "@/components/ui/input";
 import { type RuntimeMode, useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/settings")({
@@ -14,9 +14,10 @@ export const Route = createFileRoute("/settings")({
 
 function Settings() {
   const { t } = useTranslation();
+  const apiUrl = useSettingsStore((state) => state.apiUrl);
   const runtimeMode = useSettingsStore((state) => state.runtimeMode);
+  const setApiUrl = useSettingsStore((state) => state.setApiUrl);
   const setRuntimeMode = useSettingsStore((state) => state.setRuntimeMode);
-  const apiUrl = getConfiguredApiUrl();
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-4 p-4 md:p-6">
@@ -53,6 +54,17 @@ function Settings() {
             {apiUrl ? t("pages.settings.apiUrlConfigured", { apiUrl }) : t("pages.settings.apiUrlMissing")}
           </CardDescription>
         </CardHeader>
+        <CardContent>
+          <label className="grid gap-2 text-sm font-medium">
+            {t("pages.settings.apiUrlLabel")}
+            <Input
+              type="url"
+              value={apiUrl}
+              placeholder={t("pages.settings.apiUrlPlaceholder")}
+              onChange={(event) => setApiUrl(event.currentTarget.value)}
+            />
+          </label>
+        </CardContent>
       </Card>
     </main>
   );
@@ -96,12 +108,4 @@ function RuntimeModeCard({
       </CardContent>
     </Card>
   );
-}
-
-function getConfiguredApiUrl() {
-  try {
-    return appConfig.getApiUrl();
-  } catch {
-    return "";
-  }
 }

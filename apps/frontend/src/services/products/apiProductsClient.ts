@@ -2,8 +2,8 @@ import type { Product, ProductLocation } from "@pricoteka/core";
 import { productSchema } from "@pricoteka/core/schema";
 import * as z from "zod";
 
-import { appConfig } from "@/lib/appConfig";
 import { ApiError } from "@/services/api/apiError";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 const productsSchema = z.array(productSchema);
 
@@ -39,7 +39,15 @@ function getErrorMessage(body: unknown, fallback: string): string {
 }
 
 export function createApiProductsClient({ apiUrl, fetch }: ApiProductsClientOptions): ApiProductsClient {
-  const url = () => apiUrl || appConfig.getApiUrl();
+  const url = () => {
+    const configuredApiUrl = apiUrl || useSettingsStore.getState().apiUrl;
+
+    if (!configuredApiUrl) {
+      throw new Error("API URL is required when runtime mode is api.");
+    }
+
+    return configuredApiUrl.trim().replace(/\/$/, "");
+  };
 
   return {
     listProducts: async () => {

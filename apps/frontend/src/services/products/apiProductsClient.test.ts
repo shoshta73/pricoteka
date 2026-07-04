@@ -1,8 +1,9 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import * as z from "zod";
 
 import { ApiError } from "@/services/api/apiError";
 import { createApiProductsClient } from "@/services/products/apiProductsClient";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 function jsonResponse(body: unknown, init?: ResponseInit) {
   return new Response(JSON.stringify(body), {
@@ -14,6 +15,10 @@ function jsonResponse(body: unknown, init?: ResponseInit) {
 }
 
 describe("apiProductsClient", () => {
+  beforeEach(() => {
+    useSettingsStore.setState({ apiUrl: "", runtimeMode: "browser" });
+  });
+
   it("lists products from the API", async () => {
     const products = [
       {
@@ -29,6 +34,23 @@ describe("apiProductsClient", () => {
 
     await expect(client.listProducts()).resolves.toEqual(products);
     expect(fetchMock).toHaveBeenCalledWith("http://localhost:3000/products");
+  });
+
+  it("uses the settings API URL when no URL is passed", async () => {
+    useSettingsStore.setState({ apiUrl: "http://localhost:3000/" });
+    const fetchMock = vi.fn().mockResolvedValue(jsonResponse([]));
+    const client = createApiProductsClient({ apiUrl: "", fetch: fetchMock });
+
+    await expect(client.listProducts()).resolves.toEqual([]);
+    expect(fetchMock).toHaveBeenCalledWith("http://localhost:3000/products");
+  });
+
+  it("requires a settings API URL when no URL is passed", async () => {
+    const fetchMock = vi.fn();
+    const client = createApiProductsClient({ apiUrl: "", fetch: fetchMock });
+
+    await expect(client.listProducts()).rejects.toThrow("API URL is required when runtime mode is api.");
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("throws an API error when product loading fails", async () => {
