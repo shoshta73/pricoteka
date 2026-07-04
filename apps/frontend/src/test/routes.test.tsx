@@ -208,9 +208,11 @@ describe("routes", () => {
   });
 
   it("renders the about route", async () => {
-    const { findByText } = renderRouter("/about");
+    const { findByRole, findByText } = renderRouter("/about");
 
-    expect(await findByText("Hello from About!")).toBeInTheDocument();
+    expect(await findByRole("heading", { name: i18n.t("pages.about.title") })).toBeInTheDocument();
+    expect(await findByText(i18n.t("pages.about.subtitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("pages.about.storageTitle"))).toBeInTheDocument();
   });
 
   it("renders the index route without crashing", async () => {

@@ -5,7 +5,18 @@
   },
   "pages": {
     "about": {
-      "title": "About"
+      "dataDescription": "Stores contain offices, and products can be linked to the offices where they are available.",
+      "dataTitle": "Organized Around Stores",
+      "purposeDescription": "Pricoteka keeps a practical catalog of stores, offices, and products so availability can be tracked without spreadsheets.",
+      "purposeTitle": "Purpose",
+      "releaseDescription": "The 1.0 release focuses on a stable data shape, clear navigation, and a clean foundation for future price tracking.",
+      "releaseTitle": "Release Focus",
+      "storageApi": "This build is connected to the Pricoteka API. Data is shared through the backend service.",
+      "storageBrowser": "This build stores data in this browser. It is useful for local use and quick cataloging.",
+      "storageTitle": "Storage Mode",
+      "subtitle": "A lightweight catalog for tracking products across stores and offices.",
+      "title": "About Pricoteka",
+      "versionLabel": "v{{version}}"
     }
   },
   "products": {

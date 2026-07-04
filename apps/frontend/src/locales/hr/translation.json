@@ -5,7 +5,18 @@
   },
   "pages": {
     "about": {
-      "title": "O aplikaciji"
+      "dataDescription": "Trgovine sadrže urede, a proizvodi se mogu povezati s uredima u kojima su dostupni.",
+      "dataTitle": "Organizirano oko trgovina",
+      "purposeDescription": "Pricoteka vodi praktičan katalog trgovina, ureda i proizvoda kako bi se dostupnost mogla pratiti bez tablica.",
+      "purposeTitle": "Svrha",
+      "releaseDescription": "Izdanje 1.0 usmjereno je na stabilan oblik podataka, jasnu navigaciju i čistu osnovu za buduće praćenje cijena.",
+      "releaseTitle": "Fokus izdanja",
+      "storageApi": "Ova je verzija povezana s Pricoteka API-jem. Podaci se dijele putem pozadinske usluge.",
+      "storageBrowser": "Ova verzija sprema podatke u ovaj preglednik. Korisna je za lokalnu upotrebu i brzo katalogiziranje.",
+      "storageTitle": "Način pohrane",
+      "subtitle": "Lagani katalog za praćenje proizvoda kroz trgovine i urede.",
+      "title": "O aplikaciji Pricoteka",
+      "versionLabel": "v{{version}}"
     }
   },
   "products": {
