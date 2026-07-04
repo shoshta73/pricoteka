@@ -35,7 +35,7 @@
 - React Compiler is enabled; avoid routine `useMemo`/`useCallback` unless there is a concrete need or an existing pattern.
 - Vitest uses `jsdom`, excludes `**/build/dist/**`, and loads `apps/frontend/src/test/setup.ts` for jest-dom matchers.
 - Frontend test setup resets i18n to `en` before each test and mocks `matchMedia` and `scrollTo`.
-- Tailwind is configured through the Vite plugin; `apps/frontend/src/index.css` also imports `tw-animate-css`, shadcn CSS, Geist font, and theme tokens.
+- Tailwind is configured through the Vite plugin; `apps/frontend/src/index.css` also imports `tw-animate-css`, shadcn CSS, Nunito font, and theme tokens.
 - shadcn is configured by `apps/frontend/components.json` with `base-mira`, Base UI-style components, Phosphor icons, and aliases like `@/components`, `@/components/ui`, and `@/lib/utils`.
 - Treat `apps/frontend/src/components/ui` as generated/vendor-style UI primitives; do not edit it unless explicitly asked.
 - Frontend `allowImportingTsExtensions` means imports with `.tsx`/`.ts` extensions can be intentional.
