@@ -12,10 +12,6 @@ RUN pnpm install --frozen-lockfile
 FROM deps AS build
 
 WORKDIR /app
-ARG VITE_APP_MODE=api
-ARG VITE_API_URL=/api
-ENV VITE_APP_MODE=$VITE_APP_MODE
-ENV VITE_API_URL=$VITE_API_URL
 
 COPY packages/core ./packages/core
 COPY apps/frontend ./apps/frontend
