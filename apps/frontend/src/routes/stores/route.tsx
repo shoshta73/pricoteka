@@ -76,7 +76,11 @@ function Stores() {
           <CardHeader>
             <div className="flex items-start gap-3">
               <CardTitle className="min-w-0 grow">{store.name}</CardTitle>
-              <Link to="/stores/$storeId" params={{ storeId: store.id }} className={buttonVariants({ variant: "outline" })}>
+              <Link
+                to="/stores/$storeId"
+                params={{ storeId: store.id }}
+                className={buttonVariants({ variant: "outline" })}
+              >
                 {t("stores.viewAction")}
                 <ArrowRightIcon data-icon="inline-end" />
               </Link>

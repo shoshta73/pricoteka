@@ -8,7 +8,10 @@ interface BrowserProductsServiceOptions {
   setProducts: (products: Product[]) => void;
 }
 
-export function createBrowserProductsService({ getProducts, setProducts }: BrowserProductsServiceOptions): ProductsService {
+export function createBrowserProductsService({
+  getProducts,
+  setProducts,
+}: BrowserProductsServiceOptions): ProductsService {
   const service: ProductsService = {
     listProducts: () => getProducts(),
     productExists: (name) => {

@@ -116,7 +116,9 @@ describe("apiProductsClient", () => {
   });
 
   it("throws an API error for non-success responses", async () => {
-    const fetchMock = vi.fn().mockResolvedValue(jsonResponse({ error: "Product office must reference an existing office." }, { status: 400 }));
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValue(jsonResponse({ error: "Product office must reference an existing office." }, { status: 400 }));
     const client = createApiProductsClient({ apiUrl: "http://localhost:3000", fetch: fetchMock });
 
     await expect(

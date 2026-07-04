@@ -64,20 +64,14 @@ function About() {
   );
 }
 
-function AboutCard({
-  description,
-  icon,
-  title,
-}: {
-  description: string;
-  icon: ReactNode;
-  title: string;
-}) {
+function AboutCard({ description, icon, title }: { description: string; icon: ReactNode; title: string }) {
   return (
     <Card className="min-h-40">
       <CardHeader>
         <div className="flex items-start gap-3">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">{icon}</div>
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            {icon}
+          </div>
           <div className="space-y-1">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>

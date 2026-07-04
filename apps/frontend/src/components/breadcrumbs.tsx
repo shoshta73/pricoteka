@@ -72,7 +72,9 @@ export function Breadcrumbs() {
               ></DropdownMenuTrigger>
               <DropdownMenuContent align="start">
                 <DropdownMenuGroup>
-                  <DropdownMenuItem onClick={() => navigate({ to: "/stores" })}>{t("stores.dashboard")}</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate({ to: "/stores" })}>
+                    {t("stores.dashboard")}
+                  </DropdownMenuItem>
                   {stores.map((store) => (
                     <DropdownMenuItem
                       key={store.id}

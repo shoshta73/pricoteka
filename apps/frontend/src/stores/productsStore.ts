@@ -7,12 +7,7 @@ import { createBrowserProductsService } from "@/services/products/browserProduct
 interface ProductsStore {
   products: Product[];
   productExists: (name: string) => boolean;
-  addProduct: (product: {
-    name: string;
-    description: string;
-    price: number;
-    found_in?: ProductLocation[];
-  }) => void;
+  addProduct: (product: { name: string; description: string; price: number; found_in?: ProductLocation[] }) => void;
 }
 
 export const useProductsStore = create<ProductsStore>()(

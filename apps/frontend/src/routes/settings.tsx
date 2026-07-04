@@ -94,7 +94,9 @@ function RuntimeModeCard({
     <Card data-active={isActive} className="data-[active=true]:border-primary">
       <CardHeader>
         <div className="flex items-start gap-3">
-          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">{icon}</div>
+          <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+            {icon}
+          </div>
           <div className="space-y-1">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>

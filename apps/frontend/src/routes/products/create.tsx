@@ -6,7 +6,12 @@ import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useCreateProductAction } from "@/services/products/useCreateProductAction";
@@ -157,9 +162,7 @@ function CreateProduct() {
                     <FieldLabel>{t("products.storeLabel")}</FieldLabel>
                     <DropdownMenu>
                       <DropdownMenuTrigger
-                        render={
-                          <Button type="button" variant="outline" className="w-full justify-start font-normal" />
-                        }
+                        render={<Button type="button" variant="outline" className="w-full justify-start font-normal" />}
                         aria-label={t("products.storeLabel")}
                         onBlur={field.handleBlur}
                       >
@@ -216,7 +219,8 @@ function CreateProduct() {
                         aria-label={t("products.officeLabel")}
                         onBlur={field.handleBlur}
                       >
-                        {offices.find((office) => office.id === field.state.value)?.name ?? t("products.officePlaceholder")}
+                        {offices.find((office) => office.id === field.state.value)?.name ??
+                          t("products.officePlaceholder")}
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
                         <DropdownMenuItem onClick={() => field.handleChange("")}>

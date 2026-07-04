@@ -35,10 +35,7 @@ describe("routes", () => {
     const { findAllByText, findByRole } = renderRouter("/stores");
 
     expect(await findAllByText("Store 1")).toHaveLength(2);
-    expect(await findByRole("link", { name: i18n.t("stores.viewAction") })).toHaveAttribute(
-      "href",
-      "/stores/store-1",
-    );
+    expect(await findByRole("link", { name: i18n.t("stores.viewAction") })).toHaveAttribute("href", "/stores/store-1");
   });
 
   it("renders the empty products state", async () => {
@@ -72,7 +69,9 @@ describe("routes", () => {
     const { findAllByText, findByRole, findByText } = renderRouter("/products");
 
     expect(await findAllByText("Milk")).toHaveLength(2);
-    expect(await findByText(new Intl.NumberFormat(i18n.language, { currency: "EUR", style: "currency" }).format(1.5))).toBeInTheDocument();
+    expect(
+      await findByText(new Intl.NumberFormat(i18n.language, { currency: "EUR", style: "currency" }).format(1.5)),
+    ).toBeInTheDocument();
     expect(await findByText("Fresh milk")).toBeInTheDocument();
     expect(await findByText("Store 1 / Office 1")).toBeInTheDocument();
     expect(await findByRole("link", { name: i18n.t("products.viewAction") })).toHaveAttribute(
