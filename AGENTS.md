@@ -31,7 +31,7 @@
 
 ## Tooling Quirks
 
-- Vite plugins include TanStack Devtools, Tailwind CSS v4, TanStack Router codegen with `autoCodeSplitting: true`, React, React Compiler via `@rolldown/plugin-babel`, and bundle visualizer outputs.
+- Vite plugins include TanStack Devtools, Tailwind CSS v4, TanStack Router codegen with `autoCodeSplitting: false`, React, React Compiler via `@rolldown/plugin-babel`, and bundle visualizer outputs.
 - React Compiler is enabled; avoid routine `useMemo`/`useCallback` unless there is a concrete need or an existing pattern.
 - Vitest uses `jsdom`, excludes `**/build/dist/**`, and loads `apps/frontend/src/test/setup.ts` for jest-dom matchers.
 - Frontend test setup resets i18n to `en` before each test and mocks `matchMedia` and `scrollTo`.
