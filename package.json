@@ -2,6 +2,7 @@
   "name": "pricoteka",
   "private": true,
   "scripts": {
+    "dev": "concurrently \"pnpm --filter @pricoteka/api dev\" \"pnpm --filter @pricoteka/app dev\"",
     "app-dev": "pnpm --filter @pricoteka/app dev",
     "app-typecheck": "pnpm --filter @pricoteka/app typecheck",
     "app-build": "pnpm --filter @pricoteka/app build",
@@ -20,8 +21,7 @@
     "fallow:dupes": "fallow dupes",
     "fallow:health": "fallow health",
     "fallow:review": "fallow review",
-    "fallow:fix": "fallow fix",
-    "dev": "concurrently \"pnpm --filter @pricoteka/api dev\" \"pnpm --filter @pricoteka/app dev\""
+    "fallow:fix": "fallow fix"
   },
   "devDependencies": {
     "concurrently": "^10.0.3",

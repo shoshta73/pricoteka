@@ -8,14 +8,14 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc --noEmit && rolldown -c",
     "start": "node dist/index.js",
+    "typecheck": "tsc -b",
+    "lint": "oxlint .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt --write .",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio",
-    "format": "oxfmt --check .",
-    "format:fix": "oxfmt --write .",
-    "lint": "oxlint .",
-    "typecheck": "tsc -b"
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.6",

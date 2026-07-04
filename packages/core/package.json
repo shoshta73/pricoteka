@@ -16,12 +16,12 @@
   },
   "scripts": {
     "build": "tsc && rolldown -c",
-    "format": "oxfmt --check .",
-    "format:fix": "oxfmt --write .",
-    "lint": "oxlint .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:ui": "vitest --ui",
-    "typecheck": "tsc --noEmit"
+    "lint": "oxlint .",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt --write ."
   },
   "dependencies": {
     "zod": "^4.4.3"
