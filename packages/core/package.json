@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsc && rolldown -c",
     "format": "oxfmt --check .",
-    "format:fix": "oxfmt .",
+    "format:fix": "oxfmt --write .",
     "lint": "oxlint .",
     "test": "vitest run",
     "test:ui": "vitest --ui",

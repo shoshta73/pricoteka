@@ -13,7 +13,7 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "format": "oxfmt --check .",
-    "format:fix": "oxfmt .",
+    "format:fix": "oxfmt --write .",
     "lint": "oxlint .",
     "typecheck": "tsc -b"
   },

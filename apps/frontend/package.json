@@ -15,7 +15,7 @@
     "build": "pnpm prepare:checks && tsc -b && vite build",
     "lint": "pnpm prepare:checks && oxlint .",
     "format": "pnpm prepare:checks && oxfmt --check .",
-    "format:fix": "pnpm prepare:checks && oxfmt .",
+    "format:fix": "pnpm prepare:checks && oxfmt --write .",
     "preview": "vite preview",
     "test": "pnpm prepare:checks && vitest run",
     "test:watch": "pnpm prepare:checks && vitest",
