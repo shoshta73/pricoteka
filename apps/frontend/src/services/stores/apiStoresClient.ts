@@ -37,9 +37,11 @@ function getErrorMessage(body: unknown, fallback: string): string {
 }
 
 export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions): ApiStoresClient {
+  const url = () => apiUrl || appConfig.getApiUrl();
+
   return {
     listStores: async () => {
-      const response = await fetch(`${apiUrl}/stores`);
+      const response = await fetch(`${url()}/stores`);
       const body = await readJson(response);
 
       if (!response.ok) {
@@ -49,7 +51,7 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
       return storesSchema.parse(body);
     },
     listOffices: async (storeId) => {
-      const response = await fetch(`${apiUrl}/store/${storeId}/offices`);
+      const response = await fetch(`${url()}/store/${storeId}/offices`);
       const body = await readJson(response);
 
       if (!response.ok) {
@@ -59,7 +61,7 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
       return officesSchema.parse(body);
     },
     createStore: async ({ name }) => {
-      const response = await fetch(`${apiUrl}/store`, {
+      const response = await fetch(`${url()}/store`, {
         body: JSON.stringify({ name }),
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
       return storeSchema.parse(body);
     },
     createOffice: async ({ storeId, name }) => {
-      const response = await fetch(`${apiUrl}/store/${storeId}/office`, {
+      const response = await fetch(`${url()}/store/${storeId}/office`, {
         body: JSON.stringify({ name }),
         headers: {
           "Content-Type": "application/json",
@@ -94,6 +96,6 @@ export function createApiStoresClient({ apiUrl, fetch }: ApiStoresClientOptions)
 }
 
 export const apiStoresClient = createApiStoresClient({
-  apiUrl: appConfig.apiUrl,
+  apiUrl: "",
   fetch,
 });

@@ -39,9 +39,11 @@ function getErrorMessage(body: unknown, fallback: string): string {
 }
 
 export function createApiProductsClient({ apiUrl, fetch }: ApiProductsClientOptions): ApiProductsClient {
+  const url = () => apiUrl || appConfig.getApiUrl();
+
   return {
     listProducts: async () => {
-      const response = await fetch(`${apiUrl}/products`);
+      const response = await fetch(`${url()}/products`);
       const body = await readJson(response);
 
       if (!response.ok) {
@@ -51,7 +53,7 @@ export function createApiProductsClient({ apiUrl, fetch }: ApiProductsClientOpti
       return productsSchema.parse(body);
     },
     createProduct: async (input) => {
-      const response = await fetch(`${apiUrl}/product`, {
+      const response = await fetch(`${url()}/product`, {
         body: JSON.stringify(input),
         headers: {
           "Content-Type": "application/json",
@@ -70,6 +72,6 @@ export function createApiProductsClient({ apiUrl, fetch }: ApiProductsClientOpti
 }
 
 export const apiProductsClient = createApiProductsClient({
-  apiUrl: appConfig.apiUrl,
+  apiUrl: "",
   fetch,
 });
