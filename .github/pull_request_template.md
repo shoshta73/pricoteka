@@ -10,6 +10,7 @@ Describe what this pull request changes.
 
 - [ ] `pnpm --filter @pricoteka/core build`
 - [ ] `pnpm --filter @pricoteka/api build`
+- [ ] `pnpm --filter @pricoteka/ui-core build`
 - [ ] `pnpm app-build`
 - [ ] `pnpm test`
 - [ ] `pnpm lint`

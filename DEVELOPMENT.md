@@ -15,11 +15,12 @@ pnpm install
 
 ## Project Structure
 
-Pricoteka is a pnpm workspace with three main packages:
+Pricoteka is a pnpm workspace with four main packages:
 
 - `apps/frontend/` - React frontend, published in the workspace as `@pricoteka/app`
 - `apps/api/` - Hono API server, published in the workspace as `@pricoteka/api`
 - `packages/core/` - shared schemas and exports, published in the workspace as `@pricoteka/core`
+- `packages/ui-core/` - shared shadcn UI primitives and theme CSS, published in the workspace as `@pricoteka/ui-core`
 
 ## Running Locally
 
@@ -87,6 +88,7 @@ Run commands for a specific workspace package with pnpm filters:
 pnpm --filter @pricoteka/app <script>
 pnpm --filter @pricoteka/api <script>
 pnpm --filter @pricoteka/core <script>
+pnpm --filter @pricoteka/ui-core <script>
 ```
 
 ## Frontend Development
@@ -107,6 +109,8 @@ pnpm --filter @pricoteka/app exec vitest run <test-file>
 Translations live in `apps/frontend/src/locales/<locale>/translation.json`. Non-default locales must match the default `en` message keys exactly.
 
 Static assets in `apps/frontend/public/` are served from `/`. Frontend imports can use the `@/*` alias for `apps/frontend/src/*`.
+
+Shared UI primitives are imported from per-component `@pricoteka/ui-core/*` exports, and the app imports shared theme CSS from `@pricoteka/ui-core/styles.css`.
 
 ## API Development
 
@@ -154,6 +158,25 @@ pnpm --filter @pricoteka/core lint
 pnpm --filter @pricoteka/core format
 ```
 
+## UI Core Package
+
+The UI core package contains shared shadcn UI primitives, shadcn utilities and hooks, and shared theme CSS used by the frontend and future website.
+
+Use per-component exports from consumers:
+
+```ts
+import { Button } from "@pricoteka/ui-core/button";
+```
+
+Common UI core commands:
+
+```sh
+pnpm --filter @pricoteka/ui-core build
+pnpm --filter @pricoteka/ui-core typecheck
+pnpm --filter @pricoteka/ui-core lint
+pnpm --filter @pricoteka/ui-core format
+```
+
 ## Generated Files
 
 Do not edit generated or build-output files directly:
@@ -172,6 +195,7 @@ Before opening a pull request, run the checks relevant to the areas you changed.
 For frontend changes:
 
 ```sh
+pnpm --filter @pricoteka/ui-core build
 pnpm app-build
 pnpm app-test
 ```
@@ -191,6 +215,16 @@ pnpm --filter @pricoteka/core build
 pnpm --filter @pricoteka/core test
 pnpm --filter @pricoteka/core lint
 pnpm --filter @pricoteka/core format
+```
+
+For UI core changes:
+
+```sh
+pnpm --filter @pricoteka/ui-core build
+pnpm --filter @pricoteka/ui-core lint
+pnpm --filter @pricoteka/ui-core format
+pnpm app-build
+pnpm app-test
 ```
 
 For broad changes, also run:

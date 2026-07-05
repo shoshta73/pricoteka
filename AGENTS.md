@@ -1,9 +1,10 @@
 ## Project Shape
 
-- pnpm workspace: `@pricoteka/app` in `apps/frontend/`, `@pricoteka/api` in `apps/api/`, and shared exports in `packages/core/` as `@pricoteka/core`.
+- pnpm workspace: `@pricoteka/app` in `apps/frontend/`, `@pricoteka/api` in `apps/api/`, shared exports in `packages/core/` as `@pricoteka/core`, and shadcn UI/theme primitives in `packages/ui-core/` as `@pricoteka/ui-core`.
 - Frontend entrypoint is `apps/frontend/src/main.tsx`; TanStack Router uses `createHashHistory()`, so app URLs are hash-based.
 - Frontend routes are file routes under `apps/frontend/src/routes/`; `apps/frontend/src/routeTree.gen.ts` is generated and gitignored.
 - Frontend imports can use `@/*` for `apps/frontend/src/*`; static assets in `apps/frontend/public/` are served from `/`.
+- Shared UI imports use per-component package exports such as `@pricoteka/ui-core/button`; the frontend imports shared theme CSS from `@pricoteka/ui-core/styles.css`.
 - API entrypoint is `apps/api/src/index.ts`; it is a Hono Node server on port `3000` with permissive CORS.
 - API DB is Drizzle/libSQL in `apps/api/src/db/`; `DB_FILE_NAME` defaults to `file:local.db` and local DB files under `apps/api/local.db*` are gitignored.
 - Core public surface is intentionally small: `packages/core/src/index.ts` and `packages/core/src/schema.ts` are the only included source files.
@@ -12,7 +13,7 @@
 
 - Use pnpm workspaces; root `packageManager` is `pnpm@11.5.0`, and CI uses Node `24.15.0` with `pnpm install --frozen-lockfile`.
 - Root shortcuts: `pnpm dev` runs API and frontend together; `pnpm app-dev`, `pnpm app-typecheck`, `pnpm app-build`, and `pnpm app-test` target the frontend.
-- Package filters: `pnpm --filter @pricoteka/app <script>`, `pnpm --filter @pricoteka/api <script>`, `pnpm --filter @pricoteka/core <script>`.
+- Package filters: `pnpm --filter @pricoteka/app <script>`, `pnpm --filter @pricoteka/api <script>`, `pnpm --filter @pricoteka/core <script>`, `pnpm --filter @pricoteka/ui-core <script>`.
 - Frontend `dev`, `typecheck`, `build`, `lint`, `format`, and `test` first run `prepare:checks`, which concurrently validates i18n and regenerates TanStack routes.
 - Focused frontend tests: run `pnpm --filter @pricoteka/app prepare:checks` once, then `pnpm --filter @pricoteka/app exec vitest run <file>`.
 - Focused core tests can run directly with `pnpm --filter @pricoteka/core exec vitest run <file>`.
@@ -35,15 +36,16 @@
 - React Compiler is enabled; avoid routine `useMemo`/`useCallback` unless there is a concrete need or an existing pattern.
 - Vitest uses `jsdom`, excludes `**/build/dist/**`, and loads `apps/frontend/src/test/setup.ts` for jest-dom matchers.
 - Frontend test setup resets i18n to `en` before each test and mocks `matchMedia` and `scrollTo`.
-- Tailwind is configured through the Vite plugin; `apps/frontend/src/index.css` also imports `tw-animate-css`, shadcn CSS, Nunito font, and theme tokens.
-- shadcn is configured by `apps/frontend/components.json` with `base-mira`, Base UI-style components, Phosphor icons, and aliases like `@/components`, `@/components/ui`, and `@/lib/utils`.
-- Treat `apps/frontend/src/components/ui` as generated/vendor-style UI primitives; do not edit it unless explicitly asked.
+- Tailwind is configured through the Vite plugin; `packages/ui-core/src/styles.css` owns `tw-animate-css`, shadcn CSS, Nunito font, and theme tokens.
+- shadcn is configured by `packages/ui-core/components.json` with `base-mira`, Base UI-style components, Phosphor icons, and aliases like `@/components`, `@/components/ui`, and `@/lib/utils`.
+- Treat `packages/ui-core/src/components/ui` as generated/vendor-style UI primitives; do not edit it unless explicitly asked.
 - Frontend `allowImportingTsExtensions` means imports with `.tsx`/`.ts` extensions can be intentional.
-- `erasableSyntaxOnly` is enabled in frontend/core TypeScript configs; `noUnusedLocals` and `noUnusedParameters` are enabled repo-wide.
+- `erasableSyntaxOnly` is enabled in frontend/core/ui-core TypeScript configs; `noUnusedLocals` and `noUnusedParameters` are enabled repo-wide.
 
 ## Verification
 
-- CI builds/lints/formats in dependency order: core, API, then app; tests run core, then app.
+- CI builds/lints/formats in dependency order: core, API and UI core, then app; tests run core, then app with UI core built first.
 - Frontend changes: prefer `pnpm app-build` and `pnpm app-test`; add `pnpm lint` / `pnpm format` when touching broadly formatted code.
 - API changes: run `pnpm --filter @pricoteka/api build`, `pnpm --filter @pricoteka/api lint`, and `pnpm --filter @pricoteka/api format`.
 - Core changes: run `pnpm --filter @pricoteka/core build`, `pnpm --filter @pricoteka/core test`, `pnpm --filter @pricoteka/core lint`, and `pnpm --filter @pricoteka/core format`.
+- UI core changes: run `pnpm --filter @pricoteka/ui-core build`, `pnpm --filter @pricoteka/ui-core lint`, `pnpm --filter @pricoteka/ui-core format`, plus `pnpm app-build` and `pnpm app-test` for consumer coverage.

@@ -3,11 +3,13 @@
   "entry": [
     "apps/frontend/src/index.{ts,tsx,js,jsx}",
     "apps/frontend/src/main.{ts,tsx,js,jsx}",
-    "apps/frontend/src/test/setup.ts"
+    "apps/frontend/src/test/setup.ts",
+    "packages/ui-core/src/components/ui/*.{ts,tsx}",
+    "packages/ui-core/src/hooks/*.{ts,tsx}",
+    "packages/ui-core/src/lib/*.{ts,tsx}"
   ],
   "ignorePatterns": [
     "apps/frontend/src/routeTree.gen.ts",
-    "apps/frontend/src/components/ui/**",
     "apps/frontend/build/dist/**",
     "apps/frontend/dist/**",
     "apps/frontend/stats.html",
@@ -20,7 +22,7 @@
     "minOccurrences": 3,
     "ignore": [
       "apps/frontend/src/routeTree.gen.ts",
-      "apps/frontend/src/components/ui/**",
+      "packages/ui-core/src/components/ui/**",
       "apps/frontend/build/dist/**",
       "apps/frontend/dist/**",
       "apps/frontend/stats.html",
@@ -31,7 +33,7 @@
   "health": {
     "ignore": [
       "apps/frontend/src/routeTree.gen.ts",
-      "apps/frontend/src/components/ui/**",
+      "packages/ui-core/src/components/ui/**",
       "apps/frontend/build/dist/**",
       "apps/frontend/dist/**",
       "apps/frontend/stats.html",
