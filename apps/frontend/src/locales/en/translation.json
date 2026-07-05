@@ -4,6 +4,21 @@
     "stores": "Stores",
     "products": "Products"
   },
+  "dashboard": {
+    "browseDescription": "Jump back into the catalog views when you need more detail.",
+    "browseTitle": "Browse Catalog",
+    "createDescription": "Add the core catalog records from one place.",
+    "createTitle": "Quick Actions",
+    "loadFailure": "Dashboard data could not be loaded.",
+    "loading": "Loading dashboard...",
+    "officesMetric": "Offices",
+    "productsMetric": "Products",
+    "storesMetric": "Stores",
+    "subtitle": "A quick overview of stores, offices, and products in your catalog.",
+    "title": "Dashboard",
+    "viewProductsAction": "View Products",
+    "viewStoresAction": "View Stores"
+  },
   "pages": {
     "about": {
       "dataDescription": "Stores contain offices, and products can be linked to the offices where they are available.",

@@ -4,6 +4,21 @@
     "settings": "Postavke",
     "stores": "Trgovine"
   },
+  "dashboard": {
+    "browseDescription": "Vratite se u katalog kada trebate vise detalja.",
+    "browseTitle": "Pregled kataloga",
+    "createDescription": "Dodajte osnovne zapise kataloga s jednog mjesta.",
+    "createTitle": "Brze akcije",
+    "loadFailure": "Podatke nadzorne ploce nije moguce ucitati.",
+    "loading": "Ucitavanje nadzorne ploce...",
+    "officesMetric": "Uredi",
+    "productsMetric": "Proizvodi",
+    "storesMetric": "Trgovine",
+    "subtitle": "Kratki pregled trgovina, ureda i proizvoda u katalogu.",
+    "title": "Nadzorna ploca",
+    "viewProductsAction": "Prikazi proizvode",
+    "viewStoresAction": "Prikazi trgovine"
+  },
   "pages": {
     "about": {
       "dataDescription": "Trgovine sadrže urede, a proizvodi se mogu povezati s uredima u kojima su dostupni.",
