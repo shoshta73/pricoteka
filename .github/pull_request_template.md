@@ -8,7 +8,10 @@ Describe what this pull request changes.
 
 ## Testing
 
-- [ ] `pnpm build`
+- [ ] `pnpm --filter @pricoteka/core build`
+- [ ] `pnpm --filter @pricoteka/api build`
+- [ ] `pnpm app-build`
+- [ ] `pnpm test`
 - [ ] `pnpm lint`
 - [ ] `pnpm format`
 - [ ] Not applicable

@@ -4,6 +4,21 @@ title: "Feature: "
 labels:
   - enhancement
 body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      description: Which part of Pricoteka would this change?
+      multiple: true
+      options:
+        - Frontend app
+        - API
+        - Core package
+        - Data
+        - Documentation
+        - Not sure
+    validations:
+      required: true
   - type: textarea
     id: problem
     attributes:
@@ -25,7 +40,7 @@ body:
       label: Alternatives considered
       description: What other approaches or workarounds have you considered?
     validations:
-      required: true
+      required: false
   - type: textarea
     id: acceptance
     attributes:
