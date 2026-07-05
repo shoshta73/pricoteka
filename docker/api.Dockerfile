@@ -16,6 +16,7 @@ WORKDIR /app
 COPY packages/core ./packages/core
 COPY apps/api ./apps/api
 
+RUN pnpm --filter @pricoteka/core build
 RUN pnpm --filter @pricoteka/api build
 
 FROM node:24-alpine3.24 AS runtime
