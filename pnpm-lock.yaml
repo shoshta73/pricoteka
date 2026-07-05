@@ -78,12 +78,6 @@ importers:
 
   apps/frontend:
     dependencies:
-      '@base-ui/react':
-        specifier: ^1.6.0
-        version: 1.6.0(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@fontsource-variable/nunito':
-        specifier: ^5.2.7
-        version: 5.2.7
       '@phosphor-icons/react':
         specifier: ^2.1.10
         version: 2.1.10(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -120,12 +114,6 @@ importers:
       add:
         specifier: ^2.0.6
         version: 2.0.6
-      class-variance-authority:
-        specifier: ^0.7.1
-        version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       collapsible:
         specifier: ^1.0.1
         version: 1.0.1
@@ -138,9 +126,6 @@ importers:
       i18next-browser-languagedetector:
         specifier: ^8.2.1
         version: 8.2.1
-      next-themes:
-        specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       pnpm:
         specifier: ^11.9.0
         version: 11.9.0
@@ -156,15 +141,9 @@ importers:
       sonner:
         specifier: ^2.0.7
         version: 2.0.7(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      tailwind-merge:
-        specifier: ^3.6.0
-        version: 3.6.0
       tailwindcss:
         specifier: ^4.3.1
         version: 4.3.1
-      tw-animate-css:
-        specifier: ^1.4.0
-        version: 1.4.0
       uuid:
         specifier: ^14.0.1
         version: 14.0.1
@@ -217,9 +196,6 @@ importers:
       jsdom:
         specifier: ^29.1.1
         version: 29.1.1
-      shadcn:
-        specifier: ^4.12.0
-        version: 4.12.0(typescript@6.0.3)
       vite:
         specifier: ^8.0.16
         version: 8.0.16(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)
