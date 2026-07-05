@@ -24,6 +24,12 @@
     "fallow:fix": "fallow fix"
   },
   "devDependencies": {
+    "@rolldown/plugin-babel": "^0.2.3",
+    "@tailwindcss/vite": "^4.3.1",
+    "@tanstack/devtools-vite": "^0.8.1",
+    "@tanstack/router-plugin": "^1.168.18",
+    "@vitejs/plugin-react": "^6.0.2",
+    "babel-plugin-react-compiler": "^1.0.0",
     "concurrently": "^10.0.3",
     "fallow": "^2.101.0",
     "oxfmt": "^0.55.0",
@@ -31,6 +37,7 @@
     "rolldown": "^1.0.3",
     "rollup-plugin-visualizer": "^7.0.1",
     "typescript": "^6.0.3",
+    "vite": "^8.0.16",
     "vitest": "^4.1.9"
   },
   "packageManager": "pnpm@11.5.0"

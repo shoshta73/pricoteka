@@ -25,7 +25,6 @@
     "@phosphor-icons/react": "^2.1.10",
     "@pricoteka/core": "workspace:*",
     "@pricoteka/ui-core": "workspace:*",
-    "@tailwindcss/vite": "^4.3.1",
     "@tanstack/react-devtools": "^0.10.8",
     "@tanstack/react-form": "^1.33.0",
     "@tanstack/react-form-devtools": "^0.2.29",
@@ -49,20 +48,14 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
-    "@rolldown/plugin-babel": "^0.2.3",
-    "@tanstack/devtools-vite": "^0.8.1",
     "@tanstack/router-cli": "^1.167.17",
-    "@tanstack/router-plugin": "^1.168.18",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/node": "^26.0.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.2",
     "@vitest/ui": "^4.1.9",
-    "babel-plugin-react-compiler": "^1.0.0",
-    "jsdom": "^29.1.1",
-    "vite": "^8.0.16"
+    "jsdom": "^29.1.1"
   }
 }
