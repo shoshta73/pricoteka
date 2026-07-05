@@ -72,7 +72,7 @@ function About() {
             <Collapsible className="min-w-0 flex-1 space-y-3">
               <CollapsibleTrigger
                 render={
-                  <Button variant="ghost" className="w-full justify-between px-0 text-base font-semibold">
+                  <Button variant="ghost" className="w-full justify-between px-3 py-2 text-base font-semibold">
                     {t("pages.about.licenseTitle")}
                     <CaretDownIcon className="group-data-panel-open/button:rotate-180" />
                   </Button>
