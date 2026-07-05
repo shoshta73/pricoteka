@@ -1,6 +1,6 @@
 ## Project Shape
 
-- pnpm workspace: `@pricoteka/app` in `apps/frontend/`, `@pricoteka/api` in `apps/api/`, shared exports in `packages/core/` as `@pricoteka/core`, and shadcn UI/theme primitives in `packages/ui-core/` as `@pricoteka/ui-core`.
+- pnpm workspace: `@pricoteka/app` in `apps/frontend/`, `@pricoteka/api` in `apps/api/`, website in `website/` as `@pricoteka/website`, shared exports in `packages/core/` as `@pricoteka/core`, and shadcn UI/theme primitives in `packages/ui-core/` as `@pricoteka/ui-core`.
 - Frontend entrypoint is `apps/frontend/src/main.tsx`; TanStack Router uses `createHashHistory()`, so app URLs are hash-based.
 - Frontend routes are file routes under `apps/frontend/src/routes/`; `apps/frontend/src/routeTree.gen.ts` is generated and gitignored.
 - Frontend imports can use `@/*` for `apps/frontend/src/*`; static assets in `apps/frontend/public/` are served from `/`.
@@ -12,8 +12,8 @@
 ## Commands
 
 - Use pnpm workspaces; root `packageManager` is `pnpm@11.5.0`, and CI uses Node `24.15.0` with `pnpm install --frozen-lockfile`.
-- Root shortcuts: `pnpm dev` runs API and frontend together; `pnpm app-dev`, `pnpm app-typecheck`, `pnpm app-build`, and `pnpm app-test` target the frontend.
-- Package filters: `pnpm --filter @pricoteka/app <script>`, `pnpm --filter @pricoteka/api <script>`, `pnpm --filter @pricoteka/core <script>`, `pnpm --filter @pricoteka/ui-core <script>`.
+- Root shortcuts: `pnpm dev` runs API and frontend together; `pnpm app-dev`, `pnpm app-typecheck`, `pnpm app-build`, and `pnpm app-test` target the frontend; `pnpm website-dev` and `pnpm website-build` target the website.
+- Package filters: `pnpm --filter @pricoteka/app <script>`, `pnpm --filter @pricoteka/api <script>`, `pnpm --filter @pricoteka/core <script>`, `pnpm --filter @pricoteka/ui-core <script>`, `pnpm --filter @pricoteka/website <script>`.
 - Frontend `dev`, `typecheck`, `build`, `lint`, `format`, and `test` first run `prepare:checks`, which concurrently validates i18n and regenerates TanStack routes.
 - Focused frontend tests: run `pnpm --filter @pricoteka/app prepare:checks` once, then `pnpm --filter @pricoteka/app exec vitest run <file>`.
 - Focused core tests can run directly with `pnpm --filter @pricoteka/core exec vitest run <file>`.
@@ -44,7 +44,7 @@
 
 ## Verification
 
-- CI builds/lints/formats in dependency order: core, API and UI core, then app; tests run core, then app with UI core built first.
+- CI builds/lints/formats in dependency order: core, API and UI core, then app and website; tests run core, then app with UI core built first.
 - Frontend changes: prefer `pnpm app-build` and `pnpm app-test`; add `pnpm lint` / `pnpm format` when touching broadly formatted code.
 - API changes: run `pnpm --filter @pricoteka/api build`, `pnpm --filter @pricoteka/api lint`, and `pnpm --filter @pricoteka/api format`.
 - Core changes: run `pnpm --filter @pricoteka/core build`, `pnpm --filter @pricoteka/core test`, `pnpm --filter @pricoteka/core lint`, and `pnpm --filter @pricoteka/core format`.

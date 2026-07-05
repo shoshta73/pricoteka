@@ -71,6 +71,34 @@ jobs:
       - name: App Build
         run: pnpm --filter @pricoteka/app build
 
+  website-build:
+    name: Website Build
+    runs-on: ubuntu-latest
+    needs: ui-core-build
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: UI Core Build
+        run: pnpm --filter @pricoteka/ui-core build
+
+      - name: Website Build
+        run: pnpm --filter @pricoteka/website build
+
   ui-core-build:
     name: UI Core Build
     runs-on: ubuntu-latest

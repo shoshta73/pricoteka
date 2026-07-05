@@ -63,6 +63,31 @@ jobs:
       - name: App Lint
         run: pnpm --filter @pricoteka/app lint
 
+  website-lint:
+    name: Website Lint
+    runs-on: ubuntu-latest
+    needs: ui-core-lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Website Lint
+        run: pnpm --filter @pricoteka/website lint
+
   ui-core-lint:
     name: UI Core Lint
     runs-on: ubuntu-latest

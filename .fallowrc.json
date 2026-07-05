@@ -6,7 +6,8 @@
     "apps/frontend/src/test/setup.ts",
     "packages/ui-core/src/components/ui/*.{ts,tsx}",
     "packages/ui-core/src/hooks/*.{ts,tsx}",
-    "packages/ui-core/src/lib/*.{ts,tsx}"
+    "packages/ui-core/src/lib/*.{ts,tsx}",
+    "vite.website.config.ts"
   ],
   "ignorePatterns": [
     "apps/frontend/src/routeTree.gen.ts",

@@ -19,6 +19,7 @@ Pricoteka is a pnpm workspace with four main packages:
 
 - `apps/frontend/` - React frontend, published in the workspace as `@pricoteka/app`
 - `apps/api/` - Hono API server, published in the workspace as `@pricoteka/api`
+- `website/` - marketing website, published in the workspace as `@pricoteka/website`
 - `packages/core/` - shared schemas and exports, published in the workspace as `@pricoteka/core`
 - `packages/ui-core/` - shared shadcn UI primitives and theme CSS, published in the workspace as `@pricoteka/ui-core`
 
@@ -89,6 +90,13 @@ pnpm --filter @pricoteka/app <script>
 pnpm --filter @pricoteka/api <script>
 pnpm --filter @pricoteka/core <script>
 pnpm --filter @pricoteka/ui-core <script>
+pnpm --filter @pricoteka/website <script>
+```
+
+Run only the website:
+
+```sh
+pnpm website-dev
 ```
 
 ## Frontend Development
@@ -111,6 +119,19 @@ Translations live in `apps/frontend/src/locales/<locale>/translation.json`. Non-
 Static assets in `apps/frontend/public/` are served from `/`. Frontend imports can use the `@/*` alias for `apps/frontend/src/*`.
 
 Shared UI primitives are imported from per-component `@pricoteka/ui-core/*` exports, and the app imports shared theme CSS from `@pricoteka/ui-core/styles.css`.
+
+## Website Development
+
+The website entrypoint is `website/src/main.tsx`. It uses Vite, React, and the shared UI core package.
+
+Common website commands:
+
+```sh
+pnpm website-dev
+pnpm website-build
+pnpm --filter @pricoteka/website lint
+pnpm --filter @pricoteka/website format
+```
 
 ## API Development
 

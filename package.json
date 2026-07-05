@@ -9,6 +9,8 @@
     "app-test": "pnpm --filter @pricoteka/app test",
     "app-lint": "pnpm --filter @pricoteka/app lint",
     "app-format": "pnpm --filter @pricoteka/app format",
+    "website-dev": "pnpm --filter @pricoteka/website dev",
+    "website-build": "pnpm --filter @pricoteka/website build",
     "test": "pnpm -r --if-present test",
     "test:ui": "pnpm --filter @pricoteka/app test:ui",
     "lint": "pnpm --filter @pricoteka/app prepare:checks && oxlint .",

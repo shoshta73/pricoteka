@@ -83,6 +83,9 @@ jobs:
       - name: App Build
         run: pnpm --filter @pricoteka/app build
 
+      - name: Website Build
+        run: pnpm --filter @pricoteka/website build
+
       - name: Test
         run: pnpm test
 
