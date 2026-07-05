@@ -1,4 +1,4 @@
-import { DatabaseIcon, InfoIcon, PackageIcon, StorefrontIcon } from "@phosphor-icons/react";
+import { DatabaseIcon, InfoIcon, PackageIcon, ScalesIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -60,6 +60,22 @@ function About() {
           description={t("pages.about.releaseDescription")}
         />
       </section>
+
+      <Card>
+        <CardHeader>
+          <div className="flex items-start gap-3">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
+              <ScalesIcon className="size-5" />
+            </div>
+            <div className="min-w-0 space-y-3">
+              <CardTitle>{t("pages.about.licenseTitle")}</CardTitle>
+              <pre className="whitespace-pre-wrap text-sm leading-6 text-muted-foreground">
+                {t("pages.about.licenseText")}
+              </pre>
+            </div>
+          </div>
+        </CardHeader>
+      </Card>
     </main>
   );
 }
