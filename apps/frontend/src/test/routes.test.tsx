@@ -235,9 +235,63 @@ describe("routes", () => {
     expect(await findByRole("button", { name: i18n.t("pages.settings.browserModeAction") })).toBeInTheDocument();
   });
 
-  it("renders the index route without crashing", async () => {
-    const { findByRole } = renderRouter("/");
+  it("renders the dashboard with empty catalog counts", async () => {
+    const { findAllByText, findByRole, findByText } = renderRouter("/");
 
-    expect(await findByRole("link", { name: "Stores" })).toBeInTheDocument();
+    expect(await findByRole("heading", { name: i18n.t("dashboard.title") })).toBeInTheDocument();
+    expect(await findByText(i18n.t("dashboard.subtitle"))).toBeInTheDocument();
+    expect(await findByRole("link", { name: i18n.t("stores.createAction") })).toHaveAttribute(
+      "href",
+      "/stores/create",
+    );
+    expect(await findByRole("link", { name: i18n.t("products.createAction") })).toHaveAttribute(
+      "href",
+      "/products/create",
+    );
+    expect(await findByRole("link", { name: i18n.t("dashboard.viewStoresAction") })).toHaveAttribute(
+      "href",
+      "/stores",
+    );
+    expect(await findByRole("link", { name: i18n.t("dashboard.viewProductsAction") })).toHaveAttribute(
+      "href",
+      "/products",
+    );
+    expect(await findAllByText(i18n.t("dashboard.storesMetric"))).not.toHaveLength(0);
+    expect(await findByText(i18n.t("dashboard.officesMetric"))).toBeInTheDocument();
+    expect(await findAllByText(i18n.t("dashboard.productsMetric"))).not.toHaveLength(0);
+    expect(await findAllByText("0")).toHaveLength(3);
+  });
+
+  it("renders dashboard counts from catalog data", async () => {
+    useStoresStore.setState({
+      stores: [
+        {
+          id: "store-1",
+          name: "Store 1",
+          offices: [
+            { id: "office-1", name: "Office 1" },
+            { id: "office-2", name: "Office 2" },
+          ],
+        },
+      ],
+    });
+    useProductsStore.setState({
+      products: [
+        {
+          id: "product-1",
+          name: "Milk",
+          description: "Fresh milk",
+          price: 1.5,
+          found_in: [{ store_id: "store-1", office_id: "office-1" }],
+        },
+      ],
+    });
+    const { findAllByText, findByText } = renderRouter("/");
+
+    expect(await findAllByText(i18n.t("dashboard.storesMetric"))).not.toHaveLength(0);
+    expect(await findByText(i18n.t("dashboard.officesMetric"))).toBeInTheDocument();
+    expect(await findAllByText(i18n.t("dashboard.productsMetric"))).not.toHaveLength(0);
+    expect(await findAllByText("1")).toHaveLength(2);
+    expect(await findByText("2")).toBeInTheDocument();
   });
 });
