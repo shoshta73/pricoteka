@@ -1,11 +1,13 @@
-import { DatabaseIcon, InfoIcon, PackageIcon, ScalesIcon, StorefrontIcon } from "@phosphor-icons/react";
+import { CaretDownIcon, DatabaseIcon, InfoIcon, PackageIcon, ScalesIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
 import packageJson from "../../package.json";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/about")({
@@ -67,12 +69,21 @@ function About() {
             <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground">
               <ScalesIcon className="size-5" />
             </div>
-            <div className="min-w-0 space-y-3">
-              <CardTitle>{t("pages.about.licenseTitle")}</CardTitle>
-              <pre className="whitespace-pre-wrap text-sm leading-6 text-muted-foreground">
-                {t("pages.about.licenseText")}
-              </pre>
-            </div>
+            <Collapsible className="min-w-0 flex-1 space-y-3">
+              <CollapsibleTrigger
+                render={
+                  <Button variant="ghost" className="w-full justify-between px-0 text-base font-semibold">
+                    {t("pages.about.licenseTitle")}
+                    <CaretDownIcon className="group-data-panel-open/button:rotate-180" />
+                  </Button>
+                }
+              />
+              <CollapsibleContent>
+                <pre className="whitespace-pre-wrap text-sm leading-6 text-muted-foreground">
+                  {t("pages.about.licenseText")}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </CardHeader>
       </Card>

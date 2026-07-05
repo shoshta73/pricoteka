@@ -209,12 +209,13 @@ describe("routes", () => {
   });
 
   it("renders the about route", async () => {
+    const user = userEvent.setup();
     const { findByRole, findByText } = renderRouter("/about");
 
     expect(await findByRole("heading", { name: i18n.t("pages.about.title") })).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.subtitle"))).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.storageTitle"))).toBeInTheDocument();
-    expect(await findByText(i18n.t("pages.about.licenseTitle"))).toBeInTheDocument();
+    await user.click(await findByRole("button", { name: i18n.t("pages.about.licenseTitle") }));
     expect(await findByText(/BSD 3-Clause License/)).toBeInTheDocument();
   });
 
