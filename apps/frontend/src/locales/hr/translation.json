@@ -19,6 +19,10 @@
     "viewProductsAction": "Prikazi proizvode",
     "viewStoresAction": "Prikazi trgovine"
   },
+  "footer": {
+    "aboutLink": "O aplikaciji",
+    "copyright": "© 2026 Pricoteka"
+  },
   "pages": {
     "about": {
       "dataDescription": "Trgovine sadrže urede, a proizvodi se mogu povezati s uredima u kojima su dostupni.",

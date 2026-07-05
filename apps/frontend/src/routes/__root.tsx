@@ -1,5 +1,5 @@
 import { MoonIcon, SunIcon } from "@phosphor-icons/react";
-import { Outlet, createRootRoute, useRouterState } from "@tanstack/react-router";
+import { Link, Outlet, createRootRoute, useRouterState } from "@tanstack/react-router";
 import { Suspense, lazy, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -55,6 +55,12 @@ function RootComponent() {
           </Button>
         </header>
         <Outlet />
+        <footer className="mt-auto flex flex-col gap-1 border-t px-4 py-3 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <span>{t("footer.copyright")}</span>
+          <Link to="/about" className="font-medium underline-offset-4 hover:text-foreground hover:underline">
+            {t("footer.aboutLink")}
+          </Link>
+        </footer>
         <Toaster theme={theme} position="bottom-right" />
         {AppDevtools && (
           <Suspense>

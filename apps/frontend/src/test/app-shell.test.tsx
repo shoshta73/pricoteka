@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it } from "vitest";
 
+import { i18n } from "@/lib/i18n";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useThemeStore } from "@/stores/themeStore";
 import { renderRouter } from "@/test/render-router";
@@ -17,6 +18,13 @@ describe("app shell", () => {
     const { findByRole } = renderRouter("/");
 
     expect(await findByRole("link", { name: "Stores" })).toHaveAttribute("href", "/stores");
+  });
+
+  it("renders the app footer", async () => {
+    const { findByRole, findByText } = renderRouter("/");
+
+    expect(await findByText(i18n.t("footer.copyright"))).toBeInTheDocument();
+    expect(await findByRole("link", { name: i18n.t("footer.aboutLink") })).toHaveAttribute("href", "/about");
   });
 
   it("toggles the document theme class from the header button", async () => {

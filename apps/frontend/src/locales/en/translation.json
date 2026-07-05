@@ -19,6 +19,10 @@
     "viewProductsAction": "View Products",
     "viewStoresAction": "View Stores"
   },
+  "footer": {
+    "aboutLink": "About",
+    "copyright": "© 2026 Pricoteka"
+  },
   "pages": {
     "about": {
       "dataDescription": "Stores contain offices, and products can be linked to the offices where they are available.",
