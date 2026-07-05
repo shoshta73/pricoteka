@@ -77,6 +77,9 @@ jobs:
       - name: API Build
         run: pnpm --filter @pricoteka/api build
 
+      - name: UI Core Build
+        run: pnpm --filter @pricoteka/ui-core build
+
       - name: App Build
         run: pnpm --filter @pricoteka/app build
 

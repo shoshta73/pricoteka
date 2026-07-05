@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
 COPY packages/core/package.json ./packages/core/
+COPY packages/ui-core/package.json ./packages/ui-core/
 COPY apps/api/package.json ./apps/api/
 COPY apps/frontend/package.json ./apps/frontend/
 
@@ -15,9 +16,11 @@ FROM deps AS build
 WORKDIR /app
 
 COPY packages/core ./packages/core
+COPY packages/ui-core ./packages/ui-core
 COPY apps/frontend ./apps/frontend
 
 RUN pnpm --filter @pricoteka/core build
+RUN pnpm --filter @pricoteka/ui-core build
 RUN pnpm --filter @pricoteka/app exec tsc -p build/tsconfig.json
 RUN pnpm --filter @pricoteka/app exec node build/dist/validate-i18n.js
 RUN pnpm --filter @pricoteka/app exec tsr generate
