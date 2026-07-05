@@ -26,6 +26,7 @@
     "@fontsource-variable/nunito": "^5.2.7",
     "@phosphor-icons/react": "^2.1.10",
     "@pricoteka/core": "workspace:*",
+    "@pricoteka/ui-core": "workspace:*",
     "@tailwindcss/vite": "^4.3.1",
     "@tanstack/react-devtools": "^0.10.8",
     "@tanstack/react-form": "^1.33.0",

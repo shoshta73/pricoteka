@@ -3,9 +3,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import { Button } from "@pricoteka/ui-core/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { Input } from "@pricoteka/ui-core/input";
 import { type RuntimeMode, useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/settings")({

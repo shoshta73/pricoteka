@@ -2,15 +2,15 @@ import { CaretDownIcon, CaretRightIcon } from "@phosphor-icons/react";
 import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@pricoteka/ui-core/breadcrumb";
+import { Button } from "@pricoteka/ui-core/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@pricoteka/ui-core/dropdown-menu";
 import { useStoresData } from "@/services/stores/useStoresData";
 
 const breadcrumbItems = [

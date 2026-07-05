@@ -2,9 +2,9 @@ import { ArrowRightIcon, PackageIcon, PlusIcon } from "@phosphor-icons/react";
 import { Link, Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import { Button, buttonVariants } from "@pricoteka/ui-core/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@pricoteka/ui-core/empty";
 import { useProductsData } from "@/services/products/useProductsData";
 import { useStoresData } from "@/services/stores/useStoresData";
 

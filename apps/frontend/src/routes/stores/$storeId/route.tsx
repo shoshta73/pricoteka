@@ -2,10 +2,10 @@ import { PlusIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { createFileRoute, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@pricoteka/ui-core/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@pricoteka/ui-core/empty";
+import { ScrollArea } from "@pricoteka/ui-core/scroll-area";
 import { useApiOffices } from "@/services/stores/useApiStores";
 import { useStoresData } from "@/services/stores/useStoresData";
 import { useSettingsStore } from "@/stores/settingsStore";

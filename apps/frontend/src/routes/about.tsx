@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 
 import packageJson from "../../package.json";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Button } from "@pricoteka/ui-core/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@pricoteka/ui-core/collapsible";
 import { useSettingsStore } from "@/stores/settingsStore";
 
 export const Route = createFileRoute("/about")({

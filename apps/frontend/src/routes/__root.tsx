@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 
 import { AppSidebar } from "@/components/app-sidebar";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Button } from "@/components/ui/button";
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { Toaster } from "@/components/ui/sonner";
+import { Button } from "@pricoteka/ui-core/button";
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@pricoteka/ui-core/sidebar";
+import { Toaster } from "@pricoteka/ui-core/sonner";
 import { useThemeStore } from "@/stores/themeStore";
 
 export const Route = createRootRoute({

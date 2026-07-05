@@ -4,10 +4,10 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import * as z from "zod";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Button } from "@pricoteka/ui-core/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@pricoteka/ui-core/field";
+import { Input } from "@pricoteka/ui-core/input";
 import { useCreateStoreAction } from "@/services/stores/useCreateStoreAction";
 import { useStoresData } from "@/services/stores/useStoresData";
 

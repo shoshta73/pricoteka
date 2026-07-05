@@ -3,8 +3,8 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 
-import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { buttonVariants } from "@pricoteka/ui-core/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
 import { useProductsData } from "@/services/products/useProductsData";
 import { useStoresData } from "@/services/stores/useStoresData";
 

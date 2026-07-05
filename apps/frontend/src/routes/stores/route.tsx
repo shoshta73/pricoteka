@@ -2,12 +2,12 @@ import { ArrowRightIcon, CaretDownIcon, PlusIcon, StorefrontIcon } from "@phosph
 import { Link, Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useTranslation } from "react-i18next";
 
-import { Button, buttonVariants } from "@/components/ui/button";
-import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@/components/ui/empty";
+import { Button, buttonVariants } from "@pricoteka/ui-core/button";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@pricoteka/ui-core/empty";
 import { useStoresData } from "@/services/stores/useStoresData";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Collapsible, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent, CardHeader, CardTitle } from "@pricoteka/ui-core/card";
+import { ScrollArea } from "@pricoteka/ui-core/scroll-area";
+import { Collapsible, CollapsibleTrigger } from "@pricoteka/ui-core/collapsible";
 
 export const Route = createFileRoute("/stores")({
   component: Stores,

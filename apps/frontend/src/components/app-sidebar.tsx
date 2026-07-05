@@ -17,7 +17,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarRail,
-} from "@/components/ui/sidebar";
+} from "@pricoteka/ui-core/sidebar";
 import { useStoresData } from "@/services/stores/useStoresData";
 import { useProductsStore } from "@/stores/productsStore";
 
