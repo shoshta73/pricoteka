@@ -79,7 +79,7 @@ function About() {
                 }
               />
               <CollapsibleContent>
-                <pre className="whitespace-pre-wrap text-sm leading-6 text-muted-foreground">
+                <pre className="text-sm leading-6 whitespace-pre-wrap text-muted-foreground">
                   {t("pages.about.licenseText")}
                 </pre>
               </CollapsibleContent>

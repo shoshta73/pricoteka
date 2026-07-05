@@ -36,9 +36,21 @@ function Index() {
       </section>
 
       <section className="grid gap-3 md:grid-cols-3">
-        <MetricCard label={t("dashboard.storesMetric")} value={stores.length} icon={<StorefrontIcon className="size-5" />} />
-        <MetricCard label={t("dashboard.officesMetric")} value={officeCount} icon={<StorefrontIcon className="size-5" />} />
-        <MetricCard label={t("dashboard.productsMetric")} value={products.length} icon={<PackageIcon className="size-5" />} />
+        <MetricCard
+          label={t("dashboard.storesMetric")}
+          value={stores.length}
+          icon={<StorefrontIcon className="size-5" />}
+        />
+        <MetricCard
+          label={t("dashboard.officesMetric")}
+          value={officeCount}
+          icon={<StorefrontIcon className="size-5" />}
+        />
+        <MetricCard
+          label={t("dashboard.productsMetric")}
+          value={products.length}
+          icon={<PackageIcon className="size-5" />}
+        />
       </section>
 
       <section className="grid gap-3 lg:grid-cols-2">

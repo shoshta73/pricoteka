@@ -240,18 +240,12 @@ describe("routes", () => {
 
     expect(await findByRole("heading", { name: i18n.t("dashboard.title") })).toBeInTheDocument();
     expect(await findByText(i18n.t("dashboard.subtitle"))).toBeInTheDocument();
-    expect(await findByRole("link", { name: i18n.t("stores.createAction") })).toHaveAttribute(
-      "href",
-      "/stores/create",
-    );
+    expect(await findByRole("link", { name: i18n.t("stores.createAction") })).toHaveAttribute("href", "/stores/create");
     expect(await findByRole("link", { name: i18n.t("products.createAction") })).toHaveAttribute(
       "href",
       "/products/create",
     );
-    expect(await findByRole("link", { name: i18n.t("dashboard.viewStoresAction") })).toHaveAttribute(
-      "href",
-      "/stores",
-    );
+    expect(await findByRole("link", { name: i18n.t("dashboard.viewStoresAction") })).toHaveAttribute("href", "/stores");
     expect(await findByRole("link", { name: i18n.t("dashboard.viewProductsAction") })).toHaveAttribute(
       "href",
       "/products",
