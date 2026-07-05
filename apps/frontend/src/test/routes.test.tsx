@@ -214,6 +214,8 @@ describe("routes", () => {
     expect(await findByRole("heading", { name: i18n.t("pages.about.title") })).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.subtitle"))).toBeInTheDocument();
     expect(await findByText(i18n.t("pages.about.storageTitle"))).toBeInTheDocument();
+    expect(await findByText(i18n.t("pages.about.licenseTitle"))).toBeInTheDocument();
+    expect(await findByText(/BSD 3-Clause License/)).toBeInTheDocument();
   });
 
   it("switches runtime mode from settings", async () => {
