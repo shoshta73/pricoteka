@@ -103,6 +103,11 @@ function Website() {
             </CardContent>
           </Card>
         </div>
+
+        <footer className="flex flex-col gap-2 border-t py-5 text-sm text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Pricoteka.</p>
+          <p>Track local prices with less guesswork.</p>
+        </footer>
       </section>
     </main>
   );
