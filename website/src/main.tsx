@@ -89,7 +89,7 @@ function Website() {
 
           <Card
             id="preview"
-            className="scroll-mt-24 overflow-hidden border-primary/20 bg-card/70 shadow-2xl shadow-primary/10"
+            className="scroll-mt-24 overflow-hidden border-primary/20 bg-background/40 shadow-2xl shadow-primary/10"
           >
             <CardContent className="space-y-5 p-6">
               <div className="rounded-2xl bg-primary/10 p-4 text-primary">
