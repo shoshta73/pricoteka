@@ -3,6 +3,7 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   input: "src/index.ts",
+  external: ["@libsql/client"],
   platform: "node",
   output: {
     file: "dist/index.js",
