@@ -1,13 +1,6 @@
 import { BuildingsIcon, MoonIcon, PackageIcon, SunIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { Button } from "@pricoteka/ui-core/button";
 import { Card, CardContent } from "@pricoteka/ui-core/card";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@pricoteka/ui-core/navigation-menu";
 import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
 import { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
@@ -66,35 +59,16 @@ function Website() {
             Pricoteka
           </a>
 
-          <div className="flex items-center gap-2">
-            <NavigationMenu className="hidden sm:flex">
-              <NavigationMenuList className="gap-1">
-                <NavigationMenuItem>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()} href="#features">
-                    Features
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()} href="#preview">
-                    Preview
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/app/">
-                    Open app
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-
+          <div className="flex items-center">
             <Button
-              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              variant="ghost"
               size="icon"
               type="button"
-              variant="outline"
               onClick={toggleTheme}
+              className="border-transparent bg-transparent text-muted-foreground shadow-none hover:bg-muted hover:text-foreground"
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
             >
-              {isDark ? <SunIcon /> : <MoonIcon />}
+              {theme === "dark" ? <SunIcon /> : <MoonIcon />}
             </Button>
           </div>
         </header>
