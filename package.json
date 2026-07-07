@@ -28,6 +28,7 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
     "@pricoteka/ui-core": "workspace:*",
+    "@tanstack/react-router": "^1.170.16",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "zustand": "^5.0.14"

@@ -8,6 +8,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@pricoteka/ui-core/navigation-menu";
+import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
 import { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 
@@ -27,6 +28,26 @@ if (storedTheme) {
 }
 
 document.documentElement.classList.toggle("dark", initialTheme === "dark");
+
+const rootRoute = createRootRoute({
+  component: () => <Outlet />,
+});
+
+const indexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/",
+  component: Website,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute]);
+
+const router = createRouter({ routeTree });
+
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
+}
 
 function Website() {
   const theme = useThemeStore((state) => state.theme);
@@ -127,6 +148,6 @@ function PreviewRow({ icon, label, value }: { icon: React.ReactNode; label: stri
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <Website />
+    <RouterProvider router={router} />
   </StrictMode>,
 );
