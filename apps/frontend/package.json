@@ -22,9 +22,7 @@
     "prepare:checks": "concurrently \"pnpm validate:i18n\" \"pnpm generate:routes\""
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.1.10",
     "@pricoteka/core": "workspace:*",
-    "@pricoteka/ui-core": "workspace:*",
     "@tanstack/react-devtools": "^0.10.8",
     "@tanstack/react-form": "^1.33.0",
     "@tanstack/react-form-devtools": "^0.2.29",
@@ -38,23 +36,17 @@
     "i18next": "^26.3.2",
     "i18next-browser-languagedetector": "^8.2.1",
     "pnpm": "^11.9.0",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
     "react-i18next": "^17.0.8",
     "sonner": "^2.0.7",
     "tailwindcss": "^4.3.1",
     "uuid": "^14.0.1",
-    "zod": "^4.4.3",
-    "zustand": "^5.0.14"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tanstack/router-cli": "^1.167.17",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/node": "^26.0.0",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
     "@vitest/ui": "^4.1.9",
     "jsdom": "^29.1.1"
   }
