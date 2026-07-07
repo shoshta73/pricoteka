@@ -1,7 +1,14 @@
 import { BuildingsIcon, MoonIcon, PackageIcon, SunIcon, StorefrontIcon } from "@phosphor-icons/react";
 import { Button } from "@pricoteka/ui-core/button";
 import { Card, CardContent } from "@pricoteka/ui-core/card";
-import { createRootRoute, createRoute, createRouter, Outlet, RouterProvider } from "@tanstack/react-router";
+import {
+  createHashHistory,
+  createRootRoute,
+  createRoute,
+  createRouter,
+  Outlet,
+  RouterProvider,
+} from "@tanstack/react-router";
 import { StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 
@@ -34,7 +41,10 @@ const indexRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([indexRoute]);
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+  routeTree,
+  history: createHashHistory(),
+});
 
 declare module "@tanstack/react-router" {
   interface Register {
