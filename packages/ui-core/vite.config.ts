@@ -12,6 +12,7 @@ const componentEntries = {
   "components/ui/field": fileURLToPath(new URL("./src/components/ui/field.tsx", import.meta.url)),
   "components/ui/input": fileURLToPath(new URL("./src/components/ui/input.tsx", import.meta.url)),
   "components/ui/label": fileURLToPath(new URL("./src/components/ui/label.tsx", import.meta.url)),
+  "components/ui/navigation-menu": fileURLToPath(new URL("./src/components/ui/navigation-menu.tsx", import.meta.url)),
   "components/ui/scroll-area": fileURLToPath(new URL("./src/components/ui/scroll-area.tsx", import.meta.url)),
   "components/ui/separator": fileURLToPath(new URL("./src/components/ui/separator.tsx", import.meta.url)),
   "components/ui/sheet": fileURLToPath(new URL("./src/components/ui/sheet.tsx", import.meta.url)),

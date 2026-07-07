@@ -40,6 +40,10 @@
       "types": "./dist/components/ui/label.d.ts",
       "import": "./dist/components/ui/label.js"
     },
+    "./navigation-menu": {
+      "types": "./dist/components/ui/navigation-menu.d.ts",
+      "import": "./dist/components/ui/navigation-menu.js"
+    },
     "./scroll-area": {
       "types": "./dist/components/ui/scroll-area.d.ts",
       "import": "./dist/components/ui/scroll-area.js"
