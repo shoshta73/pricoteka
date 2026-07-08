@@ -7,7 +7,7 @@ import { cors } from "hono/cors";
 import { v4 as uuidv4 } from "uuid";
 
 import { closeCache, deleteCache, getJsonCache, setJsonCache } from "./cache/index";
-import { db } from "./db/index";
+import { db, migrateDatabase } from "./db/index";
 import { offices, productOffices, products, stores } from "./db/schema";
 import { params as productParams, result as productResult } from "./schema/product/index";
 import { result as productsResult } from "./schema/products/index";
@@ -343,6 +343,8 @@ app.get("/store/:id/offices", async (c) => {
 
   return c.json(output.data);
 });
+
+await migrateDatabase();
 
 const server = serve(
   {

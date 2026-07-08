@@ -3,6 +3,7 @@ import { mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { drizzle } from "drizzle-orm/libsql";
+import { migrate } from "drizzle-orm/libsql/migrator";
 
 import * as schema from "./schema";
 
@@ -25,3 +26,7 @@ export const db = drizzle({
   },
   schema,
 });
+
+export async function migrateDatabase(): Promise<void> {
+  await migrate(db, { migrationsFolder: "./drizzle" });
+}
