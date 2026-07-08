@@ -1,1 +1,4 @@
 @import "@pricoteka/ui-core/styles.css";
+
+@source ".";
+@source "../../packages/ui-core/src";
